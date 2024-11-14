@@ -1,5 +1,9 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import ActionConstructor from '../action-constructor/action-constructor';
+
+import bcstyle from './burger-constructor.module.css';
+
 const elements = [
     {
         text: 'Краторная булка N-200i (верх)',
@@ -63,25 +67,46 @@ const elements = [
     },
 ];
 
-const BurgerIngredients = () => {
+const BurgerConstructor = () => {
+    const top = elements[0];
+    const bottom = elements[elements.length - 1];
+
     return (
-        <div style={{ flex: 1 }} className='ml-4'>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {elements.map((element, index) => (
-                    <div key={index} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                        {index !== 0 && index !== elements.length - 1 && <DragIcon type='primary' className='mr-2' />}
-                        {(index === 0 || index === elements.length - 1) && <div class='mr-7'>&nbsp;</div>}
-                        <ConstructorElement
-                            type={ index === 0 ? 'top': ( index === elements.length - 1 ? 'bottom' : '')}
-                            isLocked={true}
-                            text={element.text}
-                            price={element.price}
-                            thumbnail={`./ingredients/${element.thumbnail}.png`} />
-                    </div>
-                ))}
+        <div className={`${bcstyle.bc} pt-25 ml-4 pr-4`}>
+            <div >
+                <div className='pl-8 pr-5 pb-4'>
+                    <ConstructorElement type='top' isLocked={true} text={top.text} price={top.price} thumbnail={`./ingredients/${top.thumbnail}.png`} />
+                </div>
+
+                <div className={`${bcstyle.bcscroll}`}>
+                    {elements.slice(1, elements.length - 2).map((element, index) => (
+                        <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
+                            <DragIcon type='primary' className='mr-2' />
+                            <ConstructorElement
+                                isLocked={false}
+                                text={element.text}
+                                price={element.price}
+                                thumbnail={`./ingredients/${element.thumbnail}.png`}
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                <div className='pl-8 pr-5'>
+                    <ConstructorElement
+                        type='bottom'
+                        isLocked={true}
+                        text={bottom.text}
+                        price={bottom.price}
+                        thumbnail={`./ingredients/${bottom.thumbnail}.png`}
+                    />
+                </div>
+
+                <ActionConstructor />
+
             </div>
         </div>
     );
 };
 
-export default BurgerIngredients;
+export default BurgerConstructor;
