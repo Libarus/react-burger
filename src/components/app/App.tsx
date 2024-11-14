@@ -5,7 +5,6 @@ import BurgerIngredients from '../ingredients/burger-ingredients/burger-ingredie
 import './App.css';
 
 import data from '../../mock-data/data.json';
-import { useEffect } from 'react';
 
 const App = () => {
     const ingredients = data.map((item) => {

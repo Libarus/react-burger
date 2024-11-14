@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import TabIngredients from '../tab-ingredients/tab-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
 
@@ -20,5 +22,19 @@ const BurgerIngredients = ({ingredients}) => {
         </div>
     );
 };
+
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string,
+          id: PropTypes.string,
+          name: PropTypes.string,
+          type: PropTypes.string,
+          price: PropTypes.number,
+          image: PropTypes.string,
+        })
+      ).isRequired,
+};
+
 
 export default BurgerIngredients;
