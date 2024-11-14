@@ -2,26 +2,11 @@
     --main-color: #F5F6F7;
 }
 
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 body * {
     color: var(--main-color);
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
-}
-
-/* W3C standard
-   сейчас только для Firefox */
+/* W3C standard сейчас только для Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: #8585AD #2F2F37;
@@ -45,4 +30,8 @@ code {
 
 *::-webkit-scrollbar-button {
     display: none;
+}
+
+.flex {
+    display: flex;
 }

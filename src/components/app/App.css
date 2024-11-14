@@ -1,0 +1,10 @@
+.app {
+    display: flex;
+    flex-direction: row;
+    max-width: 1280px;
+    margin: 0 auto;
+    max-height: calc(100vh - 86px);
+    overflow: hidden;
+    gap: 80px;
+}
+

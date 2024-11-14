@@ -67,44 +67,41 @@ const elements = [
     },
 ];
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ingredients}) => {
     const top = elements[0];
     const bottom = elements[elements.length - 1];
 
     return (
-        <div className={`${bcstyle.bc} pt-25 ml-4 pr-4`}>
-            <div >
-                <div className='pl-8 pr-5 pb-4'>
-                    <ConstructorElement type='top' isLocked={true} text={top.text} price={top.price} thumbnail={`./ingredients/${top.thumbnail}.png`} />
-                </div>
-
-                <div className={`${bcstyle.bcscroll}`}>
-                    {elements.slice(1, elements.length - 2).map((element, index) => (
-                        <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
-                            <DragIcon type='primary' className='mr-2' />
-                            <ConstructorElement
-                                isLocked={false}
-                                text={element.text}
-                                price={element.price}
-                                thumbnail={`./ingredients/${element.thumbnail}.png`}
-                            />
-                        </div>
-                    ))}
-                </div>
-
-                <div className='pl-8 pr-5'>
-                    <ConstructorElement
-                        type='bottom'
-                        isLocked={true}
-                        text={bottom.text}
-                        price={bottom.price}
-                        thumbnail={`./ingredients/${bottom.thumbnail}.png`}
-                    />
-                </div>
-
-                <ActionConstructor />
-
+        <div className={`${bcstyle.bc} pt-25`}>
+            <div className='pl-8 pb-4'>
+                <ConstructorElement type='top' isLocked={true} text={top.text} price={top.price} thumbnail={`./ingredients/${top.thumbnail}.png`} />
             </div>
+
+            <div className={`${bcstyle.bcscroll}`}>
+                {elements.slice(1, elements.length - 2).map((element, index) => (
+                    <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
+                        <DragIcon type='primary' className='mr-2' />
+                        <ConstructorElement
+                            isLocked={false}
+                            text={element.text}
+                            price={element.price}
+                            thumbnail={`./ingredients/${element.thumbnail}.png`}
+                        />
+                    </div>
+                ))}
+            </div>
+
+            <div className='pl-8 pr-5'>
+                <ConstructorElement
+                    type='bottom'
+                    isLocked={true}
+                    text={bottom.text}
+                    price={bottom.price}
+                    thumbnail={`./ingredients/${bottom.thumbnail}.png`}
+                />
+            </div>
+
+            <ActionConstructor />
         </div>
     );
 };
