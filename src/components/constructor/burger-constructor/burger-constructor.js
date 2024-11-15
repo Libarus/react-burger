@@ -1,19 +1,22 @@
-import PropTypes from 'prop-types';
-
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { useMemo } from 'react';
+
+import PropTypes from 'prop-types';
+
 import ActionConstructor from '../action-constructor/action-constructor';
+
+import propTypeIngredient from '../../../shared/types/prop-type-ingredient';
 
 import bcstyle from './burger-constructor.module.css';
 
 const BurgerConstructor = ({ ingredients }) => {
-    const top = ingredients.find((item) => item.type === 'bun');
-    const bottom = ingredients.find((item) => item.type === 'bun');
+    const bun = useMemo(() => ingredients.find((item) => item.type === 'bun'), [ingredients]);
 
     return (
         <div className={`${bcstyle.bc} pt-25`}>
             <div className='pl-8 pb-4'>
-                <ConstructorElement type='top' isLocked={true} text={top.name} price={top.price} thumbnail={top.image} />
+                <ConstructorElement type='top' isLocked={true} text={bun.name} price={bun.price} thumbnail={bun.image} />
             </div>
 
             <div className={`${bcstyle.bcscroll}`}>
@@ -26,13 +29,7 @@ const BurgerConstructor = ({ ingredients }) => {
             </div>
 
             <div className='pl-8 pr-5'>
-                <ConstructorElement
-                    type='bottom'
-                    isLocked={true}
-                    text={bottom.text}
-                    price={bottom.price}
-                    thumbnail={bottom.image}
-                />
+                <ConstructorElement type='bottom' isLocked={true} text={bun.text} price={bun.price} thumbnail={bun.image} />
             </div>
 
             <ActionConstructor />
@@ -41,16 +38,7 @@ const BurgerConstructor = ({ ingredients }) => {
 };
 
 BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string,
-          id: PropTypes.string,
-          name: PropTypes.string,
-          type: PropTypes.string,
-          price: PropTypes.number,
-          image: PropTypes.string,
-        })
-      ).isRequired,
+    ingredients: PropTypes.arrayOf(propTypeIngredient).isRequired,
 };
 
 export default BurgerConstructor;
