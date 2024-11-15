@@ -1,0 +1,4 @@
+.ingrBlock {
+    display: flex;
+    flex-wrap: wrap;
+}

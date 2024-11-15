@@ -1,0 +1,9 @@
+.ac {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sizer {
+    flex-grow: 1;
+}

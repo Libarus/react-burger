@@ -1,0 +1,14 @@
+.bc {
+    flex: 1;
+}
+
+.bcscroll {
+    height: calc(100vh - 500px);
+    overflow-y: auto;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

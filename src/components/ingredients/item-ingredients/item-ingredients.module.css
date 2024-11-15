@@ -1,0 +1,26 @@
+
+.priceContainer {
+    display: flex;
+    justify-content: center;
+    /* Выравнивание блоков по горизонтальной оси */
+    align-items: center;
+    /* Выравнивание содержимого блоков по вертикальной оси */
+    gap: 8px;
+}
+
+.priceBlock {
+    text-align: center;
+    /* Центрирование текста внутри блока */
+}
+
+.ingrItem {
+    flex: '0 1 calc(50% - 32px)';
+}
+
+.ingrContainer {
+    position: relative;
+}
+
+.textCenter {
+    text-align: center;
+}
