@@ -2,13 +2,19 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 48px;
 }
 
 .user > div {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
+    justify-content: flex-start;
 }
 
+.user > div > a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    gap: 8px;
+}
