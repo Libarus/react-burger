@@ -17,7 +17,7 @@ const BurgerIngredients = ({ingredients}) => {
     const main = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
 
     return (
-        <div className={`${bistyle.bi} pt-10`}>
+        <section className={`${bistyle.bi} pt-10`}>
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
             <TabIngredients current={current} setCurrent={setCurrent} />
             <div className={bistyle.scroll}>
@@ -25,7 +25,7 @@ const BurgerIngredients = ({ingredients}) => {
                 <BlockIngredients title='Соусы' ingredients={sauce} />
                 <BlockIngredients title='Начинки' ingredients={main} />
             </div>
-        </div>
+        </section>
     );
 };
 

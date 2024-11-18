@@ -2,6 +2,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import tistyle from './tab-ingredients.module.css';
 
+import PropTypes from 'prop-types';
+
 const TabIngredients = ({ current, setCurrent }) => {
     return (
         <div className={`pt-5 pb-2 ${tistyle.flex}`}>
@@ -17,5 +19,10 @@ const TabIngredients = ({ current, setCurrent }) => {
         </div>
     );
 };
+
+TabIngredients.propTypes = {
+    current: PropTypes.string,
+    setCurrent: PropTypes.func
+}
 
 export default TabIngredients;

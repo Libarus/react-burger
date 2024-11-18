@@ -14,7 +14,7 @@ const BurgerConstructor = ({ ingredients }) => {
     const bun = useMemo(() => ingredients.find((item) => item.type === 'bun'), [ingredients]);
 
     return (
-        <div className={`${bcstyle.bc} pt-25`}>
+        <section className={`${bcstyle.bc} pt-25`}>
             <div className='pl-8 pb-4'>
                 <ConstructorElement type='top' isLocked={true} text={bun.name} price={bun.price} thumbnail={bun.image} />
             </div>
@@ -29,11 +29,11 @@ const BurgerConstructor = ({ ingredients }) => {
             </div>
 
             <div className='pl-8 pr-5'>
-                <ConstructorElement type='bottom' isLocked={true} text={bun.text} price={bun.price} thumbnail={bun.image} />
+                <ConstructorElement type='bottom' isLocked={true} text={bun.name} price={bun.price} thumbnail={bun.image} />
             </div>
 
             <ActionConstructor />
-        </div>
+        </section>
     );
 };
 
