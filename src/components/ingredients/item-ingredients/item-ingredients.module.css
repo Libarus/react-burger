@@ -24,3 +24,8 @@
 .textCenter {
     text-align: center;
 }
+
+.ingrAbout {
+    text-decoration: none;
+    cursor: pointer;
+}

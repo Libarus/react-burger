@@ -1,0 +1,14 @@
+.od {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.od > div {
+    text-align: center;
+}
+
+img.done {
+    width: 120px;
+    height: 120px;
+}

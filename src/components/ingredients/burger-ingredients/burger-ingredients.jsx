@@ -9,15 +9,23 @@ import propTypeIngredient from '../../../shared/types/prop-type-ingredient';
 
 import bistyle from './burger-ingredients.module.css';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = ({ ingredients }) => {
     const [current, setCurrent] = useState('one');
 
-    const bun = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
-    const sauce = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
-    const main = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+    const ingredientsByType = useMemo(() => {
+        const result = {};
+
+        ['bun', 'sauce', 'main'].forEach((type) => {
+            result[type] = ingredients.filter((item) => item.type === type);
+        });
+
+        return result;
+    }, [ingredients]);
+
+    const { bun, sauce, main } = ingredientsByType;
 
     return (
-        <div className={`${bistyle.bi} pt-10`}>
+        <section className={`${bistyle.bi} pt-10`}>
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
             <TabIngredients current={current} setCurrent={setCurrent} />
             <div className={bistyle.scroll}>
@@ -25,13 +33,12 @@ const BurgerIngredients = ({ingredients}) => {
                 <BlockIngredients title='Соусы' ingredients={sauce} />
                 <BlockIngredients title='Начинки' ingredients={main} />
             </div>
-        </div>
+        </section>
     );
 };
 
 BurgerIngredients.propTypes = {
     ingredients: PropTypes.arrayOf(propTypeIngredient).isRequired,
 };
-
 
 export default BurgerIngredients;
