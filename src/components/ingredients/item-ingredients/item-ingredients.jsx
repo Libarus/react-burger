@@ -33,7 +33,7 @@ const ItemIngredients = ({ ingredient }) => {
                     <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`}>
                         {ingredient.badge > 0 && <Counter count={ingredient.badge} size='default' extraClass='m-1' />}
                         <div>
-                            <img src={ingredient.image} alt='bulka' />
+                            <img src={ingredient.image} alt={ingredient.name} />
                         </div>
                         <div className={iistyle.priceContainer}>
                             <div className={`text text_type_digits-default ${iistyle.priceBlock}`}>{ingredient.price}</div>

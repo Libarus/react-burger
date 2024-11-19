@@ -8,7 +8,7 @@ const IngredientDetails = ({ ingredient }) => {
     return (
         <div className={idstyle.ingrDetails}>
             <div>
-                <img src={ingredient.image} alt={ingredient.title} />
+                <img src={ingredient.image} alt={ingredient.name} />
             </div>
             <div className="text text_type_main-medium pb-10">{ingredient.name}</div>
             <div className={`${idstyle.ingrInfo} pl-10 pr-10`}>
