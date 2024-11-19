@@ -11,10 +11,10 @@ const BlockIngredients = ({ title, ingredients }) => {
         <div className='pt-8'>
             <h2 className='text text_type_main-medium'>{title}</h2>
             <div className={blistyle.ingrBlock}>
-                {ingredients.map((item, index) => {
+                {ingredients.map((item) => {
                     item.badge = item.badge > 5 ? 0 : item.badge;
                     return (
-                        <ItemIngredients ingredient={item} key={index}/>
+                        <ItemIngredients ingredient={item} key={item.id}/>
                     );
                 })}
             </div>

@@ -42,7 +42,7 @@ const Modal = ({ children, onClose, header = null }) => {
     );
 };
 
-Modal.PropTypes = {
+Modal.propTypes = {
     header: PropTypes.string,
     onClose: PropTypes.func,
     children: PropTypes.node,

@@ -13,34 +13,41 @@ const dataAPI = new DataAPI();
 const App = () => {
     const [ingredients, setIngredients] = useState([]);
 
+    const updateData = async () => {
+        let data = null;
+        await dataAPI.getData((d) => { data = d; }, errorHandler);
+
+        let updData = [];
+
+        if (data.success) {
+            updData = data.data.map((item) => {
+                return {
+                    id: item._id,
+                    name: item.name,
+                    type: item.type,
+                    price: item.price,
+                    image: item.image,
+                    badge: Math.round(Math.random() * 10),
+                    calories: item.calories,
+                    proteins: item.proteins,
+                    fat: item.fat,
+                    carbohydrates: item.carbohydrates,
+                };
+            });
+        }
+    
+        setIngredients(updData);
+    };
+
+    const errorHandler = (error) => {
+        console.error(error);
+        throw new Error('Ошибка чтения ингредиентов');
+    };
+
     useEffect(() => {
-        dataAPI.getData(
-            (data) => {
-                if (data.success) {
-                    setIngredients(
-                        data.data.map((item) => {
-                            return {
-                                id: item._id,
-                                name: item.name,
-                                type: item.type,
-                                price: item.price,
-                                image: item.image,
-                                badge: Math.round(Math.random() * 10),
-                                calories: item.calories,
-                                proteins: item.proteins,
-                                fat: item.fat,
-                                carbohydrates: item.carbohydrates,
-                            };
-                        }),
-                    );
-                } else {
-                    throw new Error('Ошибка чтения ингредиентов');
-                }
-            },
-            (error) => {
-                throw new Error('Ошибка чтения ингредиентов');
-            },
-        );
+        updateData();
+
+        return () => {}
     }, []);
 
     return (

@@ -9,12 +9,20 @@ import propTypeIngredient from '../../../shared/types/prop-type-ingredient';
 
 import bistyle from './burger-ingredients.module.css';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = ({ ingredients }) => {
     const [current, setCurrent] = useState('one');
 
-    const bun = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
-    const sauce = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
-    const main = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+    const ingredientsByType = useMemo(() => {
+        const result = {};
+
+        ['bun', 'sauce', 'main'].forEach((type) => {
+            result[type] = ingredients.filter((item) => item.type === type);
+        });
+
+        return result;
+    }, [ingredients]);
+
+    const { bun, sauce, main } = ingredientsByType;
 
     return (
         <section className={`${bistyle.bi} pt-10`}>
@@ -32,6 +40,5 @@ const BurgerIngredients = ({ingredients}) => {
 BurgerIngredients.propTypes = {
     ingredients: PropTypes.arrayOf(propTypeIngredient).isRequired,
 };
-
 
 export default BurgerIngredients;

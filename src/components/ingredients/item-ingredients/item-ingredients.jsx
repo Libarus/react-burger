@@ -41,7 +41,7 @@ const ItemIngredients = ({ ingredient }) => {
                                 <CurrencyIcon type='primary' />
                             </div>
                         </div>
-                        <div className={`text text_type_main-default pt-3 ${iistyle.textCenter}`}>{ingredient.title}</div>
+                        <div className={`text text_type_main-default pt-3 ${iistyle.textCenter}`}>{ingredient.name}</div>
                     </div>
                 </div>
             </div>
