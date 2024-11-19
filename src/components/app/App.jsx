@@ -16,7 +16,6 @@ const App = () => {
     useEffect(() => {
         dataAPI.getData(
             (data) => {
-                console.log(data);
                 if (data.success) {
                     setIngredients(
                         data.data.map((item) => {
@@ -39,7 +38,6 @@ const App = () => {
                 }
             },
             (error) => {
-                console.error(error);
                 throw new Error('Ошибка чтения ингредиентов');
             },
         );

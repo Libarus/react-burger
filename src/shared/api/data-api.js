@@ -7,7 +7,6 @@ export default class DataAPI extends BaseAPI {
             .then(async (response) => response.json())
             .then(cb)
             .catch((e) => {
-                console.error(e);
                 errorCb(e);
             });
     }
