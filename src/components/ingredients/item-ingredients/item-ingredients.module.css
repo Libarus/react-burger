@@ -14,7 +14,9 @@
 }
 
 .ingrItem {
-    flex: '0 1 calc(50% - 32px)';
+    /* flex: '0 1 calc(50%)'; */
+    flex-basis: 50%;
+    box-sizing: border-box;
 }
 
 .ingrContainer {
@@ -28,4 +30,8 @@
 .ingrAbout {
     text-decoration: none;
     cursor: pointer;
+}
+
+.ingrImage {
+    width: 100%;
 }
