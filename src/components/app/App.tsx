@@ -15,11 +15,9 @@ import TInternalIngredient from '../../shared/types/tinternal-ingredient';
 const dataAPI = new DataAPI();
 
 /**
- * Компонент App - контейнер для приложения.
- * Он отображает заголовок, блок ингредиентов и блок конструктора.
- * @returns {JSX.Element}
+ * Компонент App - корневой компонент приложения.
  */
-const App: React.FC = () => {
+function App () {
     const [ingredients, setIngredients] = useState<TIngredient[]>([]);
 
     useEffect(() => {

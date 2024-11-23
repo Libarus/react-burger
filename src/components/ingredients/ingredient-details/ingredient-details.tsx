@@ -2,19 +2,12 @@ import type TIngredient from '../../../shared/types/tingredient';
 
 import idstyle from './ingredient-details.module.css';
 
-/**
- * Компонент "Детали ингредиента"
- * @param {TIngredient} ingredient - объект с данными ингредиента
- * @returns {JSX.Element} - JSX-элемент с детальными данными ингредиента
- */
 interface Props {
     readonly ingredient: TIngredient;
 }
 
 /**
  * Компонент "Детали ингредиента"
- * @param {{ingredient: TIngredient}} props - объект с данными ингредиента
- * @returns {JSX.Element} - JSX-элемент с детальными данными ингредиента
  */
 const IngredientDetails: React.FC<Props> = ({ ingredient }) => {
     return (

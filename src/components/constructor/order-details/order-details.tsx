@@ -5,7 +5,6 @@ import done from '../../../assets/images/done.png';
 /**
  * Компонент "Детали заказа"
  * Отображает детали заказа (номер, статус)
- * @returns {JSX.Element}
  */
 const OrderDetails: React.FC = () => {
     const orderNumber = Math.round(Math.random() * 100000);

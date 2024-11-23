@@ -1,4 +1,4 @@
-import { useState, useMemo, FC } from 'react';
+import { useState, useMemo } from 'react';
 
 import TabIngredients from '../tab-ingredients/tab-ingredients';
 import BlockIngredients from '../block-ingredients/block-ingredients';
@@ -13,10 +13,8 @@ interface Props {
 
 /**
  * Компонент "Список ингредиентов"
- * @param {TIngredient[]} ingredients - массив ингредиентов
- * @returns {JSX.Element}
  */
-const BurgerIngredients: FC<Props> = ({ ingredients }) => {
+const BurgerIngredients: React.FC<Props> = ({ ingredients }) => {
     const [current, setCurrent] = useState('one');
 
     const ingredientsByType = useMemo(() => {

@@ -11,9 +11,6 @@ interface Props {
 
 /**
  * Компонент "Блок ингредиентов"
- * @param {string} title - заголовок блока
- * @param {TIngredient[]} ingredients - массив ингредиентов
- * @returns {JSX.Element}
  */
 const BlockIngredients: React.FC<Props> = ({ title, ingredients }) => {
     return (

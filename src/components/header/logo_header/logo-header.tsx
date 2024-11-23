@@ -4,7 +4,6 @@ import lhstyle from './logo-header.module.css';
 
 /**
  * Компонент LogoHeader - лого в шапке приложения.
- * @returns {JSX.Element} - возвращает JSX элемент лого.
  */
 const LogoHeader: React.FC = () => {
     return (

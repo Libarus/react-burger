@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import ActionConstructor from '../action-constructor/action-constructor';
 
@@ -14,10 +14,8 @@ interface Props {
 
 /**
  * Компонент "Конструктор бургера"
- * @param {TIngredient[]} ingredients - массив ингредиентов
- * @returns {JSX.Element}
  */
-const BurgerConstructor: FC<Props> = ({ ingredients }) => {
+const BurgerConstructor: React.FC<Props> = ({ ingredients }) => {
     const bun = useMemo(() => ingredients.find((item: TIngredient) => item.type === 'bun'), [ingredients]);
 
     return (

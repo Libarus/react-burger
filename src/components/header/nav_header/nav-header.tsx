@@ -4,7 +4,6 @@ import nhstyle from './nav-header.module.css';
 
 /**
  * Компонент NavHeader - навигационная панель.
- * @returns {JSX.Element} - возвращает JSX-элемент навигационной панели.
  */
 const NavHeader: React.FC = () => {
     return (

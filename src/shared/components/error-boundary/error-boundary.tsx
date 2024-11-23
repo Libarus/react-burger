@@ -1,11 +1,5 @@
 import { Component } from 'react';
 
-/**
- * Компонент ErrorBoundary - граница ошибок для отлова ошибок рендера
- * https://ru.reactjs.org/docs/error-boundaries.html
- * @param {React.ReactNode} props.children - дочерние компоненты, которые
- *                                          могут выбрасывать ошибки
- */
 interface ErrorBoundaryProps {
     children: React.ReactNode;
 }
@@ -14,6 +8,9 @@ interface ErrorBoundaryState {
     error: Error | null;
 }
 
+/**
+ * Компонент ErrorBoundary - граница ошибок для отлова ошибок рендера
+ */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     constructor(props: ErrorBoundaryProps) {

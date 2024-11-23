@@ -4,7 +4,6 @@ import uhstyle from './user-header.module.css';
 
 /**
  * Компонент UserHeader - блок навигации для личного кабинета
- * @returns {JSX.Element} - JSX-элемент блока навигации
  */
 const UserHeader: React.FC = () => {
     return (

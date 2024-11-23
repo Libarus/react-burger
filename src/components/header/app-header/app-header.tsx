@@ -7,7 +7,6 @@ import ahstyle from './app-header.module.css';
 /**
  * Компонент AppHeader - верхний колонтитул приложения.
  * Содержит навигацию, логотип и пользовательский профиль.
- * @returns {JSX.Element} - возвращает JSX элемент заголовка приложения.
  */
 const AppHeader: React.FC = () => {
     return (

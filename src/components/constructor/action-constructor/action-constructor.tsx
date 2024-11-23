@@ -1,20 +1,17 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import Modal from '../../../shared/components/modal/modal/modal';
+import { Modal } from '../../../shared/components/modal/modal/modal';
 
 import OrderDetails from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
 
 /**
- * Компонент "Действия конструктора"
- * Отображает общую сумму заказа и кнопку "Оформить заказ"
- * Открывает модальное окно с подробностями заказа
- * @returns {JSX.Element}
+ * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
-const ActionConstructor: FC = () => {
+const ActionConstructor: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => {
         setIsModalOpen(true);

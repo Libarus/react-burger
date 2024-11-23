@@ -1,29 +1,23 @@
 import ReactDOM from 'react-dom';
 
 import { useEffect } from 'react';
-
-import ModalOverlay from '../modal-overlay/modal-overlay';
-
-import React, { ReactNode } from 'react';
+import { ModalOverlay}  from '../modal-overlay/modal-overlay';
 
 import mstyle from './modal.module.css';
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
-type ModalProps = {
-    children: ReactNode;
+type Props = {
+    children: React.ReactNode;
     onClose: () => void;
     header?: string | null;
 };
 
 /**
- * Компонент Modal представляет собой модальное окно.
- * @param {ReactNode} children - содержимое модального окна.
- * @param {() => void} onClose - функция закрытия модального окна.
- * @param {string | null} header - заголовок модального окна.
- * @returns {JSX.Element} JSX-элемент модального окна.
+ * Компонент "Модальное окно"
  */
-const Modal: React.FC<ModalProps> = ({ children, onClose, header = null }) => {
+export function Modal ({ children, onClose, header = null }: Props) {
+
     const handleKeyDown = (event: KeyboardEvent): void => {
         if (event.key === 'Escape') {
             onClose();
@@ -54,5 +48,3 @@ const Modal: React.FC<ModalProps> = ({ children, onClose, header = null }) => {
         modalRoot,
     );
 };
-
-export default Modal;

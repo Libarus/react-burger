@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import Modal from '../../../shared/components/modal/modal/modal';
+import { Modal } from '../../../shared/components/modal/modal/modal';
 
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
@@ -13,12 +13,7 @@ interface Props {
     ingredient: TIngredient;
 }
 
-/**
- * Компонент "Ингредиент"
- * @param {TIngredient} ingredient - ингредиент
- * @returns {JSX.Element}
- */
-const ItemIngredients: React.FC<Props> = ({ ingredient }) => {
+function ItemIngredients({ ingredient } : Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => {
         setIsModalOpen(true);
