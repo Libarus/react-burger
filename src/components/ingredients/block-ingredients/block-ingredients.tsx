@@ -1,4 +1,4 @@
-import ItemIngredients from '../item-ingredients/item-ingredients';
+import { ItemIngredients } from '../item-ingredients/item-ingredients';
 
 import type TIngredient from '../../../shared/types/tingredient';
 
@@ -12,7 +12,7 @@ interface Props {
 /**
  * Компонент "Блок ингредиентов"
  */
-const BlockIngredients: React.FC<Props> = ({ title, ingredients }) => {
+export function BlockIngredients({ title, ingredients }: Props) {
     return (
         <div className='pt-8'>
             <h2 className='text text_type_main-medium'>{title}</h2>
@@ -28,4 +28,3 @@ const BlockIngredients: React.FC<Props> = ({ title, ingredients }) => {
     );
 };
 
-export default BlockIngredients;

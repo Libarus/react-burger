@@ -4,15 +4,16 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 
 import { Modal } from '../../../shared/components/modal/modal/modal';
 
-import OrderDetails from '../order-details/order-details';
+import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
-const ActionConstructor: React.FC = () => {
+export function ActionConstructor(){
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -41,5 +42,3 @@ const ActionConstructor: React.FC = () => {
         </>
     );
 };
-
-export default ActionConstructor;

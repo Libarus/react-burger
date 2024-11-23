@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 import { useMemo } from 'react';
 
-import ActionConstructor from '../action-constructor/action-constructor';
+import { ActionConstructor } from '../action-constructor/action-constructor';
 
 import type TIngredient from '../../../shared/types/tingredient';
 
@@ -15,7 +15,7 @@ interface Props {
 /**
  * Компонент "Конструктор бургера"
  */
-const BurgerConstructor: React.FC<Props> = ({ ingredients }) => {
+export function BurgerConstructor({ ingredients }: Props) {
     const bun = useMemo(() => ingredients.find((item: TIngredient) => item.type === 'bun'), [ingredients]);
 
     return (
@@ -46,5 +46,3 @@ const BurgerConstructor: React.FC<Props> = ({ ingredients }) => {
         </section>
     );
 };
-
-export default BurgerConstructor;

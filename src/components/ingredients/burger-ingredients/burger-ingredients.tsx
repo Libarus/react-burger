@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 
-import TabIngredients from '../tab-ingredients/tab-ingredients';
-import BlockIngredients from '../block-ingredients/block-ingredients';
+import { TabIngredients } from '../tab-ingredients/tab-ingredients';
+import { BlockIngredients } from '../block-ingredients/block-ingredients';
 
 import type TIngredient from '../../../shared/types/tingredient';
 
@@ -14,7 +14,7 @@ interface Props {
 /**
  * Компонент "Список ингредиентов"
  */
-const BurgerIngredients: React.FC<Props> = ({ ingredients }) => {
+export function BurgerIngredients({ ingredients }: Props) {
     const [current, setCurrent] = useState('one');
 
     const ingredientsByType = useMemo(() => {
@@ -41,5 +41,3 @@ const BurgerIngredients: React.FC<Props> = ({ ingredients }) => {
         </section>
     );
 };
-
-export default BurgerIngredients;

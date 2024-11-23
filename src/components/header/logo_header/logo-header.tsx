@@ -5,7 +5,7 @@ import lhstyle from './logo-header.module.css';
 /**
  * Компонент LogoHeader - лого в шапке приложения.
  */
-const LogoHeader: React.FC = () => {
+export function LogoHeader() {
     return (
         <div className={lhstyle.logo}>
             <Logo />
@@ -13,4 +13,3 @@ const LogoHeader: React.FC = () => {
     );
 };
 
-export default LogoHeader;

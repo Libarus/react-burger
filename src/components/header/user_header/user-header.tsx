@@ -5,7 +5,7 @@ import uhstyle from './user-header.module.css';
 /**
  * Компонент UserHeader - блок навигации для личного кабинета
  */
-const UserHeader: React.FC = () => {
+export function UserHeader() {
     return (
         <div className={uhstyle.user}>
             <div>
@@ -17,5 +17,3 @@ const UserHeader: React.FC = () => {
         </div>
     );
 };
-
-export default UserHeader;

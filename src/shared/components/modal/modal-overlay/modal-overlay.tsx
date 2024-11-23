@@ -1,6 +1,6 @@
 import mostyle from './modal-overlay.module.css';
 
-interface Props{
+interface Props {
     onClose: () => void;
 }
 
@@ -8,7 +8,5 @@ interface Props{
  * Компонент "Подложка модального окна"
  */
 export function ModalOverlay({ onClose }: Props) {
-    return (
-        <div className={mostyle.ModalOverlay} onClick={onClose} />
-    );
-};
+    return <div className={mostyle.ModalOverlay} onClick={onClose} />;
+}

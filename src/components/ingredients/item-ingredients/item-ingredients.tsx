@@ -4,17 +4,19 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 import { Modal } from '../../../shared/components/modal/modal/modal';
 
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
 import iistyle from './item-ingredients.module.css';
+
 import type TIngredient from '../../../shared/types/tingredient';
 
 interface Props {
     ingredient: TIngredient;
 }
 
-function ItemIngredients({ ingredient } : Props) {
+export function ItemIngredients({ ingredient } : Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -49,5 +51,3 @@ function ItemIngredients({ ingredient } : Props) {
         </>
     );
 };
-
-export default ItemIngredients;

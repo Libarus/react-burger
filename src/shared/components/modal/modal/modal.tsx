@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 
 import { useEffect } from 'react';
-import { ModalOverlay}  from '../modal-overlay/modal-overlay';
+import { ModalOverlay } from '../modal-overlay/modal-overlay';
 
 import mstyle from './modal.module.css';
 
@@ -16,8 +16,7 @@ type Props = {
 /**
  * Компонент "Модальное окно"
  */
-export function Modal ({ children, onClose, header = null }: Props) {
-
+export function Modal({ children, onClose, header = null }: Props) {
     const handleKeyDown = (event: KeyboardEvent): void => {
         if (event.key === 'Escape') {
             onClose();
@@ -47,4 +46,4 @@ export function Modal ({ children, onClose, header = null }: Props) {
         </>,
         modalRoot,
     );
-};
+}

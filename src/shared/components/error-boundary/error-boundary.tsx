@@ -18,11 +18,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         this.state = { error: null };
     }
 
-    /**
-     * Updates state with error information when a child component throws an error.
-     * @param {Error} error - The error thrown by a child component
-     * @returns {ErrorBoundaryState} The updated state with the error
-     */
     static getDerivedStateFromError(error: Error): ErrorBoundaryState {
         return { error };
     }

@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import tistyle from './tab-ingredients.module.css';
@@ -12,7 +10,7 @@ interface Props {
 /**
  * Компонент TabIngredients - отображает вкладки для выбора типа ингредиентов.
  */
-const TabIngredients: FC<Props> = ({ current, setCurrent }) => {
+export function TabIngredients({ current, setCurrent }: Props) {
     return (
         <div className={`pt-5 pb-2 ${tistyle.flex}`}>
             <Tab value='one' active={current === 'one'} onClick={setCurrent}>
@@ -27,5 +25,3 @@ const TabIngredients: FC<Props> = ({ current, setCurrent }) => {
         </div>
     );
 };
-
-export default TabIngredients;

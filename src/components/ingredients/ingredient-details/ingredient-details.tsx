@@ -9,7 +9,7 @@ interface Props {
 /**
  * Компонент "Детали ингредиента"
  */
-const IngredientDetails: React.FC<Props> = ({ ingredient }) => {
+export function IngredientDetails({ ingredient }: Props ) {
     return (
         <div className={idstyle.ingrDetails}>
             <div>
@@ -37,5 +37,3 @@ const IngredientDetails: React.FC<Props> = ({ ingredient }) => {
         </div>
     );
 };
-
-export default IngredientDetails;

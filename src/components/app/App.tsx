@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import AppHeader from '../header/app-header/app-header';
-import BurgerConstructor from '../constructor/burger-constructor/burger-constructor';
-import BurgerIngredients from '../ingredients/burger-ingredients/burger-ingredients';
+import { AppHeader } from '../header/app-header/app-header';
+import { BurgerConstructor } from '../constructor/burger-constructor/burger-constructor';
+import { BurgerIngredients } from '../ingredients/burger-ingredients/burger-ingredients';
 
 import './App.css';
 
@@ -17,7 +17,7 @@ const dataAPI = new DataAPI();
 /**
  * Компонент App - корневой компонент приложения.
  */
-function App () {
+function App() {
     const [ingredients, setIngredients] = useState<TIngredient[]>([]);
 
     useEffect(() => {
@@ -72,6 +72,6 @@ function App () {
             </div>
         </main>
     );
-};
+}
 
 export default App;

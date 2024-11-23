@@ -5,7 +5,7 @@ import nhstyle from './nav-header.module.css';
 /**
  * Компонент NavHeader - навигационная панель.
  */
-const NavHeader: React.FC = () => {
+export function NavHeader() {
     return (
         <nav className={nhstyle.nav}>
             <div>
@@ -23,5 +23,3 @@ const NavHeader: React.FC = () => {
         </nav>
     );
 };
-
-export default NavHeader;

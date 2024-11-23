@@ -6,7 +6,7 @@ import done from '../../../assets/images/done.png';
  * Компонент "Детали заказа"
  * Отображает детали заказа (номер, статус)
  */
-const OrderDetails: React.FC = () => {
+export function OrderDetails() {
     const orderNumber = Math.round(Math.random() * 100000);
 
     return (
@@ -19,5 +19,3 @@ const OrderDetails: React.FC = () => {
         </div>
     )
 }
-
-export default OrderDetails;
