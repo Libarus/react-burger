@@ -1,27 +1,27 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { TabIngredients } from '../tab-ingredients/tab-ingredients';
 import { BlockIngredients } from '../block-ingredients/block-ingredients';
+import { TabIngredients } from '../tab-ingredients/tab-ingredients';
+import { useAppSelector } from '../../../services/store';
+import { Spinner } from '../../../shared/components/spinner/spinner';
 
-import type TIngredient from '../../../shared/types/tingredient';
+import { type TIngredient } from '../../../shared/types/tingredient';
+import { type TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 
 import bistyle from './burger-ingredients.module.css';
-
-interface Props {
-    ingredients: TIngredient[]
-}
+import { getIngredients } from '../../../shared/utils';
 
 /**
  * Компонент "Список ингредиентов"
  */
-export function BurgerIngredients({ ingredients }: Props) {
-    const [current, setCurrent] = useState('one');
+export function BurgerIngredients() {
+    const { ingredients, ingredientStatus, currentTab } = useAppSelector((store) => store.ingredient);
 
     const ingredientsByType = useMemo(() => {
         const result: Record<string, TIngredient[]> = {};
 
         ['bun', 'sauce', 'main'].forEach((type) => {
-            result[type] = ingredients.filter((item) => item.type === type);
+            result[type] = getIngredients(ingredients.filter((item: TInternalIngredient) => item.type === type));
         });
 
         return result;
@@ -29,15 +29,17 @@ export function BurgerIngredients({ ingredients }: Props) {
 
     const { bun, sauce, main } = ingredientsByType;
 
-    return (
+    const section = (
         <section className={`${bistyle.bi} pt-10`}>
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
-            <TabIngredients current={current} setCurrent={setCurrent} />
+            <TabIngredients current={currentTab} />
             <div className={bistyle.scroll}>
-                <BlockIngredients title='Булки' ingredients={bun} />
-                <BlockIngredients title='Соусы' ingredients={sauce} />
-                <BlockIngredients title='Начинки' ingredients={main} />
+                <BlockIngredients title='Булки' ingredients={bun} name='bun' />
+                <BlockIngredients title='Соусы' ingredients={sauce} name='sauce' />
+                <BlockIngredients title='Начинки' ingredients={main} name='main' />
             </div>
         </section>
     );
-};
+
+    return <>{ingredientStatus === 'pending' ? <Spinner /> : section}</>;
+}

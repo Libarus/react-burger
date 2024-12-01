@@ -1,6 +1,6 @@
 
 // Тип для приходящего ингредиента
-type TInternalIngredient = {
+export type TInternalIngredient = {
     _id: string;
     name: string;
     type: string;
@@ -14,6 +14,3 @@ type TInternalIngredient = {
     image_large: string;
     __v: number;
 };
-
-
-export default TInternalIngredient;

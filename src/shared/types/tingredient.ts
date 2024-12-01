@@ -1,5 +1,5 @@
 // Тип для ингредиента
-type TIngredient = {
+export type TIngredient = {
     id: string;
     name: string;
     type: string;
@@ -11,5 +11,3 @@ type TIngredient = {
     fat: number;
     carbohydrates: number;
 }
-
-export default TIngredient;

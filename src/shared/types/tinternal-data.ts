@@ -1,9 +1,7 @@
-import TInternalIngredient from "./tinternal-ingredient";
+import { TInternalIngredient } from "./tinternal-ingredient";
 
 // Тип для приходящих данных
-type TInternalData = {
+export type TInternalData = {
     success: boolean,
     data: TInternalIngredient[],
 }
-
-export default TInternalData;

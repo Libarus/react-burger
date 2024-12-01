@@ -4,19 +4,22 @@ import { useMemo } from 'react';
 
 import { ActionConstructor } from '../action-constructor/action-constructor';
 
-import type TIngredient from '../../../shared/types/tingredient';
+import { type TIngredient } from '../../../shared/types/tingredient';
 
 import bcstyle from './burger-constructor.module.css';
 
-interface Props {
-    ingredients: TIngredient[];
-}
+import { useAppSelector } from '../../../services/store';
+import { TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
+import { getIngredients } from '../../../shared/utils';
 
 /**
  * Компонент "Конструктор бургера"
  */
-export function BurgerConstructor({ ingredients }: Props) {
-    const bun = useMemo(() => ingredients.find((item: TIngredient) => item.type === 'bun'), [ingredients]);
+export function BurgerConstructor() {
+
+    const ingredients = useAppSelector((store) => store.ingredient.ingredients);
+
+    const bun = useMemo(() => getIngredients(ingredients.filter((item: TInternalIngredient) => item.type === 'bun'))[0], [ingredients]);
 
     return (
         <section className={`${bcstyle.bc} pt-25`}>
@@ -27,7 +30,7 @@ export function BurgerConstructor({ ingredients }: Props) {
                     </div>
 
                     <div className={`${bcstyle.bcscroll}`}>
-                        {ingredients.map((item: TIngredient, index: number) => (
+                        {ingredients.map((item: TInternalIngredient, index: number) => (
                             <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
                                 <DragIcon type='primary' className='mr-2' />
                                 <ConstructorElement isLocked={false} text={item.name} price={item.price} thumbnail={item.image} />
