@@ -4,25 +4,23 @@ import { useMemo } from 'react';
 
 import { ActionConstructor } from '../action-constructor/action-constructor';
 
-import { type TIngredient } from '../../../shared/types/tingredient';
-
 import bcstyle from './burger-constructor.module.css';
 
 import { useAppSelector } from '../../../services/store';
 import { TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 import { getIngredients } from '../../../shared/utils';
+import { Spinner } from '../../../shared/components/spinner/spinner';
 
 /**
  * Компонент "Конструктор бургера"
  */
 export function BurgerConstructor() {
-
-    const ingredients = useAppSelector((store) => store.ingredient.ingredients);
+    const { ingredients, ingredientStatus } = useAppSelector((store) => store.ingredient);
 
     const bun = useMemo(() => getIngredients(ingredients.filter((item: TInternalIngredient) => item.type === 'bun'))[0], [ingredients]);
 
-    return (
-        <section className={`${bcstyle.bc} pt-25`}>
+    const section = (
+        <>
             {bun != null && (
                 <>
                     <div className='pl-8 pb-4'>
@@ -45,7 +43,8 @@ export function BurgerConstructor() {
                     <ActionConstructor />
                 </>
             )}
-            {bun == null && <div>Выберите ингредиенты</div>}
-        </section>
+        </>
     );
-};
+
+    return <section className={`${bcstyle.bc} pt-25`}>{ingredientStatus === 'pending' ? <Spinner /> : section}</section>;
+}
