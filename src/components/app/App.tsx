@@ -7,7 +7,7 @@ import { AppHeader } from '../header/app-header/app-header';
 import { BurgerConstructor } from '../constructor/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '../ingredients/burger-ingredients/burger-ingredients';
 
-import { loadIngredients } from '../../services/actions/ingredientSlice';
+import { addIngredient, loadIngredients } from '../../services/actions/ingredientSlice';
 import { useAppDispatch } from '../../services/store';
 
 import './App.css';
@@ -22,13 +22,18 @@ function App() {
         dispatch(loadIngredients());
     }, [dispatch]);
 
+    const onDrop = (id: string) => {
+        dispatch(addIngredient(id));
+        console.log('drop', id);
+    };
+
     return (
         <main>
             <AppHeader />
             <div className='app'>
                 <DndProvider backend={HTML5Backend}>
                     <BurgerIngredients />
-                    <BurgerConstructor />
+                    <BurgerConstructor onDrop={onDrop} />
                 </DndProvider>
             </div>
         </main>
@@ -36,3 +41,7 @@ function App() {
 }
 
 export default App;
+function selectIngredient(id: string): any {
+    throw new Error('Function not implemented.');
+}
+

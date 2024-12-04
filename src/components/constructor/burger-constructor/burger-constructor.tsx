@@ -1,25 +1,33 @@
+import { useDrop } from 'react-dnd';
+
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useMemo } from 'react';
 
 import { ActionConstructor } from '../action-constructor/action-constructor';
 
-import { useAppSelector } from '../../../services/store';
-import { getIngredients } from '../../../shared/utils';
+import { useAppDispatch, useAppSelector } from '../../../services/store';
+import { killIngredient } from '../../../services/actions/ingredientSlice';
 
+import { getIngredients } from '../../../shared/utils';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
 import { type TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 import { type TIngredient } from '../../../shared/types/tingredient';
 
 import bcstyle from './burger-constructor.module.css';
-import { useDrop } from 'react-dnd';
+
+type Props = {
+    onDrop: (id: string) => void;
+};
 
 /**
  * Компонент "Конструктор бургера"
  */
-export function BurgerConstructor() {
-    const { selectedIngredients, ingredientStatus } = useAppSelector((store) => store.ingredient);
+export function BurgerConstructor({ onDrop }: Props) {
+    const dispatch = useAppDispatch();
+
+    const { selectedIngredients, ingredientStatus } = useAppSelector((state) => state.ingredient);
 
     const bun = useMemo(
         () => getIngredients(selectedIngredients.filter((item: TInternalIngredient) => item.type === 'bun'))[0],
@@ -30,16 +38,20 @@ export function BurgerConstructor() {
     const [, dropRef] = useDrop({
         accept: 'box',
         drop(item: TIngredient, monitor) {
-            // if (onDrop) {
-            //     onDrop(item);
-            // }
+            if (onDrop) {
+                onDrop(item.id);
+            }
         },
         // collect: (monitor) => ({
         //     isHover: monitor.isOver(),
         //     canDrop: monitor.canDrop(),
         // }),
     });
-    
+
+    const kill = (id: string, index: number) => {
+        dispatch(killIngredient({ id, index }));
+    }
+
     const section = (
         <>
             {bun != null && (
@@ -53,7 +65,12 @@ export function BurgerConstructor() {
                             all.map((item: TIngredient, index: number) => (
                                 <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
                                     <DragIcon type='primary' className='mr-2' />
-                                    <ConstructorElement isLocked={false} text={item.name} price={item.price} thumbnail={item.image} />
+                                    <ConstructorElement
+                                        isLocked={false}
+                                        text={`${item.name}+${index+1}`}
+                                        price={item.price}
+                                        thumbnail={item.image}
+                                        handleClose={() => kill(item.id, index+1)}/>
                                 </div>
                             ))
                         ) : (
@@ -82,5 +99,9 @@ export function BurgerConstructor() {
         </>
     );
 
-    return <section className={`${bcstyle.bc} pt-25`}>{ingredientStatus === 'pending' ? <Spinner /> : section}</section>;
+    return (
+        <section className={`${bcstyle.bc} pt-25`} ref={dropRef}>
+            {ingredientStatus === 'pending' ? <Spinner /> : section}
+        </section>
+    );
 }

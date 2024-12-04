@@ -7,11 +7,14 @@ import { Modal } from '../../../shared/components/modal/modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
+import { useAppSelector } from '../../../services/store';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
 export function ActionConstructor(){
+    const selectedSumm = useAppSelector(state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0));
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -30,7 +33,7 @@ export function ActionConstructor(){
             )}
             <div className={`${astyle.ac} pt-10 pr-4`}>
                 <div className={astyle.sizer}>&nbsp;</div>
-                <div className='text text_type_digits-medium pr-2'>610</div>
+                <div className='text text_type_digits-medium pr-2'>{selectedSumm}</div>
                 <div className='pr-10'>
                     <CurrencyIcon type='primary' />
                 </div>
