@@ -1,13 +1,13 @@
 import { useDrop } from 'react-dnd';
 
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { ActionConstructor } from '../action-constructor/action-constructor';
 
 import { useAppDispatch, useAppSelector } from '../../../services/store';
-import { killIngredient } from '../../../services/actions/ingredientSlice';
+import { killIngredient, setNewSelectedIngredients } from '../../../services/actions/ingredientSlice';
 
 import { getIngredients } from '../../../shared/utils';
 import { Spinner } from '../../../shared/components/spinner/spinner';
@@ -16,6 +16,8 @@ import { type TInternalIngredient } from '../../../shared/types/tinternal-ingred
 import { type TIngredient } from '../../../shared/types/tingredient';
 
 import bcstyle from './burger-constructor.module.css';
+import { DraggableElement } from '../draggable-element/draggable-element';
+import update from 'immutability-helper';
 
 type Props = {
     onDrop: (id: string) => void;
@@ -36,7 +38,7 @@ export function BurgerConstructor({ onDrop }: Props) {
     const all = useMemo(() => getIngredients(selectedIngredients.filter((item: TInternalIngredient) => item.type !== 'bun')), [selectedIngredients]);
 
     const [, dropRef] = useDrop({
-        accept: 'box',
+        accept: 'ingredient',
         drop(item: TIngredient, monitor) {
             if (onDrop) {
                 onDrop(item.id);
@@ -48,9 +50,28 @@ export function BurgerConstructor({ onDrop }: Props) {
         // }),
     });
 
-    const kill = (id: string, index: number) => {
+    const onKill = (id: string, index: number) => {
         dispatch(killIngredient({ id, index }));
     }
+
+    const moveBox = useCallback(
+        (dragIndex: number, hoverIndex: number) => {
+            console.info(selectedIngredients, dragIndex, hoverIndex);
+            const draggedBox = selectedIngredients[dragIndex];
+            console.info(draggedBox.name);
+            const dd = update(selectedIngredients, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, draggedBox],
+                ],
+            });
+            console.info('dd', dd);
+            /**/
+            dispatch(setNewSelectedIngredients(dd));
+            /**/
+        },
+        [selectedIngredients]
+    );
 
     const section = (
         <>
@@ -63,15 +84,7 @@ export function BurgerConstructor({ onDrop }: Props) {
                     <div className={`${bcstyle.bcscroll}`} ref={dropRef}>
                         {all.length > 0 ? (
                             all.map((item: TIngredient, index: number) => (
-                                <div key={index} className={`${bcstyle.item} pb-4 pr-1`}>
-                                    <DragIcon type='primary' className='mr-2' />
-                                    <ConstructorElement
-                                        isLocked={false}
-                                        text={`${item.name}+${index+1}`}
-                                        price={item.price}
-                                        thumbnail={item.image}
-                                        handleClose={() => kill(item.id, index+1)}/>
-                                </div>
+                                <DraggableElement key={item.id} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
                             ))
                         ) : (
                             <>

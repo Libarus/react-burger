@@ -7,13 +7,23 @@ import { Modal } from '../../../shared/components/modal/modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
-import { useAppSelector } from '../../../services/store';
+
+import { useAppDispatch, useAppSelector } from '../../../services/store';
+import { Spinner } from '../../../shared/components/spinner/spinner';
+
+import { saveOrder } from '../../../services/actions/ingredientSlice';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
 export function ActionConstructor(){
-    const selectedSumm = useAppSelector(state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0));
+    const dispatch = useAppDispatch();
+    
+    const selectedSumm = useAppSelector(state => 
+        state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) +
+        state.ingredient.selectedIngredients[0].price);
+
+    const saveOrderStatus = useAppSelector(state => state.ingredient.saveOrderStatus);
     
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,6 +32,10 @@ export function ActionConstructor(){
     };
     const closeModal = () => {
         setIsModalOpen(false);
+    };
+
+    const sendOrder = () => {
+        dispatch(saveOrder({ ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa093d'] }));
     };
 
     return (
@@ -38,9 +52,12 @@ export function ActionConstructor(){
                     <CurrencyIcon type='primary' />
                 </div>
 
-                <Button htmlType='button' type='primary' size='medium' onClick={openModal}>
-                    Оформить заказ
-                </Button>
+                {
+                    saveOrderStatus == 'pending' ? <Spinner /> :
+                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>
+                        Оформить заказ
+                    </Button>
+                }
             </div>
         </>
     );

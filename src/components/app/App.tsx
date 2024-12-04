@@ -41,7 +41,3 @@ function App() {
 }
 
 export default App;
-function selectIngredient(id: string): any {
-    throw new Error('Function not implemented.');
-}
-

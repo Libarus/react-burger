@@ -26,7 +26,7 @@ export function ItemIngredients({ ingredient } : Props) {
     };
 
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: 'box',
+        type: 'ingredient',
         item: { id: ingredient.id },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
