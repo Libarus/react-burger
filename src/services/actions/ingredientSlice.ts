@@ -11,7 +11,7 @@ const initialState = {
     ingredients: [] as TInternalIngredient[],
     ingredientStatus: 'idle',
 
-    selectedBun: '',
+    selectedIngredients: [] as TInternalIngredient[],
 
     currentTab: 'bun',
 };
@@ -40,6 +40,9 @@ const ingredientSlice = createSlice({
     initialState,
     reducers: {
         setCurrentTab: (state, action) => { state.currentTab = action.payload; },
+        setBun: (state, action) => { 
+            state.selectedIngredients = [ ...state.selectedIngredients.filter((item: TInternalIngredient) => item.type !== 'bun'), action.payload ];
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(loadIngredients.pending, (state, action) => {
@@ -58,5 +61,5 @@ const ingredientSlice = createSlice({
     },
 });
 
-export const { setCurrentTab } = ingredientSlice.actions;
+export const { setCurrentTab, setBun } = ingredientSlice.actions;
 export default ingredientSlice.reducer;

@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { BlockIngredients } from '../block-ingredients/block-ingredients';
 import { TabIngredients } from '../tab-ingredients/tab-ingredients';
@@ -8,9 +8,10 @@ import { Spinner } from '../../../shared/components/spinner/spinner';
 import { type TIngredient } from '../../../shared/types/tingredient';
 import { type TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 
-import bistyle from './burger-ingredients.module.css';
 import { getIngredients } from '../../../shared/utils';
-import { setCurrentTab } from '../../../services/actions/ingredientSlice';
+import { setBun, setCurrentTab } from '../../../services/actions/ingredientSlice';
+
+import bistyle from './burger-ingredients.module.css';
 
 /**
  * Компонент "Список ингредиентов"
@@ -36,6 +37,11 @@ export function BurgerIngredients() {
 
         console.info(ingredientTabName[minIndex], t, bunY, sauceY, mainY, Math.abs(t - bunY), Math.abs(t - sauceY), Math.abs(t - mainY));
     };
+
+    useEffect(() => {
+        if (ingredients.length === 0) return;
+        dispatch(setBun(ingredients.filter((item: TInternalIngredient) => item.type === 'bun')[0]));
+    }, [ingredients]);
 
     const ingredientsByType = useMemo(() => {
         const result: Record<string, TIngredient[]> = {};
