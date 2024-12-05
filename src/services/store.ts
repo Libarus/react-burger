@@ -13,24 +13,22 @@ const rootReducer = combineReducers({
 });
 
 // Наш усилитель
+/*
+// Пример middleware для логирования
+// Временно выключил, чтобы не лилось много лишнего в консоль.
 const loggerMiddleware = () => (next: any) => (action: any) => {
     // Выводим в консоль время события и его содержание
-    
-    /*
-    // Пример middleware для логирования
-    // Временно выключил, чтобы не лилось много лишнего в консоль.
     console.log(`${new Date().getTime()} | Action: ${JSON.stringify(action)}`);
-    */
-   
     // Передаём событие «по конвейеру» дальше
     return next(action);
 };
+*/
 
 export function createStore() {
     const store = configureStore({
         reducer: rootReducer,
         //devTools: process.env.NODE_ENV !== 'production',
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk).concat(loggerMiddleware),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), //.concat(loggerMiddleware),
     });
 
     setupListeners(store.dispatch);

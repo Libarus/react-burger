@@ -39,15 +39,11 @@ export function BurgerConstructor({ onDrop }: Props) {
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
-        drop(item: TIngredient, monitor) {
+        drop(item: TIngredient) {
             if (onDrop) {
                 onDrop(item.id);
             }
         },
-        // collect: (monitor) => ({
-        //     isHover: monitor.isOver(),
-        //     canDrop: monitor.canDrop(),
-        // }),
     });
 
     const onKill = (id: string, index: number) => {
@@ -70,7 +66,7 @@ export function BurgerConstructor({ onDrop }: Props) {
             dispatch(setNewSelectedIngredients(dd));
             /**/
         },
-        [selectedIngredients]
+        [selectedIngredients, dispatch]
     );
 
     const section = (

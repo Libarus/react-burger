@@ -21,7 +21,7 @@ const initialState = {
     saveOrderStatus: 'idle',
 };
 
-export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectValue: string; fulfillWithValue: any }>(
+export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectValue: string; fulfillWithValue: string }>(
     'ingredient/fetchByAll',
     async (_, { rejectWithValue, fulfillWithValue }) => {
         let isOk = false;
@@ -33,7 +33,7 @@ export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectVal
                 data = d;
                 isOk = true;
             },
-            (e: Error) => (e = error),
+            (e: Error) => (error = e),
         );
 
         if (isOk) return fulfillWithValue(data);
@@ -41,7 +41,7 @@ export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectVal
     },
 );
 
-export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejectValue: string; fulfillWithValue: any }>(
+export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejectValue: string; fulfillWithValue: string }>(
     'saveorder/postOrder',
     async (body: TOrderRequest, { rejectWithValue, fulfillWithValue }) => {
         let isOk = false;
@@ -54,7 +54,7 @@ export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejec
                 data = d;
                 isOk = true;
             },
-            (e: Error) => (e = error),
+            (e: Error) => (error = e),
         );
 
         if (isOk) return fulfillWithValue(data);

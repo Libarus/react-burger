@@ -46,7 +46,7 @@ export function ActionConstructor(){
         if (saveOrderStatus === 'success' && saveOrderResponse.success) {
             openModal();
         }
-    }, [saveOrderStatus, saveOrderResponse]);
+    }, [saveOrderStatus, saveOrderResponse, dispatch]);
 
     return (
         <>

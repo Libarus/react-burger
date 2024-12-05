@@ -1,8 +1,10 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TIngredient } from '../../../shared/types/tingredient';
 import { useRef } from 'react';
-import type { Identifier, XYCoord } from 'dnd-core';
-import { useDrag, useDrop } from 'react-dnd';
+import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
+
+import { type TIngredient } from '../../../shared/types/tingredient';
+
+import { type Identifier, XYCoord } from 'dnd-core';
 
 interface DragItem {
     item: TIngredient;
@@ -25,19 +27,15 @@ export function DraggableElement({ item, index, klass, onMove, onKill }: Props) 
         item: () => {
             return { item, index } as DragItem;
         },
-        collect: (monitor: any) => ({
+        collect: (monitor: DragSourceMonitor) => ({
             isDragging: monitor.isDragging(),
         }),
+
     });
 
-    const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
+    const [, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: 'boxm',
-        collect(monitor) {
-            return {
-                handlerId: monitor.getHandlerId(),
-            };
-        },
-        hover(item: DragItem, monitor) {
+        hover(item: DragItem, monitor: DropTargetMonitor) {
 
             if (!ref.current) {
                 return;

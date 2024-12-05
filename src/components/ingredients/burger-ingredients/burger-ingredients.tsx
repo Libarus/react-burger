@@ -19,7 +19,7 @@ import bistyle from './burger-ingredients.module.css';
 export function BurgerIngredients() {
     const dispatch = useAppDispatch();
     const { ingredients, ingredientStatus, currentTab } = useAppSelector((store) => store.ingredient);
-    const ingredientTabName = ['bun', 'sauce', 'main'];
+    const ingredientTabName = useMemo(() => ['bun', 'sauce', 'main'], []);
     const offset = 200; // сдвиг определения ближайшего элемента
 
     const scroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -39,7 +39,7 @@ export function BurgerIngredients() {
     useEffect(() => {
         if (ingredients.length === 0) return;
         dispatch(setBun(ingredients.filter((item: TInternalIngredient) => item.type === 'bun')[0]));
-    }, [ingredients]);
+    }, [ingredients, dispatch]);
 
     const ingredientsByType = useMemo(() => {
         const result: Record<string, TIngredient[]> = {};
@@ -49,7 +49,7 @@ export function BurgerIngredients() {
         });
 
         return result;
-    }, [ingredients]);
+    }, [ingredients, ingredientTabName]);
 
     const { bun, sauce, main } = ingredientsByType;
 
