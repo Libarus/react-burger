@@ -13,9 +13,10 @@ import { useDrag } from 'react-dnd';
 
 interface Props {
     ingredient: TIngredient;
+    badge: number
 }
 
-export function ItemIngredients({ ingredient } : Props) {
+export function ItemIngredients({ ingredient, badge } : Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -45,7 +46,7 @@ export function ItemIngredients({ ingredient } : Props) {
             <div className={`pl-4 pr-4 pt-6 pb-2 ${iistyle.ingrItem}`}>
                 <div className={iistyle.ingrAbout} onClick={openModal}>
                     <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`} style={{opacity}} ref={drag}>
-                        {ingredient.badge > 0 && <Counter count={ingredient.badge} size='default' extraClass='m-1' />}
+                        {badge > 0 && <Counter count={badge} size='default' extraClass='m-1' />}
                         <div>
                             <img src={ingredient.image} alt={ingredient.name} className={iistyle.ingrImage} />
                         </div>

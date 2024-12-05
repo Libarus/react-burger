@@ -6,9 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
 import { type TIngredient } from '../../../shared/types/tingredient';
-import { type TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 
-import { getIngredients } from '../../../shared/utils';
 import { setBun, setCurrentTab } from '../../../services/actions/ingredientSlice';
 
 import bistyle from './burger-ingredients.module.css';
@@ -18,7 +16,7 @@ import bistyle from './burger-ingredients.module.css';
  */
 export function BurgerIngredients() {
     const dispatch = useAppDispatch();
-    const { ingredients, ingredientStatus, currentTab } = useAppSelector((store) => store.ingredient);
+    const { ingredients, ingredientStatus, currentTab, selectedIngredients } = useAppSelector((store) => store.ingredient);
     const ingredientTabName = useMemo(() => ['bun', 'sauce', 'main'], []);
     const offset = 200; // сдвиг определения ближайшего элемента
 
@@ -38,14 +36,14 @@ export function BurgerIngredients() {
 
     useEffect(() => {
         if (ingredients.length === 0) return;
-        dispatch(setBun(ingredients.filter((item: TInternalIngredient) => item.type === 'bun')[0]));
+        dispatch(setBun(ingredients.filter((item: TIngredient) => item.type === 'bun')[0]));
     }, [ingredients, dispatch]);
 
     const ingredientsByType = useMemo(() => {
         const result: Record<string, TIngredient[]> = {};
 
         ingredientTabName.forEach((type) => {
-            result[type] = getIngredients(ingredients.filter((item: TInternalIngredient) => item.type === type));
+            result[type] = ingredients.filter((item: TIngredient) => item.type === type);
         });
 
         return result;
@@ -62,9 +60,9 @@ export function BurgerIngredients() {
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
             <TabIngredients current={currentTab} />
             <div className={bistyle.scroll} onScroll={scroll}>
-                <BlockIngredients title='Булки' ingredients={bun} name='bun' ref={bunRef} />
-                <BlockIngredients title='Соусы' ingredients={sauce} name='sauce' ref={sauceRef} />
-                <BlockIngredients title='Начинки' ingredients={main} name='main' ref={mainRef} />
+                <BlockIngredients title='Булки' ingredients={bun} selectedIngredients={selectedIngredients} name='bun' ref={bunRef} />
+                <BlockIngredients title='Соусы' ingredients={sauce} selectedIngredients={selectedIngredients} name='sauce' ref={sauceRef} />
+                <BlockIngredients title='Начинки' ingredients={main} selectedIngredients={selectedIngredients} name='main' ref={mainRef} />
             </div>
         </>
     );

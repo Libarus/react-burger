@@ -32,10 +32,10 @@ export function BurgerConstructor({ onDrop }: Props) {
     const { selectedIngredients, ingredientStatus } = useAppSelector((state) => state.ingredient);
 
     const bun = useMemo(
-        () => getIngredients(selectedIngredients.filter((item: TInternalIngredient) => item.type === 'bun'))[0],
+        () => selectedIngredients.filter((item: TIngredient) => item.type === 'bun')[0],
         [selectedIngredients],
     );
-    const all = useMemo(() => getIngredients(selectedIngredients.filter((item: TInternalIngredient) => item.type !== 'bun')), [selectedIngredients]);
+    const all = useMemo(() => selectedIngredients.filter((item: TIngredient) => item.type !== 'bun'), [selectedIngredients]);
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
@@ -52,19 +52,14 @@ export function BurgerConstructor({ onDrop }: Props) {
 
     const moveBox = useCallback(
         (dragIndex: number, hoverIndex: number) => {
-            console.info(selectedIngredients, dragIndex, hoverIndex);
             const draggedBox = selectedIngredients[dragIndex];
-            console.info(draggedBox.name);
             const dd = update(selectedIngredients, {
                 $splice: [
                     [dragIndex, 1],
                     [hoverIndex, 0, draggedBox],
                 ],
             });
-            console.info('dd', dd);
-            /**/
             dispatch(setNewSelectedIngredients(dd));
-            /**/
         },
         [selectedIngredients, dispatch]
     );
@@ -80,7 +75,7 @@ export function BurgerConstructor({ onDrop }: Props) {
                     <div className={`${bcstyle.bcscroll}`} ref={dropRef}>
                         {all.length > 0 ? (
                             all.map((item: TIngredient, index: number) => (
-                                <DraggableElement key={item.id} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
+                                <DraggableElement key={`${item.id}_${index}`} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
                             ))
                         ) : (
                             <>

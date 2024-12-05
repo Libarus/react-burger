@@ -1,18 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { type TInternalIngredient } from '../../shared/types/tinternal-ingredient';
 import { type TInternalData } from '../../shared/types/tinternal-data';
 
 import DataAPI from '../../shared/api/data-api';
-import { TOrderRequest, TOrderResponse } from '../../shared/types/torder';
+import { type TOrderRequest, type TOrderResponse } from '../../shared/types/torder';
+import { type TIngredient } from '../../shared/types/tingredient';
+import { getIngredients } from '../../shared/utils';
 
 const dataAPI = new DataAPI();
 
 const initialState = {
-    ingredients: [] as TInternalIngredient[],
+    ingredients: [] as TIngredient[],
     ingredientStatus: 'idle',
 
-    selectedIngredients: [] as TInternalIngredient[],
+    selectedIngredients: [] as TIngredient[],
     selectedSumm: 0,
 
     currentTab: 'bun',
@@ -21,7 +22,7 @@ const initialState = {
     saveOrderStatus: 'idle',
 };
 
-export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectValue: string; fulfillWithValue: string }>(
+export const loadIngredients = createAsyncThunk<TIngredient[], void, { rejectValue: string; fulfillWithValue: string }>(
     'ingredient/fetchByAll',
     async (_, { rejectWithValue, fulfillWithValue }) => {
         let isOk = false;
@@ -36,7 +37,7 @@ export const loadIngredients = createAsyncThunk<TInternalData, void, { rejectVal
             (e: Error) => (error = e),
         );
 
-        if (isOk) return fulfillWithValue(data);
+        if (isOk) return fulfillWithValue(getIngredients(data.data));
         return rejectWithValue(error.message);
     },
 );
@@ -73,7 +74,7 @@ const ingredientSlice = createSlice({
             state.selectedIngredients[0] = action.payload;
         },
         addIngredient: (state, action) => {
-            const newIngredient = state.ingredients.find((item: TInternalIngredient) => item._id === action.payload) as TInternalIngredient;
+            const newIngredient = state.ingredients.find((item: TIngredient) => item.id === action.payload) as TIngredient;
             if (newIngredient.type === 'bun') {
                 state.selectedIngredients[0] = newIngredient;
                 return;
@@ -82,13 +83,10 @@ const ingredientSlice = createSlice({
         },
         killIngredient: (state, action) => {
             const { id, index } = action.payload;
-            console.info(id, index);
-            const elems = state.selectedIngredients.filter((item: TInternalIngredient, indx: number) => !(item._id === id && indx === index));
-            console.info(elems);
+            const elems = state.selectedIngredients.filter((item: TIngredient, indx: number) => !(item.id === id && indx === index));
             state.selectedIngredients = elems;
         },
         setNewSelectedIngredients: (state, action) => {
-            console.log('action.payload', action.payload);
             state.selectedIngredients = [...action.payload];
         },
         setSaveOrderStatus: (state, action) => {
@@ -100,7 +98,7 @@ const ingredientSlice = createSlice({
             state.ingredientStatus = 'pending';
         });
         builder.addCase(loadIngredients.fulfilled, (state, action) => {
-            state.ingredients = action.payload.data;
+            state.ingredients = action.payload;
             state.ingredientStatus = 'success';
         });
         builder.addCase(loadIngredients.rejected, (state, action) => {
@@ -124,5 +122,6 @@ const ingredientSlice = createSlice({
     },
 });
 
-export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus } = ingredientSlice.actions;
+export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus } =
+    ingredientSlice.actions;
 export default ingredientSlice.reducer;

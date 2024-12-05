@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 
 import { type TIngredient } from '../../../shared/types/tingredient';
@@ -29,14 +29,12 @@ export function DraggableElement({ item, index, klass, onMove, onKill }: Props) 
         },
         collect: (monitor: DragSourceMonitor) => ({
             isDragging: monitor.isDragging(),
-        }),
-
+        })
     });
 
     const [, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: 'boxm',
         hover(item: DragItem, monitor: DropTargetMonitor) {
-
             if (!ref.current) {
                 return;
             }
@@ -60,7 +58,7 @@ export function DraggableElement({ item, index, klass, onMove, onKill }: Props) 
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            
+
             onMove(dragIndex, hoverIndex);
 
             item.index = hoverIndex - 1;
@@ -75,7 +73,7 @@ export function DraggableElement({ item, index, klass, onMove, onKill }: Props) 
             <DragIcon type='primary' className='mr-2' />
             <ConstructorElement
                 isLocked={false}
-                text={`${item.name}+${index + 1}`}
+                text={`${item.name} + //${isDragging ? 'YES' : 'no'}//`}
                 price={item.price}
                 thumbnail={item.image}
                 handleClose={() => onKill(item.id, index + 1)}

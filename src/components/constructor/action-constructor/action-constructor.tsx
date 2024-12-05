@@ -12,7 +12,8 @@ import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
 import { saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
-import { TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
+
+import { type TIngredient } from '../../../shared/types/tingredient';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
@@ -36,8 +37,8 @@ export function ActionConstructor(){
     };
 
     const sendOrder = () => {
-        const bunId = selectedIngredients[0]._id;
-        const Ids = [...selectedIngredients.map((si: TInternalIngredient) => si._id), bunId];
+        const bunId = selectedIngredients[0].id;
+        const Ids = [...selectedIngredients.map((si: TIngredient) => si.id), bunId];
         dispatch(saveOrder({ ingredients: Ids }));
     };
 

@@ -24,7 +24,6 @@ function App() {
 
     const onDrop = (id: string) => {
         dispatch(addIngredient(id));
-        console.log('drop', id);
     };
 
     return (
