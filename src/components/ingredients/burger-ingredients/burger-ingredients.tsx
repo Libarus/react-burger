@@ -34,8 +34,6 @@ export function BurgerIngredients() {
         const minIndex = values.indexOf(min);
 
         dispatch(setCurrentTab(ingredientTabName[minIndex]));
-
-        console.info(ingredientTabName[minIndex], t, bunY, sauceY, mainY, Math.abs(t - bunY), Math.abs(t - sauceY), Math.abs(t - mainY));
     };
 
     useEffect(() => {

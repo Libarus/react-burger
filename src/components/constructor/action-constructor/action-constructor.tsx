@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -11,7 +11,8 @@ import astyle from './action-constructor.module.css';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
-import { saveOrder } from '../../../services/actions/ingredientSlice';
+import { saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
+import { TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
@@ -23,7 +24,7 @@ export function ActionConstructor(){
         state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) +
         state.ingredient.selectedIngredients[0].price);
 
-    const saveOrderStatus = useAppSelector(state => state.ingredient.saveOrderStatus);
+    const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector(state => state.ingredient);
     
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,14 +36,23 @@ export function ActionConstructor(){
     };
 
     const sendOrder = () => {
-        dispatch(saveOrder({ ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa093d'] }));
+        const bunId = selectedIngredients[0]._id;
+        const Ids = [...selectedIngredients.map((si: TInternalIngredient) => si._id), bunId];
+        dispatch(saveOrder({ ingredients: Ids }));
     };
+
+    useEffect(() => {
+        dispatch(setSaveOrderStatus('idle'));
+        if (saveOrderStatus === 'success' && saveOrderResponse.success) {
+            openModal();
+        }
+    }, [saveOrderStatus, saveOrderResponse]);
 
     return (
         <>
             {isModalOpen && (
                 <Modal onClose={closeModal}>
-                    <OrderDetails />
+                    <OrderDetails saveOrderResponse={saveOrderResponse} />
                 </Modal>
             )}
             <div className={`${astyle.ac} pt-10 pr-4`}>

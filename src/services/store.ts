@@ -15,7 +15,13 @@ const rootReducer = combineReducers({
 // Наш усилитель
 const loggerMiddleware = () => (next: any) => (action: any) => {
     // Выводим в консоль время события и его содержание
+    
+    /*
+    // Пример middleware для логирования
+    // Временно выключил, чтобы не лилось много лишнего в консоль.
     console.log(`${new Date().getTime()} | Action: ${JSON.stringify(action)}`);
+    */
+   
     // Передаём событие «по конвейеру» дальше
     return next(action);
 };

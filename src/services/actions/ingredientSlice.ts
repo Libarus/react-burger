@@ -17,6 +17,7 @@ const initialState = {
 
     currentTab: 'bun',
 
+    saveOrderResponse: {} as TOrderResponse,
     saveOrderStatus: 'idle',
 };
 
@@ -47,7 +48,8 @@ export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejec
         let data: TOrderResponse = {} as TOrderResponse;
         let error: Error = {} as Error;
 
-        await dataAPI.saveOrder(body,
+        await dataAPI.saveOrder(
+            body,
             (d: TOrderResponse) => {
                 data = d;
                 isOk = true;
@@ -89,36 +91,38 @@ const ingredientSlice = createSlice({
             console.log('action.payload', action.payload);
             state.selectedIngredients = [...action.payload];
         },
+        setSaveOrderStatus: (state, action) => {
+            state.saveOrderStatus = action.payload;
+        },
     },
     extraReducers: (builder) => {
-        builder.addCase(loadIngredients.pending, (state, action) => {
-            console.log(action);
+        builder.addCase(loadIngredients.pending, (state) => {
             state.ingredientStatus = 'pending';
         });
         builder.addCase(loadIngredients.fulfilled, (state, action) => {
-            console.log(action);
             state.ingredients = action.payload.data;
             state.ingredientStatus = 'success';
         });
         builder.addCase(loadIngredients.rejected, (state, action) => {
-            console.log(action);
+            // При ошибке информация выводится в консоль
+            console.error(action.payload);
             state.ingredientStatus = 'failed';
         });
 
-        builder.addCase(saveOrder.pending, (state, action) => {
-            console.log(action);
+        builder.addCase(saveOrder.pending, (state) => {
             state.saveOrderStatus = 'pending';
         });
         builder.addCase(saveOrder.fulfilled, (state, action) => {
-            console.log('success', action);
+            state.saveOrderResponse = action.payload;
             state.saveOrderStatus = 'success';
         });
         builder.addCase(saveOrder.rejected, (state, action) => {
-            console.log(action);
+            // При ошибке информация выводится в консоль
+            console.error(action.payload);
             state.saveOrderStatus = 'failed';
         });
     },
 });
 
-export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients } = ingredientSlice.actions;
+export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus } = ingredientSlice.actions;
 export default ingredientSlice.reducer;
