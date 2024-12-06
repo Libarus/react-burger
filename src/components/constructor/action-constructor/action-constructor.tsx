@@ -11,7 +11,7 @@ import astyle from './action-constructor.module.css';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
-import { saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
 
 import { type TIngredient } from '../../../shared/types/tingredient';
 
@@ -34,6 +34,7 @@ export function ActionConstructor(){
     };
     const closeModal = () => {
         setIsModalOpen(false);
+        dispatch(clearSelectedIngredients());
     };
 
     const sendOrder = () => {

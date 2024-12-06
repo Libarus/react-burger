@@ -9,10 +9,8 @@ import { ActionConstructor } from '../action-constructor/action-constructor';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { killIngredient, setNewSelectedIngredients } from '../../../services/actions/ingredientSlice';
 
-import { getIngredients } from '../../../shared/utils';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
-import { type TInternalIngredient } from '../../../shared/types/tinternal-ingredient';
 import { type TIngredient } from '../../../shared/types/tingredient';
 
 import bcstyle from './burger-constructor.module.css';
@@ -46,8 +44,8 @@ export function BurgerConstructor({ onDrop }: Props) {
         },
     });
 
-    const onKill = (id: string, index: number) => {
-        dispatch(killIngredient({ id, index }));
+    const onKill = (uuid: string) => {
+        dispatch(killIngredient(uuid));
     }
 
     const moveBox = useCallback(
@@ -75,7 +73,7 @@ export function BurgerConstructor({ onDrop }: Props) {
                     <div className={`${bcstyle.bcscroll}`} ref={dropRef}>
                         {all.length > 0 ? (
                             all.map((item: TIngredient, index: number) => (
-                                <DraggableElement key={`${item.id}_${index}`} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
+                                <DraggableElement key={item.uuid} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
                             ))
                         ) : (
                             <>
@@ -83,8 +81,9 @@ export function BurgerConstructor({ onDrop }: Props) {
                                     Выберите ингредиенты
                                     <br />
                                     для Вашего бургера 🍔.
-                                    <br />
-                                    Булку тоже можно заменить.
+                                </div>
+                                <div className='text text_type_main-default pt-10' style={{ textAlign: 'center' }}>
+                                    Булка - ингредиент по-умолчанию.<br/>Её можно только заменить
                                 </div>
                                 <div className='text text_type_main-small pt-10' style={{ textAlign: 'center' }}>
                                     Перетащите ингредиенты в конструктор

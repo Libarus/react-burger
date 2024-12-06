@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 
 import { type TIngredient } from '../../../shared/types/tingredient';
@@ -16,7 +16,7 @@ type Props = {
     index: number;
     klass: string;
     onMove: (dragIndex: number, hoverIndex: number) => void;
-    onKill: (id: string, index: number) => void;
+    onKill: (id: string) => void;
 };
 
 export function DraggableElement({ item, index, klass, onMove, onKill }: Props) {
@@ -73,10 +73,10 @@ export function DraggableElement({ item, index, klass, onMove, onKill }: Props) 
             <DragIcon type='primary' className='mr-2' />
             <ConstructorElement
                 isLocked={false}
-                text={`${item.name} + //${isDragging ? 'YES' : 'no'}//`}
+                text={`${item.name}`}
                 price={item.price}
                 thumbnail={item.image}
-                handleClose={() => onKill(item.id, index + 1)}
+                handleClose={() => onKill(item.uuid)}
             />
         </div>
     );

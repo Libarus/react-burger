@@ -1,4 +1,4 @@
-import type TIngredient from '../../../shared/types/tingredient';
+import { type TIngredient } from '../../../shared/types/tingredient';
 
 import idstyle from './ingredient-details.module.css';
 

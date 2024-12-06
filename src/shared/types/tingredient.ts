@@ -10,4 +10,5 @@ export type TIngredient = {
     proteins: number;
     fat: number;
     carbohydrates: number;
+    uuid: string;
 }

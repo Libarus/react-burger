@@ -71,19 +71,20 @@ const ingredientSlice = createSlice({
             state.currentTab = action.payload;
         },
         setBun: (state, action) => {
-            state.selectedIngredients[0] = action.payload;
+            state.selectedIngredients[0] = { ...action.payload, uuid: Date.now().toString() };
         },
         addIngredient: (state, action) => {
             const newIngredient = state.ingredients.find((item: TIngredient) => item.id === action.payload) as TIngredient;
             if (newIngredient.type === 'bun') {
                 state.selectedIngredients[0] = newIngredient;
-                return;
+            } else {
+                newIngredient.uuid = Date.now().toString();
+                state.selectedIngredients = [...state.selectedIngredients, newIngredient];
             }
-            state.selectedIngredients = [...state.selectedIngredients, newIngredient];
         },
         killIngredient: (state, action) => {
-            const { id, index } = action.payload;
-            const elems = state.selectedIngredients.filter((item: TIngredient, indx: number) => !(item.id === id && indx === index));
+            const uuid = action.payload;
+            const elems = state.selectedIngredients.filter((item: TIngredient) => !(item.uuid === uuid));
             state.selectedIngredients = elems;
         },
         setNewSelectedIngredients: (state, action) => {
@@ -91,6 +92,9 @@ const ingredientSlice = createSlice({
         },
         setSaveOrderStatus: (state, action) => {
             state.saveOrderStatus = action.payload;
+        },
+        clearSelectedIngredients: (state) => {
+            state.selectedIngredients = [state.selectedIngredients[0]];
         },
     },
     extraReducers: (builder) => {
@@ -122,6 +126,6 @@ const ingredientSlice = createSlice({
     },
 });
 
-export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus } =
+export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus, clearSelectedIngredients } =
     ingredientSlice.actions;
 export default ingredientSlice.reducer;
