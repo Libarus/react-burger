@@ -70,17 +70,29 @@ const ingredientSlice = createSlice({
         setCurrentTab: (state, action) => {
             state.currentTab = action.payload;
         },
-        setBun: (state, action) => {
-            state.selectedIngredients[0] = { ...action.payload, uuid: Date.now().toString() };
+        setBun: {
+            reducer: (state, action) => {
+                state.selectedIngredients[0] = action.payload;
+            },
+            // Отключил точечно данную проверку, так как lint выдает ошибку
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            prepare: (payload: any) => {
+                return { payload: { ...payload, uuid: Date.now().toString()} };
+            },
         },
-        addIngredient: (state, action) => {
-            const newIngredient = state.ingredients.find((item: TIngredient) => item.id === action.payload) as TIngredient;
-            if (newIngredient.type === 'bun') {
-                state.selectedIngredients[0] = newIngredient;
-            } else {
-                newIngredient.uuid = Date.now().toString();
-                state.selectedIngredients = [...state.selectedIngredients, newIngredient];
-            }
+        addIngredient: {
+            reducer: (state, action) => {
+                const newIngredient = state.ingredients.find((item: TIngredient) => item.id === action.payload.id) as TIngredient;
+                if (newIngredient.type === 'bun') {
+                    state.selectedIngredients[0] = newIngredient;
+                } else {
+                    newIngredient.uuid = action.payload.uuid;
+                    state.selectedIngredients = [...state.selectedIngredients, newIngredient];
+                }
+            },
+            // Отключил точечно данную проверку, так как lint выдает ошибку
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() }}),
         },
         killIngredient: (state, action) => {
             const uuid = action.payload;
