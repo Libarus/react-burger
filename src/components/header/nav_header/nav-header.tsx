@@ -22,4 +22,4 @@ export function NavHeader() {
             </div>
         </nav>
     );
-};
+}

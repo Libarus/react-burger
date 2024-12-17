@@ -1,21 +1,16 @@
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import update from 'immutability-helper';
+import { useCallback, useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { useCallback, useMemo } from 'react';
-
-import { ActionConstructor } from '../action-constructor/action-constructor';
-
-import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { killIngredient, setNewSelectedIngredients } from '../../../services/actions/ingredientSlice';
-
+import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { Spinner } from '../../../shared/components/spinner/spinner';
-
 import { type TIngredient } from '../../../shared/types/tingredient';
+import { ActionConstructor } from '../action-constructor/action-constructor';
+import { DraggableElement } from '../draggable-element/draggable-element';
 
 import bcstyle from './burger-constructor.module.css';
-import { DraggableElement } from '../draggable-element/draggable-element';
-import update from 'immutability-helper';
 
 type Props = {
     onDrop: (id: string) => void;
@@ -27,12 +22,9 @@ type Props = {
 export function BurgerConstructor({ onDrop }: Props) {
     const dispatch = useAppDispatch();
 
-    const { selectedIngredients, ingredientStatus } = useAppSelector((state) => state.ingredient);
+    const { selectedIngredients, ingredientStatus } = useAppSelector(state => state.ingredient);
 
-    const bun = useMemo(
-        () => selectedIngredients.filter((item: TIngredient) => item.type === 'bun')[0],
-        [selectedIngredients],
-    );
+    const bun = useMemo(() => selectedIngredients.filter((item: TIngredient) => item.type === 'bun')[0], [selectedIngredients]);
     const all = useMemo(() => selectedIngredients.filter((item: TIngredient) => item.type !== 'bun'), [selectedIngredients]);
 
     const [, dropRef] = useDrop({
@@ -46,7 +38,7 @@ export function BurgerConstructor({ onDrop }: Props) {
 
     const onKill = (uuid: string) => {
         dispatch(killIngredient(uuid));
-    }
+    };
 
     const moveBox = useCallback(
         (dragIndex: number, hoverIndex: number) => {
@@ -59,7 +51,7 @@ export function BurgerConstructor({ onDrop }: Props) {
             });
             dispatch(setNewSelectedIngredients(dd));
         },
-        [selectedIngredients, dispatch]
+        [selectedIngredients, dispatch],
     );
 
     const section = (
@@ -83,7 +75,9 @@ export function BurgerConstructor({ onDrop }: Props) {
                                     для Вашего бургера 🍔.
                                 </div>
                                 <div className='text text_type_main-default pt-10' style={{ textAlign: 'center' }}>
-                                    Булка - ингредиент по-умолчанию.<br/>Её можно только заменить
+                                    Булка - ингредиент по-умолчанию.
+                                    <br />
+                                    Её можно только заменить
                                 </div>
                                 <div className='text text_type_main-small pt-10' style={{ textAlign: 'center' }}>
                                     Перетащите ингредиенты в конструктор

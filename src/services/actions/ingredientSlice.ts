@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { type TInternalData } from '../../shared/types/tinternal-data';
-
 import DataAPI from '../../shared/api/data-api';
-import { type TOrderRequest, type TOrderResponse } from '../../shared/types/torder';
 import { type TIngredient } from '../../shared/types/tingredient';
+import { type TInternalData } from '../../shared/types/tinternal-data';
+import { type TOrderRequest, type TOrderResponse } from '../../shared/types/torder';
 import { getIngredients } from '../../shared/utils';
 
 const dataAPI = new DataAPI();
@@ -77,7 +76,7 @@ const ingredientSlice = createSlice({
             // Отключил точечно данную проверку, так как lint выдает ошибку
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             prepare: (payload: any) => {
-                return { payload: { ...payload, uuid: Date.now().toString()} };
+                return { payload: { ...payload, uuid: Date.now().toString() } };
             },
         },
         addIngredient: {
@@ -92,7 +91,7 @@ const ingredientSlice = createSlice({
             },
             // Отключил точечно данную проверку, так как lint выдает ошибку
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() }}),
+            prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
         },
         killIngredient: (state, action) => {
             const uuid = action.payload;
@@ -105,12 +104,12 @@ const ingredientSlice = createSlice({
         setSaveOrderStatus: (state, action) => {
             state.saveOrderStatus = action.payload;
         },
-        clearSelectedIngredients: (state) => {
+        clearSelectedIngredients: state => {
             state.selectedIngredients = [state.selectedIngredients[0]];
         },
     },
-    extraReducers: (builder) => {
-        builder.addCase(loadIngredients.pending, (state) => {
+    extraReducers: builder => {
+        builder.addCase(loadIngredients.pending, state => {
             state.ingredientStatus = 'pending';
         });
         builder.addCase(loadIngredients.fulfilled, (state, action) => {
@@ -123,7 +122,7 @@ const ingredientSlice = createSlice({
             state.ingredientStatus = 'failed';
         });
 
-        builder.addCase(saveOrder.pending, (state) => {
+        builder.addCase(saveOrder.pending, state => {
             state.saveOrderStatus = 'pending';
         });
         builder.addCase(saveOrder.fulfilled, (state, action) => {

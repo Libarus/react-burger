@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
+// import { DndProvider } from 'react-dnd';
+// import { HTML5Backend } from 'react-dnd-html5-backend';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
-
-import { AppHeader } from '../header/app-header/app-header';
-import { BurgerConstructor } from '../constructor/burger-constructor/burger-constructor';
-import { BurgerIngredients } from '../ingredients/burger-ingredients/burger-ingredients';
-
-import { addIngredient, loadIngredients } from '../../services/actions/ingredientSlice';
+import { loadIngredients } from '../../services/actions/ingredientSlice';
 import { useAppDispatch } from '../../services/store';
+import { routeConfig } from '../../shared/routes';
+
+// import { BurgerConstructor } from '../constructor/burger-constructor/burger-constructor';
+// import { AppHeader } from '../header/app-header/app-header';
+// import { BurgerIngredients } from '../ingredients/burger-ingredients/burger-ingredients';
 
 import './App.css';
+
+const router = createBrowserRouter(routeConfig);
 
 /**
  * Компонент App - корневой компонент приложения.
@@ -22,10 +25,13 @@ function App() {
         dispatch(loadIngredients());
     }, [dispatch]);
 
-    const onDrop = (id: string) => {
-        dispatch(addIngredient(id));
-    };
+    // const onDrop = (id: string) => {
+    //     dispatch(addIngredient(id));
+    // };
 
+    return <RouterProvider router={router} />;
+
+    /*
     return (
         <main>
             <AppHeader />
@@ -37,6 +43,7 @@ function App() {
             </div>
         </main>
     );
+    */
 }
 
 export default App;

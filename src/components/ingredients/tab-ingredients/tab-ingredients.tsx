@@ -1,8 +1,9 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import tistyle from './tab-ingredients.module.css';
-import { useAppDispatch } from '../../../services/store';
 import { setCurrentTab } from '../../../services/actions/ingredientSlice';
+import { useAppDispatch } from '../../../services/store';
+
+import tistyle from './tab-ingredients.module.css';
 
 interface Props {
     current: string;
@@ -12,7 +13,6 @@ interface Props {
  * Компонент TabIngredients - отображает вкладки для выбора типа ингредиентов.
  */
 export function TabIngredients({ current }: Props) {
-
     const dispatch = useAppDispatch();
 
     const setCurrent = (value: string) => {
@@ -33,4 +33,4 @@ export function TabIngredients({ current }: Props) {
             </Tab>
         </div>
     );
-};
+}

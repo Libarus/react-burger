@@ -16,4 +16,4 @@ export function UserHeader() {
             </div>
         </div>
     );
-};
+}

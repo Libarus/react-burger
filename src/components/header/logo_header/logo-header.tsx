@@ -11,5 +11,4 @@ export function LogoHeader() {
             <Logo />
         </div>
     );
-};
-
+}

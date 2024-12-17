@@ -1,22 +1,19 @@
-import { useState } from 'react';
-
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState } from 'react';
+import { useDrag } from 'react-dnd';
 
 import { Modal } from '../../../shared/components/modal/modal/modal';
-
+import { type TIngredient } from '../../../shared/types/tingredient';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
-import { type TIngredient } from '../../../shared/types/tingredient';
-
 import iistyle from './item-ingredients.module.css';
-import { useDrag } from 'react-dnd';
 
 interface Props {
     ingredient: TIngredient;
-    badge: number
+    badge: number;
 }
 
-export function ItemIngredients({ ingredient, badge } : Props) {
+export function ItemIngredients({ ingredient, badge }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -29,7 +26,7 @@ export function ItemIngredients({ ingredient, badge } : Props) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'ingredient',
         item: { id: ingredient.id },
-        collect: (monitor) => ({
+        collect: monitor => ({
             isDragging: monitor.isDragging(),
         }),
     }));
@@ -45,7 +42,7 @@ export function ItemIngredients({ ingredient, badge } : Props) {
             )}
             <div className={`pl-4 pr-4 pt-6 pb-2 ${iistyle.ingrItem}`}>
                 <div className={iistyle.ingrAbout} onClick={openModal}>
-                    <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`} style={{opacity}} ref={drag}>
+                    <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`} style={{ opacity }} ref={drag}>
                         {badge > 0 && <Counter count={badge} size='default' extraClass='m-1' />}
                         <div>
                             <img src={ingredient.image} alt={ingredient.name} className={iistyle.ingrImage} />
@@ -62,4 +59,4 @@ export function ItemIngredients({ ingredient, badge } : Props) {
             </div>
         </>
     );
-};
+}

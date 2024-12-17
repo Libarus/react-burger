@@ -1,4 +1,3 @@
-
 import spinnerCss from './spinner.module.css';
 
 export function Spinner() {

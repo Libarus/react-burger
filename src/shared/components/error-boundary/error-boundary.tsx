@@ -12,7 +12,6 @@ interface ErrorBoundaryState {
  * Компонент ErrorBoundary - граница ошибок для отлова ошибок рендера
  */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = { error: null };
