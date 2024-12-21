@@ -3,7 +3,7 @@ import { type Identifier, XYCoord } from 'dnd-core';
 import { useRef } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 
-import { type TIngredient } from '../../../shared/types/tingredient';
+import { type TIngredient } from '@shared/types/tingredient';
 
 interface DragItem {
     item: TIngredient;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type TIngredient } from '../../../shared/types/tingredient';
+import { type TIngredient } from '@shared/types/tingredient';
 import { ItemIngredients } from '../item-ingredients/item-ingredients';
 
 import blistyle from './block-ingredients.module.css';

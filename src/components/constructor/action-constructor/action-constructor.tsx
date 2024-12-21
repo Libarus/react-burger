@@ -1,11 +1,11 @@
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@services/actions/ingredientSlice';
+import { useAppDispatch, useAppSelector } from '@services/store';
+import { Modal } from '@shared/components/modal/modal/modal';
+import { Spinner } from '@shared/components/spinner/spinner';
+import { type TIngredient } from '@shared/types/tingredient';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 
-import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '../../../services/store';
-import { Modal } from '../../../shared/components/modal/modal/modal';
-import { Spinner } from '../../../shared/components/spinner/spinner';
-import { type TIngredient } from '../../../shared/types/tingredient';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';

@@ -3,11 +3,13 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
+import authReducer from './actions/authSlice';
 import ingredientReducer from './actions/ingredientSlice';
 
 // клмбинируем рудьюсеры
 const rootReducer = combineReducers({
     ingredient: ingredientReducer,
+    auth: authReducer,
 });
 
 // Наш усилитель

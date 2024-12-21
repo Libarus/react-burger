@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import DataAPI from '../../shared/api/data-api';
-import { type TIngredient } from '../../shared/types/tingredient';
-import { type TInternalData } from '../../shared/types/tinternal-data';
-import { type TOrderRequest, type TOrderResponse } from '../../shared/types/torder';
-import { getIngredients } from '../../shared/utils';
+import DataAPI from '@shared/api/data-api';
+import { type TIngredient } from '@shared/types/tingredient';
+import { type TInternalData } from '@shared/types/tinternal-data';
+import { type TOrderRequest, type TOrderResponse } from '@shared/types/torder';
+import { getIngredients } from '@shared/utils';
 
 const dataAPI = new DataAPI();
 
@@ -75,6 +75,7 @@ const ingredientSlice = createSlice({
             },
             // Отключил точечно данную проверку, так как lint выдает ошибку
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // @ts-ignore
             prepare: (payload: any) => {
                 return { payload: { ...payload, uuid: Date.now().toString() } };
             },
@@ -91,6 +92,7 @@ const ingredientSlice = createSlice({
             },
             // Отключил точечно данную проверку, так как lint выдает ошибку
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // @ts-ignore
             prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
         },
         killIngredient: (state, action) => {
@@ -109,31 +111,35 @@ const ingredientSlice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(loadIngredients.pending, state => {
-            state.ingredientStatus = 'pending';
-        });
-        builder.addCase(loadIngredients.fulfilled, (state, action) => {
-            state.ingredients = action.payload;
-            state.ingredientStatus = 'success';
-        });
-        builder.addCase(loadIngredients.rejected, (state, action) => {
-            // При ошибке информация выводится в консоль
-            console.error(action.payload);
-            state.ingredientStatus = 'failed';
-        });
+        // Загрузка ингредиентов
+        builder
+            .addCase(loadIngredients.pending, state => {
+                state.ingredientStatus = 'pending';
+            })
+            .addCase(loadIngredients.fulfilled, (state, action) => {
+                state.ingredients = action.payload;
+                state.ingredientStatus = 'success';
+            })
+            .addCase(loadIngredients.rejected, (state, action) => {
+                // При ошибке информация выводится в консоль
+                console.error(action.payload);
+                state.ingredientStatus = 'failed';
+            });
 
-        builder.addCase(saveOrder.pending, state => {
-            state.saveOrderStatus = 'pending';
-        });
-        builder.addCase(saveOrder.fulfilled, (state, action) => {
-            state.saveOrderResponse = action.payload;
-            state.saveOrderStatus = 'success';
-        });
-        builder.addCase(saveOrder.rejected, (state, action) => {
-            // При ошибке информация выводится в консоль
-            console.error(action.payload);
-            state.saveOrderStatus = 'failed';
-        });
+        // Сохранение заказа
+        builder
+            .addCase(saveOrder.pending, state => {
+                state.saveOrderStatus = 'pending';
+            })
+            .addCase(saveOrder.fulfilled, (state, action) => {
+                state.saveOrderResponse = action.payload;
+                state.saveOrderStatus = 'success';
+            })
+            .addCase(saveOrder.rejected, (state, action) => {
+                // При ошибке информация выводится в консоль
+                console.error(action.payload);
+                state.saveOrderStatus = 'failed';
+            });
     },
 });
 

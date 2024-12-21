@@ -3,10 +3,10 @@ import update from 'immutability-helper';
 import { useCallback, useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { killIngredient, setNewSelectedIngredients } from '../../../services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '../../../services/store';
-import { Spinner } from '../../../shared/components/spinner/spinner';
-import { type TIngredient } from '../../../shared/types/tingredient';
+import { killIngredient, setNewSelectedIngredients } from '@services/actions/ingredientSlice';
+import { useAppDispatch, useAppSelector } from '@services/store';
+import { Spinner } from '@shared/components/spinner/spinner';
+import { type TIngredient } from '@shared/types/tingredient';
 import { ActionConstructor } from '../action-constructor/action-constructor';
 import { DraggableElement } from '../draggable-element/draggable-element';
 

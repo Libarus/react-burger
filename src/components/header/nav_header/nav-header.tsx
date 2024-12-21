@@ -1,4 +1,5 @@
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink } from 'react-router-dom';
 
 import nhstyle from './nav-header.module.css';
 
@@ -9,16 +10,22 @@ export function NavHeader() {
     return (
         <nav className={nhstyle.nav}>
             <div>
-                <a href='/constructor'>
+                <NavLink
+                    end
+                    to='/'
+                    className={({ isActive }) => (isActive ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive')}>
                     <BurgerIcon type='primary' />
-                    <span className='text text_type_main-default'>Конструктор</span>
-                </a>
+                    Конструктор
+                </NavLink>
             </div>
             <div>
-                <a href='/feed'>
+                <NavLink
+                    end
+                    to='/feed'
+                    className={({ isActive }) => (isActive ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive')}>
                     <ListIcon type='secondary' />
-                    <span className='text text_type_main-default text_color_inactive'>Лента&nbsp;заказов</span>
-                </a>
+                    Лента&nbsp;заказов
+                </NavLink>
             </div>
         </nav>
     );

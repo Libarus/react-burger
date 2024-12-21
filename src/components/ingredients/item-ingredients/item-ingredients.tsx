@@ -1,9 +1,11 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
+import { useMatch, useNavigate, useParams } from 'react-router-dom';
 
-import { Modal } from '../../../shared/components/modal/modal/modal';
-import { type TIngredient } from '../../../shared/types/tingredient';
+import { Modal } from '@shared/components/modal/modal/modal';
+import { ROUTES } from '@shared/routes';
+import { type TIngredient } from '@shared/types/tingredient';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
 import iistyle from './item-ingredients.module.css';
@@ -14,12 +16,17 @@ interface Props {
 }
 
 export function ItemIngredients({ ingredient, badge }: Props) {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const match = useMatch(ROUTES.INGREDIENTS);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
+        navigate('/ingredients/' + ingredient.id);
         setIsModalOpen(true);
     };
     const closeModal = () => {
+        navigate(ROUTES.ROOT);
         setIsModalOpen(false);
     };
 
@@ -32,6 +39,16 @@ export function ItemIngredients({ ingredient, badge }: Props) {
     }));
 
     const opacity = isDragging ? 0.2 : 1;
+
+    useEffect(() => {
+        if (!isModalOpen && id == ingredient.id) {
+            setIsModalOpen(true);
+        }
+
+        if (match == null) {
+            setIsModalOpen(false);
+        }
+    }, [ingredient, isModalOpen, id, match]);
 
     return (
         <>

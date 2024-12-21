@@ -5,12 +5,13 @@ import { FpCodeForm } from './fp-code-form';
 import { FpEmailForm } from './fp-email-form';
 import { ForgotData } from './fp-type';
 
-export function ForgotPassword() {
+export function ForgotPasswordPage() {
     const [step, setStep] = useState(0);
 
     const [forgotData, setForgotData] = useState<ForgotData>({ email: '', password: '', code: '' });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
+        setStep(0);
         setForgotData(state => {
             return { ...state, [name]: e.target.value };
         });
@@ -19,7 +20,7 @@ export function ForgotPassword() {
     return (
         <>
             <div className='text text_type_main-medium'>Восстановление пароля</div>
-            
+
             {step === 0 ? <FpEmailForm onChange={onChange} forgotData={forgotData} /> : <FpCodeForm onChange={onChange} forgotData={forgotData} />}
 
             <div className='pt-20 text text_type_main-small'>
