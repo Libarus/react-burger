@@ -13,17 +13,17 @@ export function ProfileLayout() {
                                 end
                                 to='/profile'
                                 className={({ isActive }) =>
-                                    isActive ? 'text text_type_main-small' : 'text text_type_main-small text_color_inactive'
+                                    isActive ? 'text text_type_main-medium' : 'text text_type_main-medium text_color_inactive'
                                 }>
-                                Персональные данные
+                                Профиль
                             </NavLink>
                         </li>
                         <li className='pt-8 pb-8'>
                             <NavLink
-                                end
+                                
                                 to='/profile/orders'
                                 className={({ isActive }) =>
-                                    isActive ? 'text text_type_main-small' : 'text text_type_main-small text_color_inactive'
+                                    isActive ? 'text text_type_main-medium' : 'text text_type_main-medium text_color_inactive'
                                 }>
                                 История заказов
                             </NavLink>
@@ -32,7 +32,7 @@ export function ProfileLayout() {
                             <NavLink
                                 to='/logout'
                                 className={({ isActive }) =>
-                                    isActive ? 'text text_type_main-small' : 'text text_type_main-small text_color_inactive'
+                                    isActive ? 'text text_type_main-medium' : 'text text_type_main-medium text_color_inactive'
                                 }>
                                 Выход
                             </NavLink>

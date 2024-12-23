@@ -23,11 +23,11 @@ export default class BaseAPI {
     }
 
     private setCredentials = () => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
             this.headers = {
                 ...this.headers,
-                Authorization: `${token}`,
+                Authorization: `${accessToken}`,
             };
         }
     };

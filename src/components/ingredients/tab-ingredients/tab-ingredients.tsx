@@ -1,7 +1,6 @@
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import { setCurrentTab } from '@services/actions/ingredientSlice';
 import { useAppDispatch } from '@services/store';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import tistyle from './tab-ingredients.module.css';
 

@@ -1,27 +1,65 @@
+import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { FpCodeForm } from './fp-code-form';
-import { FpEmailForm } from './fp-email-form';
-import { ForgotData } from './fp-type';
+import { Spinner } from '@/shared/components/spinner/spinner';
+
+import { forgotThunk } from '@/services/actions/authSlice';
+import { useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ForgotPasswordPage() {
-    const [step, setStep] = useState(0);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-    const [forgotData, setForgotData] = useState<ForgotData>({ email: '', password: '', code: '' });
+    const { status } = useAppSelector(state => state.auth);
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
-        setStep(0);
-        setForgotData(state => {
-            return { ...state, [name]: e.target.value };
-        });
+    const [email, setEmail] = useState('aazab@ya.ru');
+    const [errEmailMsg, setErrEmailMsg] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        setErrEmailMsg('');
+        e.preventDefault();
+
+        if (!email) {
+            setErrEmailMsg('Введите email');
+            return;
+        }
+
+        try {
+            await dispatch(forgotThunk({ email })).unwrap();
+            navigate('/reset-password', { replace: true });
+        } catch (err) {
+            console.error('Ошибка восстановления пароля:', err);
+        }
     };
 
     return (
         <>
             <div className='text text_type_main-medium'>Восстановление пароля</div>
+            <form onSubmit={handleSubmit}>
+                <div className='pt-6'>
+                    <EmailInput
+                        onChange={e => setEmail(e.target.value)}
+                        value={email}
+                        name={'email'}
+                        placeholder='E-mail'
+                        isIcon={false}
+                        // @ts-ignore
+                        error={!!errEmailMsg}
+                        errorText={errEmailMsg}
+                    />
+                </div>
 
-            {step === 0 ? <FpEmailForm onChange={onChange} forgotData={forgotData} /> : <FpCodeForm onChange={onChange} forgotData={forgotData} />}
+                <div className='pt-6'>
+                    {status === 'pending' ? (
+                        <Spinner />
+                    ) : (
+                        <Button htmlType='submit' type='primary' size='medium'>
+                            Восстановить
+                        </Button>
+                    )}
+                </div>
+            </form>
 
             <div className='pt-20 text text_type_main-small'>
                 Вспомнили пароль?

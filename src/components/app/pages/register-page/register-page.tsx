@@ -21,7 +21,7 @@ export function RegisterPage() {
     const name = `u${Math.round(Math.random() * 1000)}`;
     const [regData, setRegData] = useState<TRegisterRequest>({ name, email: `${name}@mail.ru`, password: name + name });
 
-    const { accessToken, registerStatus } = useAppSelector(store => store.auth);
+    const { accessToken, status } = useAppSelector(store => store.auth);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
         setRegData(state => {
@@ -90,7 +90,7 @@ export function RegisterPage() {
                         placeholder='E-mail'
                         isIcon={false}
                         // @ts-ignore
-                        error={errItemsMsgs.email !== ''}
+                        error={!!errItemsMsgs.email}
                         errorText={errItemsMsgs.email}
                     />
                 </div>
@@ -102,14 +102,14 @@ export function RegisterPage() {
                         name={'password'}
                         extraClass='mb-2'
                         // @ts-ignore
-                        error={errItemsMsgs.password !== ''}
+                        error={!!errItemsMsgs.password}
                         errorText={errItemsMsgs.password}
                         placeholder='Пароль'
                     />
                 </div>
 
                 <div className='pt-6'>
-                    {registerStatus === 'pending' ? (
+                    {status === 'pending' ? (
                         <Spinner />
                     ) : (
                         <Button htmlType='submit' type='primary' size='medium'>

@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-
 import { logout, validateTokenThunk } from '@services/actions/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
     element: JSX.Element;

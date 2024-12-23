@@ -1,11 +1,11 @@
+import { Modal } from '@shared/components/modal/modal/modal';
+import { ROUTES } from '@shared/routes';
+import { type TIngredient } from '@shared/types/tingredient';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { useMatch, useNavigate, useParams } from 'react-router-dom';
 
-import { Modal } from '@shared/components/modal/modal/modal';
-import { ROUTES } from '@shared/routes';
-import { type TIngredient } from '@shared/types/tingredient';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
 import iistyle from './item-ingredients.module.css';

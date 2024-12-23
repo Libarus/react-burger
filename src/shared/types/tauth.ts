@@ -37,3 +37,27 @@ export type TAuthRefreshResponse = {
     accessToken: string;
     refreshToken: string;
 };
+
+export type TUserResponse = {
+    success: boolean;
+    user: TUser;
+};
+
+export type TForgotRequest = {
+    email: string;
+}
+
+export type TForgotResponse = {
+    success: boolean;
+    message: string;
+}
+
+export type TResetRequest = {
+    password: string;
+    token: string;
+}
+
+export type TResetResponse = {
+    success: boolean;
+    message: string;
+}

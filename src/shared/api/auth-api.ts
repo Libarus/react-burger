@@ -1,5 +1,16 @@
-import { TAuthRefreshRequest, TAuthRefreshResponse, TLoginRequest, TLoginResponse, TRegisterRequest, TRegisterResponse } from '../types/tauth';
-import { type TErrorFn } from '../types/terror';
+import {
+    TForgotRequest,
+    type TAuthRefreshRequest,
+    type TAuthRefreshResponse,
+    type TLoginRequest,
+    type TLoginResponse,
+    type TRegisterRequest,
+    type TRegisterResponse,
+    type TUserResponse,
+    TForgotResponse,
+    TResetRequest,
+    TResetResponse,
+} from '../types/tauth';
 
 import BaseAPI from './base-api';
 import { getResponseOrThrow } from './getResponseOrThrow/getResponseOrThrow';
@@ -24,6 +35,33 @@ export default class AuthAPI extends BaseAPI {
             });
     }
 
+    passwordForgot(body: TForgotRequest): Promise<TForgotResponse> {
+        return this.post<TForgotRequest>('/password-reset', body, 'same-origin')
+            .then(async response => await (await getResponseOrThrow(response)).json())
+            .then(data => data)
+            .catch((error: any) => {
+                throw new Error(error.message);
+            });
+    }
+
+    passwordReset(body: TResetRequest): Promise<TResetResponse> {
+        return this.post<TResetRequest>('/password-reset/reset', body, 'same-origin')
+            .then(async response => await (await getResponseOrThrow(response)).json())
+            .then(data => data)
+            .catch((error: any) => {
+                throw new Error(error.message);
+            });
+    }
+
+    getUser(): Promise<TUserResponse> {
+        return this.get('/auth/user')
+            .then(async response => await (await getResponseOrThrow(response)).json())
+            .then(data => data)
+            .catch((error: any) => {
+                throw new Error(error.message);
+            });
+    }
+
     refreshToken2(): Promise<TAuthRefreshResponse> {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken == null) {
@@ -37,13 +75,6 @@ export default class AuthAPI extends BaseAPI {
                 console.error('e', error);
                 throw new Error(error.message);
             });
-    }
-
-    getUser(cb: (p: TRegisterResponse) => void, errorCb: TErrorFn): Promise<unknown> {
-        return this.get('/auth/user')
-            .then(async response => await (await getResponseOrThrow(response)).json())
-            .then(cb)
-            .catch(errorCb);
     }
 
     isTokenExpired(token: string): boolean {

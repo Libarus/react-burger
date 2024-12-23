@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import DataAPI from '@shared/api/data-api';
 import { type TIngredient } from '@shared/types/tingredient';
 import { type TInternalData } from '@shared/types/tinternal-data';

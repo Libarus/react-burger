@@ -1,3 +1,4 @@
+import { Spinner } from '@/shared/components/spinner/spinner';
 import { loginThunk } from '@services/actions/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { TLoginRequest } from '@shared/types/tauth';
@@ -9,12 +10,12 @@ export function LoginPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { accessToken } = useAppSelector((state: RootState) => state.auth);
+    const { accessToken, status } = useAppSelector((state: RootState) => state.auth);
 
     const [errEmailMsg, setErrEmailMsg] = useState('');
     const [errPasswordMsg, setErrPasswordMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [loginData, setLoginData] = useState<TLoginRequest>({ email: 'u963@exmlp.com', password: 'u963u963' }); //({ email: 'u963@exmlp.com', password: 'u963u963' });
+    const [loginData, setLoginData] = useState<TLoginRequest>({ email: 'aazab@ya.ru', password: '1234321' }); //({ email: 'u963@exmlp.com', password: 'u963u963' });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
         setLoginData(state => {
@@ -78,9 +79,13 @@ export function LoginPage() {
                 {errMsg && <div className='pt-4 text text_type_main-default text_color_error'>{errMsg}</div>}
 
                 <div className='pt-6'>
-                    <Button htmlType='submit' type='primary' size='medium'>
-                        Войти
-                    </Button>
+                    {status === 'pending' ? (
+                        <Spinner />
+                    ) : (
+                        <Button htmlType='submit' type='primary' size='medium'>
+                            Войти
+                        </Button>
+                    )}
                 </div>
 
                 <div className='pt-20 text text_type_main-small'>

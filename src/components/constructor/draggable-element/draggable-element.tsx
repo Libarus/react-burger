@@ -1,9 +1,8 @@
+import { type TIngredient } from '@shared/types/tingredient';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { type Identifier, XYCoord } from 'dnd-core';
 import { useRef } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
-
-import { type TIngredient } from '@shared/types/tingredient';
 
 interface DragItem {
     item: TIngredient;

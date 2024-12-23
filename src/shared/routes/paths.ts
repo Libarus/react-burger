@@ -8,5 +8,6 @@ export const ROUTES = {
     INGREDIENTS: '/ingredients/:id',
     PROFILE: '/profile',
     ORDERS: '/profile/orders',
+    ORDER: '/profile/orders/:id',
     FEED: '/feed',
 } as const;

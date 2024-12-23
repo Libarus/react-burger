@@ -1,5 +1,6 @@
-import done from '../../../assets/images/done.png';
 import { type TOrderResponse } from '@shared/types/torder';
+
+import done from '../../../assets/images/done.png';
 
 import odstyle from './order-details.module.css';
 

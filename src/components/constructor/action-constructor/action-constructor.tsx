@@ -9,17 +9,20 @@ import { useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
 export function ActionConstructor() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const selectedSumm = useAppSelector(
         state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) + state.ingredient.selectedIngredients[0].price,
     );
 
+    const { accessToken } = useAppSelector(state => state.auth);
     const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector(state => state.ingredient);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,10 +32,18 @@ export function ActionConstructor() {
     };
     const closeModal = () => {
         setIsModalOpen(false);
+        // TODO разобраться
+        // @ts-ignore - непонятно почему ругется на отсутствие параметров, требуется 1 параметр, но у меня нет входных параметров
         dispatch(clearSelectedIngredients());
     };
 
     const sendOrder = () => {
+
+        if (!accessToken) {
+            navigate('/login', { replace: true });
+            return;
+        } 
+
         const bunId = selectedIngredients[0].id;
         const Ids = [...selectedIngredients.map((si: TIngredient) => si.id), bunId];
         dispatch(saveOrder({ ingredients: Ids }));
