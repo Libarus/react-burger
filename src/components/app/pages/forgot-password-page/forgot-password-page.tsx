@@ -44,7 +44,7 @@ export function ForgotPasswordPage() {
                         name={'email'}
                         placeholder='E-mail'
                         isIcon={false}
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errEmailMsg}
                         errorText={errEmailMsg}
                     />

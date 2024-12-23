@@ -14,6 +14,8 @@ import {
     type TUserResponse,
 } from '@shared/types/tauth';
 
+import { TError } from '@/shared/types/terror';
+
 const authAPI = new AuthAPI();
 
 const initialState: {
@@ -33,63 +35,63 @@ const initialState: {
 export const registerThunk = createAsyncThunk<TRegisterResponse, TRegisterRequest>('auth/register', async (body: TRegisterRequest) => {
     try {
         return await authAPI.register(body);
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
 export const patchThunk = createAsyncThunk<TRegisterResponse, TRegisterRequest>('auth/patch', async (body: TRegisterRequest) => {
     try {
         return await authAPI.update(body);
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
 export const loginThunk = createAsyncThunk<TLoginResponse, TLoginRequest>('auth/login', async (body: TLoginRequest) => {
     try {
         return await authAPI.login(body);
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
 export const forgotThunk = createAsyncThunk<TForgotResponse, TForgotRequest>('auth/forgot', async (body: TForgotRequest) => {
     try {
         return await authAPI.passwordForgot(body);
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
 export const resetThunk = createAsyncThunk<TResetResponse, TResetRequest>('auth/reset', async (body: TResetRequest) => {
     try {
         return await authAPI.passwordReset(body);
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
 export const getUserThunk = createAsyncThunk<TUserResponse, void>('auth/getUser', async () => {
     try {
         return await authAPI.getUser();
-    } catch (e: any) {
-        console.error('register error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 
-export const validateTokenThunk = createAsyncThunk<TAuthRefreshResponse | null, void>('auth/validateToken', async (_: any) => {
+export const validateTokenThunk = createAsyncThunk<TAuthRefreshResponse | null, void>('auth/validateToken', async () => {
     try {
         return await authAPI.validateToken();
-    } catch (e: any) {
-        console.error('validateToken error', e.message);
-        throw new Error(e.message);
+    } catch (e: unknown) {
+        const err = e as TError;
+        throw new Error(err.message);
     }
 });
 

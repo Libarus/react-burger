@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
 import { TResetRequest } from '@/shared/types/tauth';
+import { TError } from '@/shared/types/terror';
 
 import { resetThunk } from '@/services/actions/authSlice';
 import { useAppDispatch, useAppSelector } from '@/services/store';
@@ -52,7 +53,8 @@ export function ResetPasswordPage() {
             setErrItemsMsgs({ password: '', token: '' });
             setResetData({ password: '', token: '' });
             setOkMsg('Пароль успешно изменен, можете войти в свою учётную запись используя новый пароль.');
-        } catch (err: any) {
+        } catch (e: unknown) {
+            const err = e as TError;
             setErrMsg(err.message);
             console.error('Ошибка восстановления пароля:', err);
         }
@@ -76,7 +78,7 @@ export function ResetPasswordPage() {
                         name={'password'}
                         placeholder='Введите новый пароль'
                         extraClass='mb-2'
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errItemsMsgs.password}
                         errorText={errItemsMsgs.password}
                     />
@@ -84,8 +86,7 @@ export function ResetPasswordPage() {
 
                 <div className='pt-6'>
                     {
-                        // @ts-ignore - почему-то выдается ошибка на эту строку, требует свойства
-                        // добавляю свойста, ошибки в консоли, пришлось придумать такое
+                        // @ts-expect-error: - почему-то выдается ошибка
                         <Input
                             onChange={e => onChange(e, 'token')}
                             value={resetData.token}

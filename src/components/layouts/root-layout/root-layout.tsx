@@ -5,6 +5,7 @@ import { Outlet } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
+import { TError } from '@/shared/types/terror';
 
 import { AppHeader } from '../../header/app-header/app-header';
 
@@ -25,9 +26,10 @@ export function RootLayout() {
                 if (accessToken) {
                     await dispatch(getUserThunk()).unwrap();
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
+                const err = e as TError;
                 dispatch(logout());
-                console.error('No update user data', e.message);
+                console.error('No update user data', err.message);
                 navigate('/login', { replace: true });
             } finally {
                 setIsValidating(false);
@@ -35,11 +37,11 @@ export function RootLayout() {
         };
 
         validateAuth();
-    }, [accessToken, dispatch]);
+    }, [accessToken, dispatch, navigate]);
 
     useEffect(() => {
         dispatch(loadIngredients());
-    }, [loadIngredients, dispatch]);
+    }, [dispatch]);
 
     if (isValidating) {
         return <Spinner />;

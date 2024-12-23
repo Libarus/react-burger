@@ -72,10 +72,8 @@ const ingredientSlice = createSlice({
             reducer: (state, action) => {
                 state.selectedIngredients[0] = action.payload;
             },
-            // Отключил точечно данную проверку, так как lint выдает ошибку
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            // @ts-ignore
-            prepare: (payload: any) => {
+            // @ts-expect-error: Отключил точечно данную проверку, так как lint выдает ошибку
+            prepare: (payload: TIngredient) => {
                 return { payload: { ...payload, uuid: Date.now().toString() } };
             },
         },
@@ -89,10 +87,8 @@ const ingredientSlice = createSlice({
                     state.selectedIngredients = [...state.selectedIngredients, newIngredient];
                 }
             },
-            // Отключил точечно данную проверку, так как lint выдает ошибку
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            // @ts-ignore
-            prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
+            // @ts-expect-error:  Отключил точечно данную проверку, так как lint выдает ошибку
+            prepare: (payload: TIngredient) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
         },
         killIngredient: (state, action) => {
             const uuid = action.payload;

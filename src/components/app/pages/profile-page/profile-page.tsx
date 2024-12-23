@@ -3,6 +3,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { useState } from 'react';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
+import { TError } from '@/shared/types/terror';
 
 import { patchThunk } from '@/services/actions/authSlice';
 import { useAppDispatch, useAppSelector } from '@/services/store';
@@ -70,7 +71,8 @@ export function ProfilePage() {
             await dispatch(patchThunk(patchData)).unwrap();
             cancel();
             setOkMsg('Данные сохранены');
-        } catch (err: any) {
+        } catch (e: unknown) {
+            const err = e as TError;
             setErrMsg(err.message);
             console.error('Ошибка обновления профиля:', err);
         }
@@ -88,13 +90,12 @@ export function ProfilePage() {
                 <div>
                     {
                         // добавляю свойста, ошибки в консоли, пришлось придумать такое
-                        // @ts-ignore - почему-то выдается ошибка на эту строку, требует свойства
+                        // @ts-expect-error: - почему-то выдается ошибка
                         <Input
                             onChange={e => onChange(e, 'name')}
                             value={patchData.name}
                             name={'name'}
                             placeholder='Имя'
-                            // @ts-ignore
                             error={!!errItemsMsg.name}
                             errorText={errItemsMsg.name}
                         />
@@ -108,7 +109,7 @@ export function ProfilePage() {
                         name={'email'}
                         placeholder='E-mail'
                         isIcon={false}
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errItemsMsg.email}
                         errorText={errItemsMsg.email}
                     />
@@ -121,7 +122,7 @@ export function ProfilePage() {
                         name={'password'}
                         extraClass='mb-2'
                         placeholder='Пароль'
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errItemsMsg.password}
                         errorText={errItemsMsg.password}
                     />

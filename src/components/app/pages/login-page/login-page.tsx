@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
+import { TError } from '@/shared/types/terror';
 
 export function LoginPage() {
     const dispatch = useAppDispatch();
@@ -43,7 +44,8 @@ export function LoginPage() {
         try {
             await dispatch(loginThunk(loginData)).unwrap();
             navigate('/profile', { replace: true });
-        } catch (err: any) {
+        } catch (e: unknown) {
+            const err = e as TError;
             setErrMsg(err.message);
             console.error('Ошибка входа:', err);
         }
@@ -59,7 +61,7 @@ export function LoginPage() {
                         value={loginData.email}
                         name={'email'}
                         isIcon={false}
-                        // @ts-ignore - скрыл от компиляции "error", показывает ошибку, но её нет
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errEmailMsg}
                         errorText={errEmailMsg}
                     />
@@ -71,7 +73,7 @@ export function LoginPage() {
                         value={loginData.password}
                         name={'password'}
                         extraClass='mb-2'
-                        // @ts-ignore - скрыл от компиляции "error", показывает ошибку, но её нет
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errPasswordMsg}
                         errorText={errPasswordMsg}
                     />

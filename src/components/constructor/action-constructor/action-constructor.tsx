@@ -32,9 +32,7 @@ export function ActionConstructor() {
     };
     const closeModal = () => {
         setIsModalOpen(false);
-        // TODO разобраться
-        // @ts-ignore - непонятно почему ругется на отсутствие параметров, требуется 1 параметр, но у меня нет входных параметров
-        dispatch(clearSelectedIngredients());
+        dispatch(clearSelectedIngredients(undefined));
     };
 
     const sendOrder = () => {

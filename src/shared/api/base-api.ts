@@ -1,7 +1,7 @@
 export default class BaseAPI {
     static host = 'https://norma.nomoreparties.space/api';
 
-    headers: any = {
+    headers: Record<string, string> = {
         'Content-Type': 'application/json;charset=utf-8',
     };
 

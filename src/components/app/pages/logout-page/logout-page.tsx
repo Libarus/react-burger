@@ -10,7 +10,7 @@ export function LogoutPage() {
     useEffect(() => {
         dispatch(logout());
         navigate('/login');
-    }, [dispatch, logout]);
+    }, [dispatch, navigate]);
 
     return <></>;
 }

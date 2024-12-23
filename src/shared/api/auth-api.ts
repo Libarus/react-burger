@@ -1,16 +1,17 @@
 import {
     type TAuthRefreshRequest,
     type TAuthRefreshResponse,
-    TForgotRequest,
-    TForgotResponse,
+    type TForgotRequest,
+    type TForgotResponse,
     type TLoginRequest,
     type TLoginResponse,
     type TRegisterRequest,
     type TRegisterResponse,
-    TResetRequest,
-    TResetResponse,
+    type TResetRequest,
+    type TResetResponse,
     type TUserResponse,
 } from '../types/tauth';
+import { TError } from '../types/terror';
 
 import BaseAPI from './base-api';
 import { getResponseOrThrow } from './getResponseOrThrow/getResponseOrThrow';
@@ -20,7 +21,7 @@ export default class AuthAPI extends BaseAPI {
         return this.post<TRegisterRequest>('/auth/register', data, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -29,7 +30,7 @@ export default class AuthAPI extends BaseAPI {
         return this.patch<TRegisterRequest>('/auth/user', data, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -38,7 +39,7 @@ export default class AuthAPI extends BaseAPI {
         return this.post<TLoginRequest>('/auth/login', data, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -47,7 +48,7 @@ export default class AuthAPI extends BaseAPI {
         return this.post<TForgotRequest>('/password-reset', body, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -56,7 +57,7 @@ export default class AuthAPI extends BaseAPI {
         return this.post<TResetRequest>('/password-reset/reset', body, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -65,7 +66,7 @@ export default class AuthAPI extends BaseAPI {
         return this.get('/auth/user')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 throw new Error(error.message);
             });
     }
@@ -79,7 +80,7 @@ export default class AuthAPI extends BaseAPI {
         return this.post<TAuthRefreshRequest>('/auth/token', { token: refreshToken }, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
-            .catch((error: any) => {
+            .catch((error: TError) => {
                 console.error('e', error);
                 throw new Error(error.message);
             });

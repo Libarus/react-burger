@@ -27,7 +27,7 @@ export function ProtectedRoute({ element }: ProtectedRouteProps) {
         };
 
         validateAuth();
-    }, [accessToken, refreshToken, validateTokenThunk, dispatch]);
+    }, [accessToken, refreshToken, dispatch]);
 
     if (isValidating) {
         return <div>Проверка авторизации...</div>;

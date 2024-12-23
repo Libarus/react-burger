@@ -63,7 +63,7 @@ export function RegisterPage() {
             <form onSubmit={handleSubmit}>
                 <div className='pt-6'>
                     {
-                        // @ts-ignore - почему-то выдается ошибка на эту строку, требует свойства
+                        // @ts-expect-error: - почему-то выдается ошибка на эту строку, требует свойства
                         // добавляю свойста, ошибки в консоли, пришлось придумать такое
                         <Input
                             onChange={e => onChange(e, 'name')}
@@ -83,7 +83,7 @@ export function RegisterPage() {
                         name={'email'}
                         placeholder='E-mail'
                         isIcon={false}
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errItemsMsgs.email}
                         errorText={errItemsMsgs.email}
                     />
@@ -95,7 +95,7 @@ export function RegisterPage() {
                         value={regData.password}
                         name={'password'}
                         extraClass='mb-2'
-                        // @ts-ignore
+                        // @ts-expect-error: скрыл от компиляции "error", показывает ошибку, но её нет
                         error={!!errItemsMsgs.password}
                         errorText={errItemsMsgs.password}
                         placeholder='Пароль'
