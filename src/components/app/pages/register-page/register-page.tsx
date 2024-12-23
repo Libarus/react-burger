@@ -6,17 +6,11 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
-type TErrMesgs = {
-    name: string;
-    email: string;
-    password: string;
-};
-
 export function RegisterPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [errItemsMsgs, setErrItemsMsg] = useState<TErrMesgs>({ name: '', email: '', password: '' });
+    const [errItemsMsgs, setErrItemsMsg] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
     const name = `u${Math.round(Math.random() * 1000)}`;
     const [regData, setRegData] = useState<TRegisterRequest>({ name, email: `${name}@mail.ru`, password: name + name });

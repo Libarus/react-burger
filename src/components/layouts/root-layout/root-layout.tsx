@@ -2,11 +2,13 @@ import { loadIngredients } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+
+import { Spinner } from '@/shared/components/spinner/spinner';
 
 import { AppHeader } from '../../header/app-header/app-header';
+
 import { getUserThunk, logout } from '@/services/actions/authSlice';
-import { Spinner } from '@/shared/components/spinner/spinner';
-import { useNavigate } from 'react-router-dom';
 
 //import rlstyles from './root-layout.module.css';
 

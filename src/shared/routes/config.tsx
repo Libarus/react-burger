@@ -10,14 +10,14 @@ import { MainPage } from '../../components/app/pages/main-page/main-page';
 import { OrdersPage } from '../../components/app/pages/orders-page/orders-page';
 import { ProfilePage } from '../../components/app/pages/profile-page';
 import { RegisterPage } from '../../components/app/pages/register-page/register-page';
+import { AuthLayout } from '../../components/layouts/auth-layout';
 import { ProfileLayout } from '../../components/layouts/profile-layout';
 import { RootLayout } from '../../components/layouts/root-layout';
-import { AuthLayout } from '../../components/layouts/auth-layout';
 import { ProtectedRoute } from '../hoc/component/protected-route';
 
 import { ROUTES } from './paths';
-import { ResetPasswordPage } from '@/components/app/pages/reset-password-page';
 import { OrderPage } from '@/components/app/pages/order-page';
+import { ResetPasswordPage } from '@/components/app/pages/reset-password-page';
 
 export const routeConfig: RouteObject[] = [
     {
@@ -59,9 +59,9 @@ export const routeConfig: RouteObject[] = [
                         element: <ResetPasswordPage />,
                         errorElement: <ErrorPage />,
                     },
-                ]
+                ],
             },
-            
+
             {
                 path: ROUTES.FEED,
                 element: <FeedPage />,

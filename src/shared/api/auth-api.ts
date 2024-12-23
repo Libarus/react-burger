@@ -1,15 +1,15 @@
 import {
-    TForgotRequest,
     type TAuthRefreshRequest,
     type TAuthRefreshResponse,
+    TForgotRequest,
+    TForgotResponse,
     type TLoginRequest,
     type TLoginResponse,
     type TRegisterRequest,
     type TRegisterResponse,
-    type TUserResponse,
-    TForgotResponse,
     TResetRequest,
     TResetResponse,
+    type TUserResponse,
 } from '../types/tauth';
 
 import BaseAPI from './base-api';
@@ -21,7 +21,15 @@ export default class AuthAPI extends BaseAPI {
             .then(async response => await (await getResponseOrThrow(response)).json())
             .then(data => data)
             .catch((error: any) => {
-                console.error('e', error);
+                throw new Error(error.message);
+            });
+    }
+
+    update(data: TRegisterRequest): Promise<TRegisterResponse> {
+        return this.patch<TRegisterRequest>('/auth/user', data, 'same-origin')
+            .then(async response => await (await getResponseOrThrow(response)).json())
+            .then(data => data)
+            .catch((error: any) => {
                 throw new Error(error.message);
             });
     }

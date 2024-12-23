@@ -1,10 +1,11 @@
-import { Spinner } from '@/shared/components/spinner/spinner';
 import { loginThunk } from '@services/actions/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { TLoginRequest } from '@shared/types/tauth';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+
+import { Spinner } from '@/shared/components/spinner/spinner';
 
 export function LoginPage() {
     const dispatch = useAppDispatch();

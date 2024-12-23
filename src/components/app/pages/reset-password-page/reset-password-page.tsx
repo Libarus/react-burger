@@ -62,7 +62,11 @@ export function ResetPasswordPage() {
         <>
             <div className='text text_type_main-medium'>Восстановление пароля</div>
 
-            {okMsg && <div className='pt-6 text text_type_main-small' style={{color:'green'}}>{okMsg}</div>}
+            {okMsg && (
+                <div className='pt-6 text text_type_main-small' style={{ color: 'green' }}>
+                    {okMsg}
+                </div>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <div className='pt-6'>
@@ -94,8 +98,11 @@ export function ResetPasswordPage() {
                     }
                 </div>
 
-            {errMsg && <div className='pt-6 text text_type_main-small' style={{color:'red'}}>{errMsg}</div>}
-
+                {errMsg && (
+                    <div className='pt-6 text text_type_main-small' style={{ color: 'red' }}>
+                        {errMsg}
+                    </div>
+                )}
 
                 <div className='pt-6'>
                     {status === 'pending' ? (

@@ -14,8 +14,19 @@ export default class BaseAPI {
     }
 
     post<TRequest>(url: string, data: TRequest, credentials = 'include') {
+        this.setCredentials();
         return fetch(BaseAPI.host + url, {
             method: 'POST',
+            headers: this.headers,
+            credentials: credentials === 'include' ? 'include' : 'same-origin',
+            body: JSON.stringify(data),
+        });
+    }
+
+    patch<TRequest>(url: string, data: TRequest, credentials = 'include') {
+        this.setCredentials();
+        return fetch(BaseAPI.host + url, {
+            method: 'PATCH',
             headers: this.headers,
             credentials: credentials === 'include' ? 'include' : 'same-origin',
             body: JSON.stringify(data),

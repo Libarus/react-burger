@@ -9,9 +9,8 @@ import { Spinner } from '@/shared/components/spinner/spinner';
 import { BurgerConstructor } from '../../../constructor/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '../../../ingredients/burger-ingredients/burger-ingredients';
 
-import { IngredientDetails } from '@/components/ingredients/ingredient-details/ingredient-details';
-
 import mpstyle from './main-page.module.css';
+import { IngredientDetails } from '@/components/ingredients/ingredient-details/ingredient-details';
 
 export function MainPage() {
     const dispatch = useAppDispatch();

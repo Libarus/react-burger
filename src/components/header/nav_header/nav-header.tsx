@@ -1,7 +1,8 @@
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import nhstyle from './nav-header.module.css';
 import { MyNavLink } from '@/shared/components/ui/my-nav-link';
+
+import nhstyle from './nav-header.module.css';
 
 /**
  * Компонент NavHeader - навигационная панель.

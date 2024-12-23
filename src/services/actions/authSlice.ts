@@ -39,6 +39,15 @@ export const registerThunk = createAsyncThunk<TRegisterResponse, TRegisterReques
     }
 });
 
+export const patchThunk = createAsyncThunk<TRegisterResponse, TRegisterRequest>('auth/patch', async (body: TRegisterRequest) => {
+    try {
+        return await authAPI.update(body);
+    } catch (e: any) {
+        console.error('register error', e.message);
+        throw new Error(e.message);
+    }
+});
+
 export const loginThunk = createAsyncThunk<TLoginResponse, TLoginRequest>('auth/login', async (body: TLoginRequest) => {
     try {
         return await authAPI.login(body);
@@ -116,6 +125,22 @@ const authSlice = createSlice({
                 state.error = action.error.message || 'Произошла ошибка';
             });
 
+        // Обновление пользователя
+        builder
+            .addCase(patchThunk.pending, state => {
+                state.status = 'pending';
+                state.error = '';
+            })
+            .addCase(patchThunk.fulfilled, (state, action) => {
+                state.status = 'success';
+                state.user = action.payload.user;
+                console.info('patch', action.payload);
+            })
+            .addCase(patchThunk.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message || 'Произошла ошибка';
+            });
+
         // Аутентификация пользователя
         builder
             .addCase(loginThunk.pending, state => {
@@ -141,7 +166,7 @@ const authSlice = createSlice({
                 state.status = 'pending';
                 state.error = '';
             })
-            .addCase(forgotThunk.fulfilled, (state, action) => {
+            .addCase(forgotThunk.fulfilled, (state) => {
                 state.status = 'success';
             })
             .addCase(forgotThunk.rejected, (state, action) => {
@@ -155,7 +180,7 @@ const authSlice = createSlice({
                 state.status = 'pending';
                 state.error = '';
             })
-            .addCase(resetThunk.fulfilled, (state, action) => {
+            .addCase(resetThunk.fulfilled, (state) => {
                 state.status = 'success';
             })
             .addCase(resetThunk.rejected, (state, action) => {

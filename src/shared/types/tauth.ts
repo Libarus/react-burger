@@ -45,19 +45,19 @@ export type TUserResponse = {
 
 export type TForgotRequest = {
     email: string;
-}
+};
 
 export type TForgotResponse = {
     success: boolean;
     message: string;
-}
+};
 
 export type TResetRequest = {
     password: string;
     token: string;
-}
+};
 
 export type TResetResponse = {
     success: boolean;
     message: string;
-}
+};

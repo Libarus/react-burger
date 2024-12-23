@@ -5,11 +5,11 @@ import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
@@ -38,11 +38,10 @@ export function ActionConstructor() {
     };
 
     const sendOrder = () => {
-
         if (!accessToken) {
             navigate('/login', { replace: true });
             return;
-        } 
+        }
 
         const bunId = selectedIngredients[0].id;
         const Ids = [...selectedIngredients.map((si: TIngredient) => si.id), bunId];

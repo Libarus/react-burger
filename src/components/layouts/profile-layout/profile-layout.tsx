@@ -20,7 +20,6 @@ export function ProfileLayout() {
                         </li>
                         <li className='pt-8 pb-8'>
                             <NavLink
-                                
                                 to='/profile/orders'
                                 className={({ isActive }) =>
                                     isActive ? 'text text_type_main-medium' : 'text text_type_main-medium text_color_inactive'
