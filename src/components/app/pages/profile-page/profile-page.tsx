@@ -130,21 +130,21 @@ export function ProfilePage() {
                 {errMsg && <div className='pt-4 text text_type_main-default text_color_error'>{errMsg}</div>}
 
                 {isModify && (
-                <div className='pt-6'>
-                    {status === 'pending' ? (
-                        <Spinner />
-                    ) : (
-                        <>
-                            <Button htmlType='submit' type='primary' size='medium'>
-                                Сохранить
-                            </Button>
+                    <div className='pt-6'>
+                        {status === 'pending' ? (
+                            <Spinner />
+                        ) : (
+                            <>
+                                <Button htmlType='submit' type='primary' size='medium'>
+                                    Сохранить
+                                </Button>
 
-                            <Button htmlType='button' type='secondary' size='medium' onClick={cancel}>
-                                Отменить
-                            </Button>
-                        </>
-                    )}
-                </div>
+                                <Button htmlType='button' type='secondary' size='medium' onClick={cancel}>
+                                    Отменить
+                                </Button>
+                            </>
+                        )}
+                    </div>
                 )}
             </form>
         </>

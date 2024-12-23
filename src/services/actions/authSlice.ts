@@ -166,7 +166,7 @@ const authSlice = createSlice({
                 state.status = 'pending';
                 state.error = '';
             })
-            .addCase(forgotThunk.fulfilled, (state) => {
+            .addCase(forgotThunk.fulfilled, state => {
                 state.status = 'success';
             })
             .addCase(forgotThunk.rejected, (state, action) => {
@@ -180,7 +180,7 @@ const authSlice = createSlice({
                 state.status = 'pending';
                 state.error = '';
             })
-            .addCase(resetThunk.fulfilled, (state) => {
+            .addCase(resetThunk.fulfilled, state => {
                 state.status = 'success';
             })
             .addCase(resetThunk.rejected, (state, action) => {
