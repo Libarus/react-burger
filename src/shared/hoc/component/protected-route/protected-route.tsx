@@ -1,7 +1,9 @@
 import { logout, validateTokenThunk } from '@services/actions/authSlice';
-import { RootState, useAppDispatch, useAppSelector } from '@services/store';
+import { useAppDispatch } from '@services/store';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+
+import { TokenService } from '@/services/token.service';
 
 interface ProtectedRouteProps {
     element: JSX.Element;
@@ -10,13 +12,12 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ element }: ProtectedRouteProps) {
     const dispatch = useAppDispatch();
 
-    const { accessToken, refreshToken } = useAppSelector((state: RootState) => state.auth);
     const [isValidating, setIsValidating] = useState(true);
 
     useEffect(() => {
         const validateAuth = async () => {
             try {
-                if (accessToken && refreshToken) {
+                if (TokenService.GetAccessToken() && TokenService.GetRefreshToken()) {
                     await dispatch(validateTokenThunk()).unwrap();
                 }
             } catch {
@@ -27,13 +28,13 @@ export function ProtectedRoute({ element }: ProtectedRouteProps) {
         };
 
         validateAuth();
-    }, [accessToken, refreshToken, dispatch]);
+    }, [dispatch]);
 
     if (isValidating) {
         return <div>Проверка авторизации...</div>;
     }
 
-    if (!accessToken) {
+    if (!TokenService.GetAccessToken()) {
         return <Navigate to='/login' replace />;
     }
 

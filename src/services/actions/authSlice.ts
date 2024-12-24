@@ -20,14 +20,10 @@ const authAPI = new AuthAPI();
 
 const initialState: {
     user: TUser | null;
-    accessToken: string | null;
-    refreshToken: string | null;
     status: 'idle' | 'pending' | 'success' | 'failed';
     error: string;
 } = {
     user: null,
-    accessToken: localStorage.getItem('accessToken'),
-    refreshToken: localStorage.getItem('refreshToken'),
     status: 'idle',
     error: '',
 };
@@ -101,10 +97,6 @@ const authSlice = createSlice({
     reducers: {
         logout: state => {
             state.user = null;
-            state.accessToken = null;
-            state.refreshToken = null;
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
         },
     },
     extraReducers: builder => {
@@ -117,10 +109,6 @@ const authSlice = createSlice({
             .addCase(registerThunk.fulfilled, (state, action) => {
                 state.status = 'success';
                 state.user = action.payload.user;
-                state.accessToken = action.payload.accessToken;
-                state.refreshToken = action.payload.refreshToken;
-                localStorage.setItem('accessToken', action.payload.accessToken);
-                localStorage.setItem('refreshToken', action.payload.refreshToken);
             })
             .addCase(registerThunk.rejected, (state, action) => {
                 state.status = 'failed';
@@ -152,10 +140,6 @@ const authSlice = createSlice({
             .addCase(loginThunk.fulfilled, (state, action) => {
                 state.status = 'success';
                 state.user = action.payload.user;
-                state.accessToken = action.payload.accessToken;
-                state.refreshToken = action.payload.refreshToken;
-                localStorage.setItem('accessToken', action.payload.accessToken);
-                localStorage.setItem('refreshToken', action.payload.refreshToken);
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.status = 'failed';
@@ -211,14 +195,8 @@ const authSlice = createSlice({
                 state.status = 'pending';
                 state.error = '';
             })
-            .addCase(validateTokenThunk.fulfilled, (state, action) => {
+            .addCase(validateTokenThunk.fulfilled, state => {
                 state.status = 'success';
-                if (action.payload !== null) {
-                    state.accessToken = action.payload.accessToken;
-                    state.refreshToken = action.payload.refreshToken;
-                    localStorage.setItem('accessToken', action.payload.accessToken);
-                    localStorage.setItem('refreshToken', action.payload.refreshToken);
-                }
             })
             .addCase(validateTokenThunk.rejected, (state, action) => {
                 state.status = 'failed';

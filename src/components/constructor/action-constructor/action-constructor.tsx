@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
+import { TokenService } from '@/services/token.service';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
@@ -22,7 +23,6 @@ export function ActionConstructor() {
         state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) + state.ingredient.selectedIngredients[0].price,
     );
 
-    const { accessToken } = useAppSelector(state => state.auth);
     const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector(state => state.ingredient);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +36,9 @@ export function ActionConstructor() {
     };
 
     const sendOrder = () => {
-        if (!accessToken) {
+        dispatch(setSaveOrderStatus('idle'));
+
+        if (!TokenService.GetAccessToken()) {
             navigate('/login', { replace: true });
             return;
         }
@@ -47,7 +49,6 @@ export function ActionConstructor() {
     };
 
     useEffect(() => {
-        dispatch(setSaveOrderStatus('idle'));
         if (saveOrderStatus === 'success' && saveOrderResponse.success) {
             openModal();
         }
@@ -67,7 +68,7 @@ export function ActionConstructor() {
                     <CurrencyIcon type='primary' />
                 </div>
 
-                {saveOrderStatus == 'pending' ? (
+                {saveOrderStatus === 'pending' ? (
                     <Spinner />
                 ) : (
                     <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>

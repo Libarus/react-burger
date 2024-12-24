@@ -8,11 +8,13 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Spinner } from '@/shared/components/spinner/spinner';
 import { TError } from '@/shared/types/terror';
 
+import { TokenService } from '@/services/token.service';
+
 export function LoginPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { accessToken, status } = useAppSelector((state: RootState) => state.auth);
+    const { status } = useAppSelector((state: RootState) => state.auth);
 
     const [errEmailMsg, setErrEmailMsg] = useState('');
     const [errPasswordMsg, setErrPasswordMsg] = useState('');
@@ -42,7 +44,9 @@ export function LoginPage() {
         }
 
         try {
-            await dispatch(loginThunk(loginData)).unwrap();
+            const resp = await dispatch(loginThunk(loginData)).unwrap();
+            TokenService.SetAccessToken(resp.accessToken);
+            TokenService.SetRefreshToken(resp.refreshToken);
             navigate('/profile', { replace: true });
         } catch (e: unknown) {
             const err = e as TError;
@@ -52,7 +56,7 @@ export function LoginPage() {
     };
     return (
         <>
-            {accessToken != null && <Navigate to='/' replace={true} />}
+            {TokenService.GetAccessToken() != null && <Navigate to='/' replace={true} />}
             <div className='text text_type_main-medium'>Вход</div>
             <form onSubmit={handleSubmit}>
                 <div className='pt-6'>

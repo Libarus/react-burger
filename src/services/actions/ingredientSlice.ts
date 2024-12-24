@@ -90,6 +90,9 @@ const ingredientSlice = createSlice({
             // @ts-expect-error:  Отключил точечно данную проверку, так как lint выдает ошибку
             prepare: (payload: TIngredient) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
         },
+        setSelectedIngredients: (state, action) => {
+            state.selectedIngredients = action.payload;
+        },
         killIngredient: (state, action) => {
             const uuid = action.payload;
             const elems = state.selectedIngredients.filter((item: TIngredient) => !(item.uuid === uuid));
@@ -138,6 +141,14 @@ const ingredientSlice = createSlice({
     },
 });
 
-export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus, clearSelectedIngredients } =
-    ingredientSlice.actions;
+export const {
+    setCurrentTab,
+    setBun,
+    addIngredient,
+    setSelectedIngredients,
+    killIngredient,
+    setNewSelectedIngredients,
+    setSaveOrderStatus,
+    clearSelectedIngredients,
+} = ingredientSlice.actions;
 export default ingredientSlice.reducer;

@@ -6,6 +6,8 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
+import { TokenService } from '@/services/token.service';
+
 export function RegisterPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -15,7 +17,7 @@ export function RegisterPage() {
     const name = `u${Math.round(Math.random() * 1000)}`;
     const [regData, setRegData] = useState<TRegisterRequest>({ name, email: `${name}@mail.ru`, password: name + name });
 
-    const { accessToken, status } = useAppSelector(store => store.auth);
+    const { status } = useAppSelector(store => store.auth);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
         setRegData(state => {
@@ -49,7 +51,9 @@ export function RegisterPage() {
         }
 
         try {
-            await dispatch(registerThunk(regData)).unwrap();
+            const resp = await dispatch(registerThunk(regData)).unwrap();
+            TokenService.SetAccessToken(resp.accessToken);
+            TokenService.SetRefreshToken(resp.refreshToken);
             navigate('/');
         } catch (err) {
             console.error('Ошибка регистрации:', err);
@@ -58,7 +62,7 @@ export function RegisterPage() {
 
     return (
         <>
-            {accessToken != null && <Navigate to='/' replace={true} />}
+            {TokenService.GetAccessToken() != null && <Navigate to='/' replace={true} />}
             <div className='text text_type_main-medium'>Регистрация</div>
             <form onSubmit={handleSubmit}>
                 <div className='pt-6'>
