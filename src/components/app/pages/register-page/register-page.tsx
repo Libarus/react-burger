@@ -14,8 +14,7 @@ export function RegisterPage() {
 
     const [errItemsMsgs, setErrItemsMsg] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
-    const name = `u${Math.round(Math.random() * 1000)}`;
-    const [regData, setRegData] = useState<TRegisterRequest>({ name, email: `${name}@mail.ru`, password: name + name });
+    const [regData, setRegData] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
     const { status } = useAppSelector(store => store.auth);
 

@@ -13,7 +13,7 @@ export function ForgotPasswordPage() {
 
     const { status } = useAppSelector(state => state.auth);
 
-    const [email, setEmail] = useState('aazab@ya.ru');
+    const [email, setEmail] = useState('');
     const [errEmailMsg, setErrEmailMsg] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {

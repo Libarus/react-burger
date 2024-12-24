@@ -19,7 +19,7 @@ export function LoginPage() {
     const [errEmailMsg, setErrEmailMsg] = useState('');
     const [errPasswordMsg, setErrPasswordMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [loginData, setLoginData] = useState<TLoginRequest>({ email: 'aazab@ya.ru', password: '1234321' }); //({ email: 'u963@exmlp.com', password: 'u963u963' });
+    const [loginData, setLoginData] = useState<TLoginRequest>({ email: '', password: '' });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
         setLoginData(state => {
