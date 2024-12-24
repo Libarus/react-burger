@@ -7,13 +7,14 @@ import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { TokenService } from '@/services/token.service';
+import { TError } from '@/shared/types/terror';
 
 export function RegisterPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [errItemsMsgs, setErrItemsMsg] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
-
+    const [errMsg, setErrMsg] = useState('');
     const [regData, setRegData] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
     const { status } = useAppSelector(store => store.auth);
@@ -25,6 +26,7 @@ export function RegisterPage() {
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
+        setErrMsg('');
         setErrItemsMsg({ name: '', email: '', password: '' });
         e.preventDefault();
 
@@ -54,8 +56,10 @@ export function RegisterPage() {
             TokenService.SetAccessToken(resp.accessToken);
             TokenService.SetRefreshToken(resp.refreshToken);
             navigate('/');
-        } catch (err) {
-            console.error('Ошибка регистрации:', err);
+        } catch (e: unknown) {
+            const err = e as TError;
+            setErrMsg(err.message);
+            console.error('Ошибка входа:', err);
         }
     };
 
@@ -104,6 +108,8 @@ export function RegisterPage() {
                         placeholder='Пароль'
                     />
                 </div>
+
+                {errMsg && <div className='pt-4 text text_type_main-default text_color_error'>{errMsg}</div>}
 
                 <div className='pt-6'>
                     {status === 'pending' ? (
