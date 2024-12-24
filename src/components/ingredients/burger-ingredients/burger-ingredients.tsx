@@ -1,13 +1,11 @@
+import { setBun, setCurrentTab } from '@services/actions/ingredientSlice';
+import { useAppDispatch, useAppSelector } from '@services/store';
+import { Spinner } from '@shared/components/spinner/spinner';
+import { type TIngredient } from '@shared/types/tingredient';
 import { useEffect, useMemo, useRef } from 'react';
 
 import { BlockIngredients } from '../block-ingredients/block-ingredients';
 import { TabIngredients } from '../tab-ingredients/tab-ingredients';
-import { useAppDispatch, useAppSelector } from '../../../services/store';
-import { Spinner } from '../../../shared/components/spinner/spinner';
-
-import { type TIngredient } from '../../../shared/types/tingredient';
-
-import { setBun, setCurrentTab } from '../../../services/actions/ingredientSlice';
 
 import bistyle from './burger-ingredients.module.css';
 
@@ -16,7 +14,7 @@ import bistyle from './burger-ingredients.module.css';
  */
 export function BurgerIngredients() {
     const dispatch = useAppDispatch();
-    const { ingredients, ingredientStatus, currentTab, selectedIngredients } = useAppSelector((store) => store.ingredient);
+    const { ingredients, ingredientStatus, currentTab, selectedIngredients } = useAppSelector(store => store.ingredient);
     const ingredientTabName = useMemo(() => ['bun', 'sauce', 'main'], []);
     const offset = 200; // сдвиг определения ближайшего элемента
 
@@ -42,7 +40,7 @@ export function BurgerIngredients() {
     const ingredientsByType = useMemo(() => {
         const result: Record<string, TIngredient[]> = {};
 
-        ingredientTabName.forEach((type) => {
+        ingredientTabName.forEach(type => {
             result[type] = ingredients.filter((item: TIngredient) => item.type === type);
         });
 

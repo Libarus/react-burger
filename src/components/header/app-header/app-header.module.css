@@ -1,4 +1,8 @@
 .header {
+    background-color: #1C1C21;
+}
+
+.wrapper {
     display: flex;
     max-width: 1280px;
     justify-content: space-between;

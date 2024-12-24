@@ -1,5 +1,7 @@
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { MyNavLink } from '@/shared/components/ui/my-nav-link';
+
 import uhstyle from './user-header.module.css';
 
 /**
@@ -9,11 +11,8 @@ export function UserHeader() {
     return (
         <div className={uhstyle.user}>
             <div>
-                <a href='/profile'>
-                    <ProfileIcon type='secondary' />
-                    <span className='text text_type_main-default text_color_inactive'>Личный кабинет</span>
-                </a>
+                <MyNavLink to='/profile' icon={<ProfileIcon type={'primary'} />} label='Личный кабинет' />
             </div>
         </div>
     );
-};
+}

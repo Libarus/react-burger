@@ -1,11 +1,11 @@
 export type TOrderRequest = {
-    ingredients: string[],
+    ingredients: string[];
 };
 
 export type TOrderResponse = {
-    name: string,
+    name: string;
     order: {
-        number: number,
-    },
-    success: boolean,
-}
+        number: number;
+    };
+    success: boolean;
+};

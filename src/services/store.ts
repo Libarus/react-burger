@@ -1,15 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-
-import ingredientReducer from './actions/ingredientSlice';
-
+import { setupListeners } from '@reduxjs/toolkit/query';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
-import { setupListeners } from '@reduxjs/toolkit/query';
+import authReducer from './actions/authSlice';
+import ingredientReducer from './actions/ingredientSlice';
 
 // клмбинируем рудьюсеры
 const rootReducer = combineReducers({
     ingredient: ingredientReducer,
+    auth: authReducer,
 });
 
 // Наш усилитель
@@ -28,7 +28,7 @@ export function createStore() {
     const store = configureStore({
         reducer: rootReducer,
         //devTools: process.env.NODE_ENV !== 'production',
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), //.concat(loggerMiddleware),
+        middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk), //.concat(loggerMiddleware),
     });
 
     setupListeners(store.dispatch);

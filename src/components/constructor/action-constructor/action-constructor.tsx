@@ -1,32 +1,30 @@
-import { useEffect, useState } from 'react';
-
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@services/actions/ingredientSlice';
+import { useAppDispatch, useAppSelector } from '@services/store';
+import { Modal } from '@shared/components/modal/modal/modal';
+import { Spinner } from '@shared/components/spinner/spinner';
+import { type TIngredient } from '@shared/types/tingredient';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { Modal } from '../../../shared/components/modal/modal/modal';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
-
-import { useAppDispatch, useAppSelector } from '../../../services/store';
-import { Spinner } from '../../../shared/components/spinner/spinner';
-
-import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '../../../services/actions/ingredientSlice';
-
-import { type TIngredient } from '../../../shared/types/tingredient';
+import { TokenService } from '@/services/token.service';
 
 /**
  * Компонент "Действия в конструкторе" - кнопка "Оформить заказ".
  */
-export function ActionConstructor(){
+export function ActionConstructor() {
     const dispatch = useAppDispatch();
-    
-    const selectedSumm = useAppSelector(state => 
-        state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) +
-        state.ingredient.selectedIngredients[0].price);
+    const navigate = useNavigate();
+
+    const selectedSumm = useAppSelector(
+        state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) + state.ingredient.selectedIngredients[0].price,
+    );
 
     const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector(state => state.ingredient);
-    
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -34,17 +32,23 @@ export function ActionConstructor(){
     };
     const closeModal = () => {
         setIsModalOpen(false);
-        dispatch(clearSelectedIngredients());
+        dispatch(clearSelectedIngredients(undefined));
     };
 
     const sendOrder = () => {
+        dispatch(setSaveOrderStatus('idle'));
+
+        if (!TokenService.GetAccessToken()) {
+            navigate('/login', { replace: true });
+            return;
+        }
+
         const bunId = selectedIngredients[0].id;
         const Ids = [...selectedIngredients.map((si: TIngredient) => si.id), bunId];
         dispatch(saveOrder({ ingredients: Ids }));
     };
 
     useEffect(() => {
-        dispatch(setSaveOrderStatus('idle'));
         if (saveOrderStatus === 'success' && saveOrderResponse.success) {
             openModal();
         }
@@ -64,13 +68,14 @@ export function ActionConstructor(){
                     <CurrencyIcon type='primary' />
                 </div>
 
-                {
-                    saveOrderStatus == 'pending' ? <Spinner /> :
+                {saveOrderStatus === 'pending' ? (
+                    <Spinner />
+                ) : (
                     <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>
                         Оформить заказ
                     </Button>
-                }
+                )}
             </div>
         </>
     );
-};
+}

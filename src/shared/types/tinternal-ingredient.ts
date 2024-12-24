@@ -1,4 +1,3 @@
-
 // Тип для приходящего ингредиента
 export type TInternalIngredient = {
     _id: string;

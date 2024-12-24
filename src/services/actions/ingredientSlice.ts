@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { type TInternalData } from '../../shared/types/tinternal-data';
-
-import DataAPI from '../../shared/api/data-api';
-import { type TOrderRequest, type TOrderResponse } from '../../shared/types/torder';
-import { type TIngredient } from '../../shared/types/tingredient';
-import { getIngredients } from '../../shared/utils';
+import DataAPI from '@shared/api/data-api';
+import { type TIngredient } from '@shared/types/tingredient';
+import { type TInternalData } from '@shared/types/tinternal-data';
+import { type TOrderRequest, type TOrderResponse } from '@shared/types/torder';
+import { getIngredients } from '@shared/utils';
 
 const dataAPI = new DataAPI();
 
@@ -74,10 +72,9 @@ const ingredientSlice = createSlice({
             reducer: (state, action) => {
                 state.selectedIngredients[0] = action.payload;
             },
-            // Отключил точечно данную проверку, так как lint выдает ошибку
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            prepare: (payload: any) => {
-                return { payload: { ...payload, uuid: Date.now().toString()} };
+            // @ts-expect-error: Отключил точечно данную проверку, так как lint выдает ошибку
+            prepare: (payload: TIngredient) => {
+                return { payload: { ...payload, uuid: Date.now().toString() } };
             },
         },
         addIngredient: {
@@ -90,9 +87,11 @@ const ingredientSlice = createSlice({
                     state.selectedIngredients = [...state.selectedIngredients, newIngredient];
                 }
             },
-            // Отключил точечно данную проверку, так как lint выдает ошибку
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            prepare: (payload: any) => ({ payload: { id: payload, uuid: Date.now().toString() }}),
+            // @ts-expect-error:  Отключил точечно данную проверку, так как lint выдает ошибку
+            prepare: (payload: TIngredient) => ({ payload: { id: payload, uuid: Date.now().toString() } }),
+        },
+        setSelectedIngredients: (state, action) => {
+            state.selectedIngredients = action.payload;
         },
         killIngredient: (state, action) => {
             const uuid = action.payload;
@@ -105,39 +104,51 @@ const ingredientSlice = createSlice({
         setSaveOrderStatus: (state, action) => {
             state.saveOrderStatus = action.payload;
         },
-        clearSelectedIngredients: (state) => {
+        clearSelectedIngredients: state => {
             state.selectedIngredients = [state.selectedIngredients[0]];
         },
     },
-    extraReducers: (builder) => {
-        builder.addCase(loadIngredients.pending, (state) => {
-            state.ingredientStatus = 'pending';
-        });
-        builder.addCase(loadIngredients.fulfilled, (state, action) => {
-            state.ingredients = action.payload;
-            state.ingredientStatus = 'success';
-        });
-        builder.addCase(loadIngredients.rejected, (state, action) => {
-            // При ошибке информация выводится в консоль
-            console.error(action.payload);
-            state.ingredientStatus = 'failed';
-        });
+    extraReducers: builder => {
+        // Загрузка ингредиентов
+        builder
+            .addCase(loadIngredients.pending, state => {
+                state.ingredientStatus = 'pending';
+            })
+            .addCase(loadIngredients.fulfilled, (state, action) => {
+                state.ingredients = action.payload;
+                state.ingredientStatus = 'success';
+            })
+            .addCase(loadIngredients.rejected, (state, action) => {
+                // При ошибке информация выводится в консоль
+                console.error(action.payload);
+                state.ingredientStatus = 'failed';
+            });
 
-        builder.addCase(saveOrder.pending, (state) => {
-            state.saveOrderStatus = 'pending';
-        });
-        builder.addCase(saveOrder.fulfilled, (state, action) => {
-            state.saveOrderResponse = action.payload;
-            state.saveOrderStatus = 'success';
-        });
-        builder.addCase(saveOrder.rejected, (state, action) => {
-            // При ошибке информация выводится в консоль
-            console.error(action.payload);
-            state.saveOrderStatus = 'failed';
-        });
+        // Сохранение заказа
+        builder
+            .addCase(saveOrder.pending, state => {
+                state.saveOrderStatus = 'pending';
+            })
+            .addCase(saveOrder.fulfilled, (state, action) => {
+                state.saveOrderResponse = action.payload;
+                state.saveOrderStatus = 'success';
+            })
+            .addCase(saveOrder.rejected, (state, action) => {
+                // При ошибке информация выводится в консоль
+                console.error(action.payload);
+                state.saveOrderStatus = 'failed';
+            });
     },
 });
 
-export const { setCurrentTab, setBun, addIngredient, killIngredient, setNewSelectedIngredients, setSaveOrderStatus, clearSelectedIngredients } =
-    ingredientSlice.actions;
+export const {
+    setCurrentTab,
+    setBun,
+    addIngredient,
+    setSelectedIngredients,
+    killIngredient,
+    setNewSelectedIngredients,
+    setSaveOrderStatus,
+    clearSelectedIngredients,
+} = ingredientSlice.actions;
 export default ingredientSlice.reducer;

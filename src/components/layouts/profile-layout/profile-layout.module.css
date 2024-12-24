@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    width: 100%; /* Контейнер занимает всю ширину родителя */
+    padding-top: 170px;
+}
+
+.item {
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    align-items: center; /* Центрирование содержимого по вертикали */
+}
+
+.itemLeft {
+    width: 320px; /* Боковые элементы занимают оставшуюся ширину поровну */
+}
+
+.itemRight {
+    flex: 1; /* Боковые элементы занимают оставшуюся ширину поровну */
+}
+
+.itemCenter {
+    width: 480px; /* Центральный элемент имеет фиксированную ширину */
+}
+
+.gray {
+    color: #404053;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
