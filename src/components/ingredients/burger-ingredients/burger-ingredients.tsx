@@ -1,5 +1,5 @@
 import { setBun, setCurrentTab } from '@services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '@services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
 import { useEffect, useMemo, useRef } from 'react';
@@ -14,7 +14,7 @@ import bistyle from './burger-ingredients.module.css';
  */
 export function BurgerIngredients() {
     const dispatch = useAppDispatch();
-    const { ingredients, ingredientStatus, currentTab, selectedIngredients } = useAppSelector(store => store.ingredient);
+    const { ingredients, ingredientStatus, currentTab, selectedIngredients } = useAppSelector((state: RootState) => state.ingredient);
     const ingredientTabName = useMemo(() => ['bun', 'sauce', 'main'], []);
     const offset = 200; // сдвиг определения ближайшего элемента
 

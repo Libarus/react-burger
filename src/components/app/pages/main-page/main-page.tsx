@@ -1,5 +1,5 @@
 import { addIngredient } from '@services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '@services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -15,7 +15,7 @@ import { IngredientDetails } from '@/components/ingredients/ingredient-details/i
 
 export function MainPage() {
     const dispatch = useAppDispatch();
-    const { ingredients, ingredientStatus, selectedIngredients } = useAppSelector(state => state.ingredient);
+    const { ingredients, ingredientStatus, selectedIngredients } = useAppSelector((state: RootState) => state.ingredient);
     const { id = null } = useParams();
 
     const onDrop = (id: string) => {

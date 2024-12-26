@@ -10,19 +10,15 @@ import {
     type TRegisterResponse,
     type TResetRequest,
     type TResetResponse,
-    type TUser,
     type TUserResponse,
 } from '@shared/types/tauth';
 
-import { TError } from '@/shared/types/terror';
+import { type TAuthSliceState } from '@/shared/types/tauth-slice';
+import { type TError } from '@/shared/types/terror';
 
 const authAPI = new AuthAPI();
 
-const initialState: {
-    user: TUser | null;
-    status: 'idle' | 'pending' | 'success' | 'failed';
-    error: string;
-} = {
+const initialState: TAuthSliceState = {
     user: null,
     status: 'idle',
     error: '',

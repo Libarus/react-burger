@@ -1,23 +1,24 @@
 import { registerThunk } from '@services/actions/authSlice';
-import { useAppDispatch, useAppSelector } from '@services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { TRegisterRequest } from '@shared/types/tauth';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
-import { TokenService } from '@/services/token.service';
 import { TError } from '@/shared/types/terror';
+
+import { TokenService } from '@/services/token.service';
 
 export function RegisterPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [errItemsMsgs, setErrItemsMsg] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
-    const [errMsg, setErrMsg] = useState('');
+    const [errMsg, setErrMsg] = useState<string>('');
     const [regData, setRegData] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
-    const { status } = useAppSelector(store => store.auth);
+    const { status } = useAppSelector((state: RootState) => state.auth);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
         setRegData(state => {

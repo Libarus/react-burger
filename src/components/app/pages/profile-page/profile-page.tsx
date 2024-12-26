@@ -6,15 +6,15 @@ import { Spinner } from '@/shared/components/spinner/spinner';
 import { TError } from '@/shared/types/terror';
 
 import { patchThunk } from '@/services/actions/authSlice';
-import { useAppDispatch, useAppSelector } from '@/services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ProfilePage() {
     const dispatch = useAppDispatch();
-    const { status, user } = useAppSelector(store => store.auth);
+    const { status, user } = useAppSelector((state: RootState) => state.auth);
 
-    const [okMsg, setOkMsg] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [isModify, setIsModify] = useState(false);
+    const [okMsg, setOkMsg] = useState<string>('');
+    const [errMsg, setErrMsg] = useState<string>('');
+    const [isModify, setIsModify] = useState<boolean>(false);
     const [errItemsMsg, setErrItemsMsg] = useState<TRegisterRequest>({ name: '', email: '', password: '' });
 
     const [patchData, setPatchData] = useState<TRegisterRequest>({
