@@ -19,7 +19,7 @@ export function ItemIngredients({ ingredient, badge }: Props) {
     const navigate = useNavigate();
     const { id } = useParams();
     const match = useMatch(ROUTES.INGREDIENTS);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const openModal = () => {
         navigate('/ingredients/' + ingredient.id);

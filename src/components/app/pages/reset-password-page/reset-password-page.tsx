@@ -7,14 +7,14 @@ import { TResetRequest } from '@/shared/types/tauth';
 import { TError } from '@/shared/types/terror';
 
 import { resetThunk } from '@/services/actions/authSlice';
-import { useAppDispatch, useAppSelector } from '@/services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ResetPasswordPage() {
     const dispatch = useAppDispatch();
-    const { status } = useAppSelector(state => state.auth);
+    const { status } = useAppSelector((state: RootState) => state.auth);
 
-    const [okMsg, setOkMsg] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [okMsg, setOkMsg] = useState<string>('');
+    const [errMsg, setErrMsg] = useState<string>('');
     const [resetData, setResetData] = useState<TResetRequest>({ password: '', token: '' });
     const [errItemsMsgs, setErrItemsMsgs] = useState<TResetRequest>({ password: '', token: '' });
 

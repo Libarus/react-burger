@@ -5,16 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Spinner } from '@/shared/components/spinner/spinner';
 
 import { forgotThunk } from '@/services/actions/authSlice';
-import { useAppDispatch, useAppSelector } from '@/services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ForgotPasswordPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { status } = useAppSelector(state => state.auth);
+    const { status } = useAppSelector((state: RootState) => state.auth);
 
-    const [email, setEmail] = useState('');
-    const [errEmailMsg, setErrEmailMsg] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [errEmailMsg, setErrEmailMsg] = useState<string>('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         setErrEmailMsg('');

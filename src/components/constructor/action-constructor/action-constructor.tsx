@@ -1,5 +1,5 @@
 import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '@services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Modal } from '@shared/components/modal/modal/modal';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
@@ -20,12 +20,13 @@ export function ActionConstructor() {
     const navigate = useNavigate();
 
     const selectedSumm = useAppSelector(
-        state => state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) + state.ingredient.selectedIngredients[0].price,
+        (state: RootState) =>
+            state.ingredient.selectedIngredients.reduce((acc, item) => acc + item.price, 0) + state.ingredient.selectedIngredients[0].price,
     );
 
-    const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector(state => state.ingredient);
+    const { selectedIngredients, saveOrderStatus, saveOrderResponse } = useAppSelector((state: RootState) => state.ingredient);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const openModal = () => {
         setIsModalOpen(true);

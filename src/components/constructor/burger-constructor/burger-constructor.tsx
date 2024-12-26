@@ -1,5 +1,5 @@
 import { killIngredient, setNewSelectedIngredients } from '@services/actions/ingredientSlice';
-import { useAppDispatch, useAppSelector } from '@services/store';
+import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -22,7 +22,7 @@ type Props = {
 export function BurgerConstructor({ onDrop }: Props) {
     const dispatch = useAppDispatch();
 
-    const { selectedIngredients, ingredientStatus } = useAppSelector(state => state.ingredient);
+    const { selectedIngredients, ingredientStatus } = useAppSelector((state: RootState) => state.ingredient);
 
     const bun = useMemo(() => selectedIngredients.filter((item: TIngredient) => item.type === 'bun')[0], [selectedIngredients]);
     const all = useMemo(() => selectedIngredients.filter((item: TIngredient) => item.type !== 'bun'), [selectedIngredients]);

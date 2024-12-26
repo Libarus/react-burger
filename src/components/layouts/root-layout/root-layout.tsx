@@ -18,7 +18,7 @@ export function RootLayout() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [isValidating, setIsValidating] = useState(true);
+    const [isValidating, setIsValidating] = useState<boolean>(true);
 
     useEffect(() => {
         const validateAuth = async () => {

@@ -16,9 +16,9 @@ export function LoginPage() {
 
     const { status } = useAppSelector((state: RootState) => state.auth);
 
-    const [errEmailMsg, setErrEmailMsg] = useState('');
-    const [errPasswordMsg, setErrPasswordMsg] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [errEmailMsg, setErrEmailMsg] = useState<string>('');
+    const [errPasswordMsg, setErrPasswordMsg] = useState<string>('');
+    const [errMsg, setErrMsg] = useState<string>('');
     const [loginData, setLoginData] = useState<TLoginRequest>({ email: '', password: '' });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {

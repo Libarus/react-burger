@@ -12,7 +12,7 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ element }: ProtectedRouteProps) {
     const dispatch = useAppDispatch();
 
-    const [isValidating, setIsValidating] = useState(true);
+    const [isValidating, setIsValidating] = useState<boolean>(true);
 
     useEffect(() => {
         const validateAuth = async () => {
