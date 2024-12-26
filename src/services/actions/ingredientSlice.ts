@@ -5,9 +5,11 @@ import { type TInternalData } from '@shared/types/tinternal-data';
 import { type TOrderRequest, type TOrderResponse } from '@shared/types/torder';
 import { getIngredients } from '@shared/utils';
 
+import { type TIngredientSliceState } from '@/shared/types/tingredient-slice';
+
 const dataAPI = new DataAPI();
 
-const initialState = {
+const initialState: TIngredientSliceState = {
     ingredients: [] as TIngredient[],
     ingredientStatus: 'idle',
 

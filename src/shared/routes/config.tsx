@@ -1,23 +1,23 @@
 import { RouteObject } from 'react-router-dom';
 
-import { ErrorPage } from '../../components/app/pages/error-page';
-import { ErrorPage404 } from '../../components/app/pages/error-page-404/error-page-404';
-import { FeedPage } from '../../components/app/pages/feed-page';
-import { ForgotPasswordPage } from '../../components/app/pages/forgot-password-page/forgot-password-page';
-import { LoginPage } from '../../components/app/pages/login-page/login-page';
-import { LogoutPage } from '../../components/app/pages/logout-page';
-import { MainPage } from '../../components/app/pages/main-page/main-page';
-import { OrdersPage } from '../../components/app/pages/orders-page/orders-page';
-import { ProfilePage } from '../../components/app/pages/profile-page';
-import { RegisterPage } from '../../components/app/pages/register-page/register-page';
-import { AuthLayout } from '../../components/layouts/auth-layout';
-import { ProfileLayout } from '../../components/layouts/profile-layout';
-import { RootLayout } from '../../components/layouts/root-layout';
 import { ProtectedRoute } from '../hoc/component/protected-route';
 
 import { ROUTES } from './paths';
+import { ErrorPage } from '@/components/app/pages/error-page';
+import { ErrorPage404 } from '@/components/app/pages/error-page-404/error-page-404';
+import { FeedPage } from '@/components/app/pages/feed-page';
+import { ForgotPasswordPage } from '@/components/app/pages/forgot-password-page/forgot-password-page';
+import { LoginPage } from '@/components/app/pages/login-page/login-page';
+import { LogoutPage } from '@/components/app/pages/logout-page';
+import { MainPage } from '@/components/app/pages/main-page/main-page';
 import { OrderPage } from '@/components/app/pages/order-page';
+import { OrdersPage } from '@/components/app/pages/orders-page/orders-page';
+import { ProfilePage } from '@/components/app/pages/profile-page';
+import { RegisterPage } from '@/components/app/pages/register-page/register-page';
 import { ResetPasswordPage } from '@/components/app/pages/reset-password-page';
+import { AuthLayout } from '@/components/layouts/auth-layout';
+import { ProfileLayout } from '@/components/layouts/profile-layout';
+import { RootLayout } from '@/components/layouts/root-layout';
 
 export const routeConfig: RouteObject[] = [
     {
