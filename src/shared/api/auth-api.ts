@@ -71,7 +71,7 @@ export default class AuthAPI extends BaseAPI {
             });
     }
 
-    refreshToken2(): Promise<TAuthRefreshResponse> {
+    refreshToken(): Promise<TAuthRefreshResponse> {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken == null) {
             return Promise.reject();
@@ -106,7 +106,7 @@ export default class AuthAPI extends BaseAPI {
         // Если основной токен просрочен, пробуем обновить
         if (this.isTokenExpired(accessToken)) {
             try {
-                return await this.refreshToken2();
+                return await this.refreshToken();
             } catch {
                 throw new Error('Не удалось обновить токен');
             }
