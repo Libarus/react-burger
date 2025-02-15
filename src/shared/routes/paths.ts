@@ -9,5 +9,6 @@ export const ROUTES: Record<string, string> = {
     PROFILE: '/profile',
     ORDERS: '/profile/orders',
     ORDER: '/profile/orders/:id',
-    FEED: '/feed',
+    FEEDS: '/feed',
+    FEED: '/feed/:id',
 } as const;

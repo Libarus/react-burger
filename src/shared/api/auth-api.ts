@@ -15,6 +15,7 @@ import { TError } from '../types/terror';
 
 import BaseAPI from './base-api';
 import { getResponseOrThrow } from './getResponseOrThrow/getResponseOrThrow';
+import { TokenService } from '@/services/token.service';
 
 export default class AuthAPI extends BaseAPI {
     register(data: TRegisterRequest): Promise<TRegisterResponse> {
@@ -76,10 +77,13 @@ export default class AuthAPI extends BaseAPI {
         if (refreshToken == null) {
             return Promise.reject();
         }
-        console.info('c');
         return this.post<TAuthRefreshRequest>('/auth/token', { token: refreshToken }, 'same-origin')
             .then(async response => await (await getResponseOrThrow(response)).json())
-            .then(data => data)
+            .then(data => {
+                TokenService.SetAccessToken(data.accessToken);
+                TokenService.SetRefreshToken(data.refreshToken);
+                return data;
+            })
             .catch((error: TError) => {
                 console.error('e', error);
                 throw new Error(error.message);
@@ -87,6 +91,7 @@ export default class AuthAPI extends BaseAPI {
     }
 
     isTokenExpired(token: string): boolean {
+        return true;
         try {
             const payload = JSON.parse(atob(token.split('.')[1]));
             return payload.exp * 1000 < Date.now();

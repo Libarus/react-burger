@@ -43,10 +43,9 @@ export function ProfileLayout() {
                     В этом разделе вы можете изменить свои персональные данные
                 </div>
             </div>
-            <div className={`${plstyle.item} ${plstyle.itemCenter} pl-15`}>
+            <div className={`${plstyle.item} ${plstyle.itemRight} pl-15`}>
                 <Outlet />
             </div>
-            <div className={`${plstyle.item} ${plstyle.itemRight}`}>&nbsp;</div>
         </div>
     );
 }

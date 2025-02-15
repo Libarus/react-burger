@@ -1,0 +1,41 @@
+.scroll {
+    height: calc(100vh - 270px);
+    overflow-y: auto;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.column {
+    flex-basis: calc(50% - 25px); /* Ширина колонки минус половина расстояния */
+}
+
+.multiColumn {
+    list-style-type: none;
+    padding-left: 0;
+    column-count: 3; /* Количество колонок */
+    column-fill: auto; /* Равномерное заполнение колонок */
+    height: 335px; /* Ограничиваем высоту списка */
+    overflow-y: auto; /* Добавляем скроллинг, если элементы не помещаются */
+}
+
+.multiColumn ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.multiColumn li {
+    margin-bottom: 10px; /* Отступ между элементами */
+}
+
+.multiColumn ul.type1 li {
+    color: #00CCCC;
+}
+
+.multiColumn ul.type2 li {
+    color: #00CCCC;
+}

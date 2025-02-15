@@ -1,21 +1,23 @@
 import { loadIngredients, setSelectedIngredients } from '@services/actions/ingredientSlice';
 import { useAppDispatch } from '@services/store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router';
-import { useNavigate } from 'react-router-dom';
 
-import { Spinner } from '@/shared/components/spinner/spinner';
-import { TError } from '@/shared/types/terror';
+// import { useNavigate } from 'react-router-dom';
+
+// import { Spinner } from '@/shared/components/spinner/spinner';
+// import { TError } from '@/shared/types/terror';
 
 import { AppHeader } from '../../header/app-header/app-header';
 
-import { getUserThunk, logout } from '@/services/actions/authSlice';
-import { TokenService } from '@/services/token.service';
+// import { getUserThunk, logout } from '@/services/actions/authSlice';
+// import { TokenService } from '@/services/token.service';
 
 //import rlstyles from './root-layout.module.css';
 
 export function RootLayout() {
     const dispatch = useAppDispatch();
+    /*
     const navigate = useNavigate();
 
     const [isValidating, setIsValidating] = useState<boolean>(true);
@@ -38,6 +40,7 @@ export function RootLayout() {
 
         validateAuth();
     }, [dispatch, navigate]);
+    */
 
     useEffect(() => {
         dispatch(loadIngredients());
@@ -46,9 +49,9 @@ export function RootLayout() {
         if (temp !== null) dispatch(setSelectedIngredients(JSON.parse(temp)));
     }, [dispatch]);
 
-    if (isValidating) {
-        return <Spinner />;
-    }
+    // if (isValidating) {
+    //     return <Spinner />;
+    // }
 
     const main = (
         <main>

@@ -7,17 +7,19 @@ import {
     type UnknownAction,
 } from '@reduxjs/toolkit';
 
-import { RootState } from '../store';
 import AuthAPI from '@/shared/api/auth-api';
+
+import { RootState } from '../store';
+import { TokenService } from '../token.service';
 
 type WebSocketActions<T> = {
     connect: ActionCreatorWithPayload<string>;
     disconnect: ActionCreatorWithoutPayload;
-    sendMessage: ActionCreatorWithPayload<T>;
-    onConnected: ActionCreatorWithPayload<Event>;
-    onDisconnected: ActionCreatorWithPayload<CloseEvent>;
+    sendMessage: ActionCreatorWithoutPayload;
+    onConnected: ActionCreatorWithoutPayload;
+    onDisconnected: ActionCreatorWithPayload<{ code?: number; reason?: string }>;
     onMessageReceived: ActionCreatorWithPayload<T>;
-    onError: ActionCreatorWithPayload<Event>;
+    onError: ActionCreatorWithPayload<string>;
 };
 
 type WebSocketOptions = {
@@ -26,7 +28,7 @@ type WebSocketOptions = {
 
 const authAPI = new AuthAPI();
 
-export function createWebSocketMiddleware<T>(
+export function createWebSocketMiddleware<T extends { message?: string }>(
     { connect, disconnect, sendMessage, onConnected, onDisconnected, onMessageReceived, onError }: WebSocketActions<T>,
     { withTokenRefresh }: WebSocketOptions,
 ): Middleware<unknown, RootState, Dispatch<UnknownAction>> {
@@ -42,16 +44,21 @@ export function createWebSocketMiddleware<T>(
                 return;
             }
 
-            url = action.payload;
+            url = `${action.payload}?token=${TokenService.GetToken()}`;
             socket = new WebSocket(url);
             isConnected = true;
 
-            socket.onopen = event => {
-                store.dispatch(onConnected(event));
+            socket.onopen = () => {
+                store.dispatch(onConnected());
             };
 
             socket.onclose = event => {
-                store.dispatch(onDisconnected(event));
+                store.dispatch(
+                    onDisconnected({
+                        code: event.code,
+                        reason: event.reason,
+                    }),
+                );
                 socket = null;
 
                 if (isConnected) {
@@ -62,7 +69,7 @@ export function createWebSocketMiddleware<T>(
             };
 
             socket.onmessage = event => {
-                const data = JSON.parse(event.data);
+                const data = JSON.parse(event.data) as T;
                 store.dispatch(onMessageReceived(data));
 
                 if (withTokenRefresh && data.message === 'Invalid or missing token') {
@@ -77,7 +84,7 @@ export function createWebSocketMiddleware<T>(
             };
 
             socket.onerror = event => {
-                store.dispatch(onError(event));
+                store.dispatch(onError(event.type));
             };
         }
 

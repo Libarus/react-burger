@@ -5,12 +5,11 @@ import { ProtectedRoute } from '../hoc/component/protected-route';
 import { ROUTES } from './paths';
 import { ErrorPage } from '@/components/app/pages/error-page';
 import { ErrorPage404 } from '@/components/app/pages/error-page-404/error-page-404';
-import { FeedPage } from '@/components/app/pages/feed-page';
+import { FeedsPage } from '@/components/app/pages/feeds-page';
 import { ForgotPasswordPage } from '@/components/app/pages/forgot-password-page/forgot-password-page';
 import { LoginPage } from '@/components/app/pages/login-page/login-page';
 import { LogoutPage } from '@/components/app/pages/logout-page';
 import { MainPage } from '@/components/app/pages/main-page/main-page';
-import { OrderPage } from '@/components/app/pages/order-page';
 import { OrdersPage } from '@/components/app/pages/orders-page/orders-page';
 import { ProfilePage } from '@/components/app/pages/profile-page';
 import { RegisterPage } from '@/components/app/pages/register-page/register-page';
@@ -63,10 +62,16 @@ export const routeConfig: RouteObject[] = [
             },
 
             {
-                path: ROUTES.FEED,
-                element: <FeedPage />,
+                path: ROUTES.FEEDS,
+                element: <FeedsPage />,
                 errorElement: <ErrorPage />,
             },
+            {
+                path: ROUTES.FEED,
+                element: <FeedsPage />,
+                errorElement: <ErrorPage />,
+            },
+
             {
                 path: ROUTES.PROFILE,
                 element: <ProtectedRoute element={<ProfileLayout />} />,
@@ -82,7 +87,7 @@ export const routeConfig: RouteObject[] = [
                     },
                     {
                         path: ROUTES.ORDER,
-                        element: <OrderPage />, //<ProtectedRoute element={<Profile />} />,
+                        element: <OrdersPage />, //<ProtectedRoute element={<Profile />} />,
                     },
                 ],
             },
