@@ -3,32 +3,40 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
+import { TMessage } from '@/shared/types/tmessage';
+
 import authReducer from './actions/authSlice';
 import ingredientReducer from './actions/ingredientSlice';
+import orderReducer, { connect, disconnect, onConnected, onDisconnected, onError, onMessageReceived, sendMessage } from './actions/orderSlice';
+import { createWebSocketMiddleware } from './middlewares/websocketMiddleware';
 
-// клмбинируем рудьюсеры
+// комбинируем рудьюсеры
 const rootReducer = combineReducers({
     ingredient: ingredientReducer,
     auth: authReducer,
+    orders: orderReducer,
 });
 
-// Наш усилитель
-/*
-// Пример middleware для логирования
-// Временно выключил, чтобы не лилось много лишнего в консоль.
-const loggerMiddleware = () => (next: any) => (action: any) => {
-    // Выводим в консоль время события и его содержание
-    console.log(`${new Date().getTime()} | Action: ${JSON.stringify(action)}`);
-    // Передаём событие «по конвейеру» дальше
-    return next(action);
-};
-*/
+export const webSocketMiddleware = createWebSocketMiddleware<TMessage>(
+    {
+        connect,
+        disconnect,
+        sendMessage,
+        onConnected,
+        onDisconnected,
+        onMessageReceived,
+        onError,
+    },
+    {
+        withTokenRefresh: true,
+    },
+);
 
 export function createStore() {
     const store = configureStore({
         reducer: rootReducer,
-        //devTools: process.env.NODE_ENV !== 'production',
-        middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk), //.concat(loggerMiddleware),
+        // devTools: process.env.NODE_ENV !== 'production', // Раскомментируйте, если нужно
+        middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk).concat(webSocketMiddleware),
     });
 
     setupListeners(store.dispatch);

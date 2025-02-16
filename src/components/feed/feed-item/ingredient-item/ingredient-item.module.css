@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+}
+
+.ingrPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.ingrImage img {
+    width: 64px;
+    height: 64px;
+}

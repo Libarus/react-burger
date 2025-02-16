@@ -3,6 +3,15 @@ export class TokenService {
         return localStorage.getItem('accessToken');
     }
 
+    public static GetToken() {
+        const t = localStorage.getItem('accessToken');
+        if (t != null) {
+            return t.replace('Bearer ', '').trim();
+        }
+
+        return null;
+    }
+
     public static SetAccessToken(accessToken: string) {
         localStorage.setItem('accessToken', accessToken);
     }

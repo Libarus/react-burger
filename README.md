@@ -2,7 +2,15 @@
 
 Учебный проект на Яндекс.практикуме - React разработчик
 
-# Sprint 4 / Step 1 - открыт
+# Sprint 5 / Step 1 - открыт
+
+- [+] Экраны «Лента заказов» и «История заказов»
+- [+] Доработка роутинга в приложении
+- [+] Функциональность экрана «Лента заказов»
+- [+] Функциональность экрана «История заказов»
+- [+] Сокет соединение с авторизацией
+
+# Sprint 4 / Step 1 - закрыт
 
 - [+] Проект на TypeScript
 
@@ -55,3 +63,10 @@ URL для получения данных
     - font *-шрифты (пустая)*
     - images *- изображения (пустая)*
     - mock-data *- моковые (тестовые) данные*
+
+## Ссылки
+
+- Компоненты:
+    https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/typography#text-small
+- Figma
+    https://www.figma.com/design/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=16791-2881&t=78QB9oaO4fvqeZLB-0

@@ -54,6 +54,7 @@ export function LoginPage() {
             console.error('Ошибка входа:', err);
         }
     };
+
     return (
         <>
             {TokenService.GetAccessToken() != null && <Navigate to='/' replace={true} />}
