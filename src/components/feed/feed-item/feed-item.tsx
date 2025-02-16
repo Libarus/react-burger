@@ -1,8 +1,7 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { type TFeedOrder, statusText } from '@/shared/types/tfeed-order';
 import { type TIngredient } from '@/shared/types/tingredient';
-import { formatDate } from '@/shared/utils';
 
 import fistyle from './feed-item.module.css';
 import { IngridientItem } from './ingredient-item/ingredient-item';
@@ -21,8 +20,6 @@ export function FeedItem({ order, ingredients }: Props) {
     const ids = [...new Set(order?.ingredients)];
     const ingrs = ingredients.filter((ingr: TIngredient) => ids.includes(ingr.id));
 
-    //const [summ, setSumm] = useState(0);
-
     if (order == null) return null;
 
     return (
@@ -35,7 +32,6 @@ export function FeedItem({ order, ingredients }: Props) {
             <div className={`pt-6 ${fistyle.scroll} pr-3`}>
                 {ids.map((id: string, index: number) => {
                     const ingredient = ingrs.find((ingr: TIngredient) => ingr.id === id) || null;
-                    //const price = ingredient?.price || 0;
                     const countIngredients = order.ingredients.filter((ingr: string) => ingr === id).length;
                     return (
                         <div key={index}>
@@ -46,7 +42,9 @@ export function FeedItem({ order, ingredients }: Props) {
             </div>
 
             <div className={`${fistyle.itog} pt-10`}>
-                <div className='text text_type_main-small text_color_inactive pt-2'>{formatDate(order.createdAt)}</div>
+                <div className='text text_type_main-small text_color_inactive pt-2'>
+                    <FormattedDate date={new Date(order.createdAt)} />
+                </div>
                 <div className='text text_type_main-medium'>
                     {summ}&nbsp;
                     <CurrencyIcon type='primary' />

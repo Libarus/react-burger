@@ -15,12 +15,11 @@ export function FeedsPage() {
     const { message } = useAppSelector((state: RootState) => state.orders);
 
     useEffect(() => {
-        async function conn() {
-            await dispatch(disconnect());
-            await dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
-        }
+        dispatch(connect(process.env.FEED_URL ?? ''));
 
-        conn();
+        return () => {
+            dispatch(disconnect());
+        };
     }, [dispatch]);
 
     return message.orders ? (

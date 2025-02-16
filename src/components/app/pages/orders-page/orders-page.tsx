@@ -13,12 +13,11 @@ export function OrdersPage() {
     const { message } = useAppSelector((state: RootState) => state.orders);
 
     useEffect(() => {
-        async function conn() {
-            await dispatch(disconnect());
-            await dispatch(connect('wss://norma.nomoreparties.space/orders'));
-        }
+        dispatch(connect(process.env.ORDER_URL ?? ''));
 
-        conn();
+        return () => {
+            dispatch(disconnect());
+        };
     }, [dispatch]);
 
     return message.orders ? (

@@ -40,52 +40,62 @@ export function createWebSocketMiddleware<T extends { message?: string }>(
     return ((store: MiddlewareAPI<Dispatch<UnknownAction>, RootState>) => (next: Dispatch<UnknownAction>) => (action: UnknownAction) => {
         if (connect.match(action)) {
             if (socket !== null) {
-                console.warn('WebSocket is already connected.');
-                return;
+                socket.close();
+                socket = null;
             }
 
-            url = `${action.payload}?token=${TokenService.GetToken()}`;
-            socket = new WebSocket(url);
-            isConnected = true;
-
-            socket.onopen = () => {
-                store.dispatch(onConnected());
-            };
-
-            socket.onclose = event => {
-                store.dispatch(
-                    onDisconnected({
-                        code: event.code,
-                        reason: event.reason,
-                    }),
-                );
-                socket = null;
-
-                if (isConnected) {
-                    reconnectTimer = window.setTimeout(() => {
-                        store.dispatch(connect(url));
-                    }, 3000);
+            try {
+                const token = TokenService.GetToken();
+                if (!token) {
+                    store.dispatch(onError('No token available'));
+                    return next(action);
                 }
-            };
 
-            socket.onmessage = event => {
-                const data = JSON.parse(event.data) as T;
-                store.dispatch(onMessageReceived(data));
+                url = `${action.payload}?token=${token}`;
+                socket = new WebSocket(url);
+                isConnected = true;
 
-                if (withTokenRefresh && data.message === 'Invalid or missing token') {
-                    authAPI.refreshToken().then(refreshData => {
-                        const wssUrl = new URL(url);
-                        wssUrl.searchParams.set('token', refreshData.accessToken.replace('Bearer ', ''));
-                        store.dispatch(connect(wssUrl.toString()));
-                    });
+                socket.onopen = () => {
+                    store.dispatch(onConnected());
+                };
 
-                    store.dispatch(disconnect());
-                }
-            };
+                socket.onclose = event => {
+                    store.dispatch(
+                        onDisconnected({
+                            code: event.code,
+                            reason: event.reason,
+                        }),
+                    );
+                    socket = null;
 
-            socket.onerror = event => {
-                store.dispatch(onError(event.type));
-            };
+                    if (isConnected) {
+                        reconnectTimer = window.setTimeout(() => {
+                            store.dispatch(connect(url));
+                        }, 3000);
+                    }
+                };
+
+                socket.onmessage = event => {
+                    const data = JSON.parse(event.data) as T;
+                    store.dispatch(onMessageReceived(data));
+
+                    if (withTokenRefresh && data.message === 'Invalid or missing token') {
+                        authAPI.refreshToken().then(refreshData => {
+                            const wssUrl = new URL(url);
+                            wssUrl.searchParams.set('token', refreshData.accessToken.replace('Bearer ', ''));
+                            store.dispatch(connect(wssUrl.toString()));
+                        });
+
+                        store.dispatch(disconnect());
+                    }
+                };
+
+                socket.onerror = event => {
+                    store.dispatch(onError(event.type));
+                };
+            } catch (error) {
+                store.dispatch(onError(error instanceof Error ? error.message : String(error)));
+            }
         }
 
         if (disconnect.match(action)) {

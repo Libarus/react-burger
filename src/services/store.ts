@@ -10,7 +10,7 @@ import ingredientReducer from './actions/ingredientSlice';
 import orderReducer, { connect, disconnect, onConnected, onDisconnected, onError, onMessageReceived, sendMessage } from './actions/orderSlice';
 import { createWebSocketMiddleware } from './middlewares/websocketMiddleware';
 
-// клмбинируем рудьюсеры
+// комбинируем рудьюсеры
 const rootReducer = combineReducers({
     ingredient: ingredientReducer,
     auth: authReducer,

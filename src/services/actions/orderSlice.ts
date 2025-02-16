@@ -15,7 +15,7 @@ const initialState: {
     error: null,
     url: '',
     code: -1,
-    reason: ''
+    reason: '',
 };
 
 const orderSlice = createSlice({

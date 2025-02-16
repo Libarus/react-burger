@@ -1,7 +1,6 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { TFeedOrder } from '@/shared/types/tfeed-order';
-import { formatDate } from '@/shared/utils';
 
 import flistyle from './feed-list-item.module.css';
 
@@ -20,7 +19,7 @@ export function FeedListItem({ order, summ, images, onOpenModel }: Props) {
             <div className={`p-6 ${flistyle.item} mb-4 mr-2`} onClick={() => onOpenModel(order._id)}>
                 <div className={`${flistyle.numDate} mb-6`}>
                     <div className='text text_type_digits-default'>#{order.number}</div>
-                    <div className='text text_type_main-small text_color_inactive'>{formatDate(order.createdAt)}</div>
+                    <div className='text text_type_main-small text_color_inactive'><FormattedDate date={new Date(order.createdAt)} /></div>
                 </div>
 
                 <div className='mb-6 text text_type_main-medium'>{order.name}</div>
