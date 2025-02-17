@@ -1,4 +1,4 @@
-import { loadIngredients, setSelectedIngredients } from '@services/actions/ingredientSlice';
+import { loadIngredients, setSelectedIngredients } from '@/services/actions/ingredient/ingredientSlice';
 import { useAppDispatch } from '@services/store';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router';

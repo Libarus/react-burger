@@ -1,4 +1,4 @@
-import { loginThunk } from '@services/actions/authSlice';
+import { loginThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { TLoginRequest } from '@shared/types/tauth';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';

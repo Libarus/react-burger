@@ -1,4 +1,4 @@
-import { setCurrentTab } from '@services/actions/ingredientSlice';
+import { setCurrentTab } from '@/services/actions/ingredient/ingredientSlice';
 import { useAppDispatch } from '@services/store';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 

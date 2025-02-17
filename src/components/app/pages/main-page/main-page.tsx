@@ -1,4 +1,4 @@
-import { addIngredient } from '@services/actions/ingredientSlice';
+import { addIngredient } from '@/services/actions/ingredient/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';

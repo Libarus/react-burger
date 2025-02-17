@@ -63,7 +63,7 @@ export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejec
     },
 );
 
-const ingredientSlice = createSlice({
+export const ingredientSlice = createSlice({
     name: 'ingredient',
     initialState,
     reducers: {

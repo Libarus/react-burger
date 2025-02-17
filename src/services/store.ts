@@ -5,9 +5,9 @@ import { thunk } from 'redux-thunk';
 
 import { TMessage } from '@/shared/types/tmessage';
 
-import authReducer from './actions/authSlice';
-import ingredientReducer from './actions/ingredientSlice';
-import orderReducer, { connect, disconnect, onConnected, onDisconnected, onError, onMessageReceived, sendMessage } from './actions/orderSlice';
+import authReducer from './actions/auth/authSlice';
+import ingredientReducer from './actions/ingredient/ingredientSlice';
+import orderReducer, { connect, disconnect, onConnected, onDisconnected, onError, onMessageReceived, sendMessage } from './actions/order/orderSlice';
 import { createWebSocketMiddleware } from './middlewares/websocketMiddleware';
 
 // комбинируем рудьюсеры

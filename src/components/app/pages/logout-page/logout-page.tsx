@@ -1,4 +1,4 @@
-import { logout } from '@services/actions/authSlice';
+import { logout } from '@/services/actions/auth/authSlice';
 import { useAppDispatch } from '@services/store';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { registerThunk } from '@services/actions/authSlice';
+import { registerThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { TRegisterRequest } from '@shared/types/tauth';

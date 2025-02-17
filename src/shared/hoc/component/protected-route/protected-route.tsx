@@ -1,4 +1,4 @@
-import { getUserThunk, logout, validateTokenThunk } from '@services/actions/authSlice';
+import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';

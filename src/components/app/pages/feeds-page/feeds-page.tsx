@@ -6,7 +6,7 @@ import { ROUTES } from '@/shared/routes';
 import fpstyle from './feeds-page.module.css';
 import { FeedList } from '@/components/feed/feed-list/feed-list';
 import { FeedStat } from '@/components/feed/feed-stat/feed-stat';
-import { connect, disconnect } from '@/services/actions/orderSlice';
+import { connect, disconnect } from '@/services/actions/order/orderSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function FeedsPage() {

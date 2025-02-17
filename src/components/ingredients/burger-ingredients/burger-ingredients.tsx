@@ -1,4 +1,4 @@
-import { setBun, setCurrentTab } from '@services/actions/ingredientSlice';
+import { setBun, setCurrentTab } from '@/services/actions/ingredient/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
