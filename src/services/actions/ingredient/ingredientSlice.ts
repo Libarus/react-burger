@@ -9,7 +9,7 @@ import { type TIngredientSliceState } from '@/shared/types/tingredient-slice';
 
 const dataAPI = new DataAPI();
 
-const initialState: TIngredientSliceState = {
+export const initialState: TIngredientSliceState = {
     ingredients: [] as TIngredient[],
     ingredientStatus: 'idle',
 
