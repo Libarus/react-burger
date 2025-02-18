@@ -1,4 +1,3 @@
-import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@/services/actions/ingredient/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Modal } from '@shared/components/modal/modal/modal';
 import { Spinner } from '@shared/components/spinner/spinner';
@@ -11,6 +10,7 @@ import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
 import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@/services/actions/ingredient/ingredientSlice';
 import { TokenService } from '@/services/token.service';
 
 /**

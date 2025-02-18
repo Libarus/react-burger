@@ -1,4 +1,3 @@
-import { loginThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { TLoginRequest } from '@shared/types/tauth';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,6 +7,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Spinner } from '@/shared/components/spinner/spinner';
 import { TError } from '@/shared/types/terror';
 
+import { loginThunk } from '@/services/actions/auth/authSlice';
 import { TokenService } from '@/services/token.service';
 
 export function LoginPage() {

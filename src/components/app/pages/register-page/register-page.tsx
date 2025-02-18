@@ -1,4 +1,3 @@
-import { registerThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { TRegisterRequest } from '@shared/types/tauth';
@@ -8,6 +7,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { TError } from '@/shared/types/terror';
 
+import { registerThunk } from '@/services/actions/auth/authSlice';
 import { TokenService } from '@/services/token.service';
 
 export function RegisterPage() {

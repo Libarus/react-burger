@@ -12,4 +12,6 @@ export type TIngredientSliceState = {
 
     saveOrderResponse: TOrderResponse;
     saveOrderStatus: 'idle' | 'pending' | 'success' | 'failed';
+
+    error: string;
 };

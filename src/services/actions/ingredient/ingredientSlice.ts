@@ -20,6 +20,8 @@ export const initialState: TIngredientSliceState = {
 
     saveOrderResponse: {} as TOrderResponse,
     saveOrderStatus: 'idle',
+
+    error: '',
 };
 
 export const loadIngredients = createAsyncThunk<TIngredient[], void, { rejectValue: string; fulfillWithValue: string }>(
@@ -122,7 +124,7 @@ export const ingredientSlice = createSlice({
             })
             .addCase(loadIngredients.rejected, (state, action) => {
                 // При ошибке информация выводится в консоль
-                console.error(action.payload);
+                state.error = action.payload as string;
                 state.ingredientStatus = 'failed';
             });
 
@@ -137,7 +139,7 @@ export const ingredientSlice = createSlice({
             })
             .addCase(saveOrder.rejected, (state, action) => {
                 // При ошибке информация выводится в консоль
-                console.error(action.payload);
+                state.error = action.payload as string;
                 state.saveOrderStatus = 'failed';
             });
     },

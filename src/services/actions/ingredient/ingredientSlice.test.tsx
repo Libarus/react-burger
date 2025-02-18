@@ -30,13 +30,11 @@ describe('Модуль [ingredient slice]', () => {
         expect(state).toEqual({ ...initialState, ingredientStatus: 'pending' });
     });
 
-    /* временно выключено, непонятно, что не нравится
     it('Загрузка ингредиентов - ошибка', () => {
-        const action = { type: 'ingredient/fetchByAll/rejected', error: 'Test error' };
+        const action = { type: 'ingredient/fetchByAll/rejected', payload: 'Test error' };
         const state = ingredientSlice.reducer(initialState, action);
         expect(state).toEqual({ ...initialState, ingredientStatus: 'failed', error: 'Test error' });
     });
-    */
 
     it('Загрузка ингредиентов - успешно', () => {
         const action = { type: 'ingredient/fetchByAll/fulfilled', payload: testIngredientsItems };
@@ -52,13 +50,11 @@ describe('Модуль [ingredient slice]', () => {
         expect(state).toEqual({ ...initialState, saveOrderStatus: 'pending' });
     });
 
-    /* временно выключено, непонятно, что не нравится
     it('Сохранение заказа - ошибка', () => {
-        const action = { type: 'saveorder/postOrder/rejected', error: 'Test error' };
+        const action = { type: 'saveorder/postOrder/rejected', payload: 'Test error' };
         const state = ingredientSlice.reducer(initialState, action);
         expect(state).toEqual({ ...initialState, saveOrderStatus: 'failed', error: 'Test error' });
     });
-    */
 
     it('Сохранение заказа - успешно', () => {
         const action = { type: 'saveorder/postOrder/fulfilled', payload: testOrderResponse };

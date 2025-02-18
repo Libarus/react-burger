@@ -1,4 +1,3 @@
-import { killIngredient, setNewSelectedIngredients } from '@/services/actions/ingredient/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
@@ -11,6 +10,7 @@ import { ActionConstructor } from '../action-constructor/action-constructor';
 import { DraggableElement } from '../draggable-element/draggable-element';
 
 import bcstyle from './burger-constructor.module.css';
+import { killIngredient, setNewSelectedIngredients } from '@/services/actions/ingredient/ingredientSlice';
 
 type Props = {
     onDrop: (id: string) => void;

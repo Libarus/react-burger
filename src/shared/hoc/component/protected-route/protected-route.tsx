@@ -1,10 +1,10 @@
-import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
 
+import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
 import { TokenService } from '@/services/token.service';
 
 interface ProtectedRouteProps {

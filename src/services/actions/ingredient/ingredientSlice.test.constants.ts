@@ -1,5 +1,5 @@
-import { TIngredient } from "@/shared/types/tingredient";
-import { TOrderResponse } from "@/shared/types/torder";
+import { TIngredient } from '@/shared/types/tingredient';
+import { TOrderResponse } from '@/shared/types/torder';
 
 export const testIngredientsItems: TIngredient[] = [
     {
@@ -13,7 +13,7 @@ export const testIngredientsItems: TIngredient[] = [
         price: 1255,
         image: 'https://code.s3.yandex.net/react/code/bun-02.png',
         badge: 0,
-        uuid: 'uuid1111'
+        uuid: 'uuid1111',
     },
     {
         id: '643d69a5c3f7b9001cfa0941',
@@ -26,7 +26,7 @@ export const testIngredientsItems: TIngredient[] = [
         price: 424,
         image: 'https://code.s3.yandex.net/react/code/meat-01.png',
         badge: 0,
-        uuid: 'uuid2222'
+        uuid: 'uuid2222',
     },
     {
         id: '643d69a5c3f7b9001cfa093e',
@@ -39,14 +39,14 @@ export const testIngredientsItems: TIngredient[] = [
         price: 988,
         image: 'https://code.s3.yandex.net/react/code/meat-03.png',
         badge: 0,
-        uuid: 'uuid3333'
+        uuid: 'uuid3333',
     },
 ];
 
 export const testOrderResponse: TOrderResponse = {
     name: 'Test name string',
     order: {
-        number: 999
+        number: 999,
     },
-    success: true
+    success: true,
 };

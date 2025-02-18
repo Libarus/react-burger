@@ -1,8 +1,8 @@
-import { logout } from '@/services/actions/auth/authSlice';
 import { useAppDispatch } from '@services/store';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { logout } from '@/services/actions/auth/authSlice';
 import { TokenService } from '@/services/token.service';
 
 export function LogoutPage() {

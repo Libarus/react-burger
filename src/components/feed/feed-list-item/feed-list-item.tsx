@@ -19,7 +19,9 @@ export function FeedListItem({ order, summ, images, onOpenModel }: Props) {
             <div className={`p-6 ${flistyle.item} mb-4 mr-2`} onClick={() => onOpenModel(order._id)}>
                 <div className={`${flistyle.numDate} mb-6`}>
                     <div className='text text_type_digits-default'>#{order.number}</div>
-                    <div className='text text_type_main-small text_color_inactive'><FormattedDate date={new Date(order.createdAt)} /></div>
+                    <div className='text text_type_main-small text_color_inactive'>
+                        <FormattedDate date={new Date(order.createdAt)} />
+                    </div>
                 </div>
 
                 <div className='mb-6 text text_type_main-medium'>{order.name}</div>
