@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Spinner } from '@/shared/components/spinner/spinner';
 import { TError } from '@/shared/types/terror';
 
-import { patchThunk } from '@/services/actions/authSlice';
+import { patchThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ProfilePage() {

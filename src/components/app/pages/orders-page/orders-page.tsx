@@ -4,7 +4,7 @@ import { Spinner } from '@/shared/components/spinner/spinner';
 import { ROUTES } from '@/shared/routes';
 
 import { FeedList } from '@/components/feed/feed-list/feed-list';
-import { connect, disconnect } from '@/services/actions/orderSlice';
+import { connect, disconnect } from '@/services/actions/order/orderSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function OrdersPage() {

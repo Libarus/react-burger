@@ -15,7 +15,9 @@ export function IngredientDetails({ ingredient }: Props) {
             <div>
                 <img src={ingredient.image} alt={ingredient.name} />
             </div>
-            <div className='text text_type_main-medium pb-10'>{ingredient.name}</div>
+            <div className='text text_type_main-medium pb-10' data-cy='modal_title'>
+                {ingredient.name}
+            </div>
             <div className={`${idstyle.ingrInfo} pl-10 pr-10`}>
                 <div>
                     <div className='text text_type_main-default text_color_inactive'>Калории,ккал:</div>

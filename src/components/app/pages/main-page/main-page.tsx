@@ -1,4 +1,3 @@
-import { addIngredient } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
@@ -12,6 +11,7 @@ import { BurgerIngredients } from '../../../ingredients/burger-ingredients/burge
 
 import mpstyle from './main-page.module.css';
 import { IngredientDetails } from '@/components/ingredients/ingredient-details/ingredient-details';
+import { addIngredient } from '@/services/actions/ingredient/ingredientSlice';
 
 export function MainPage() {
     const dispatch = useAppDispatch();

@@ -1,13 +1,14 @@
-import { loadIngredients, setSelectedIngredients } from '@services/actions/ingredientSlice';
 import { useAppDispatch } from '@services/store';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router';
 
 import { AppHeader } from '../../header/app-header/app-header';
 
+import { loadIngredients, setSelectedIngredients } from '@/services/actions/ingredient/ingredientSlice';
+
 export function RootLayout() {
     const dispatch = useAppDispatch();
-    
+
     useEffect(() => {
         dispatch(loadIngredients());
 

@@ -1,4 +1,3 @@
-import { killIngredient, setNewSelectedIngredients } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
@@ -11,6 +10,7 @@ import { ActionConstructor } from '../action-constructor/action-constructor';
 import { DraggableElement } from '../draggable-element/draggable-element';
 
 import bcstyle from './burger-constructor.module.css';
+import { killIngredient, setNewSelectedIngredients } from '@/services/actions/ingredient/ingredientSlice';
 
 type Props = {
     onDrop: (id: string) => void;
@@ -58,11 +58,11 @@ export function BurgerConstructor({ onDrop }: Props) {
         <>
             {bun != null && (
                 <>
-                    <div className='pl-8 pb-4'>
+                    <div className='pl-8 pb-4' data-cy='bun_item1'>
                         <ConstructorElement type='top' isLocked={true} text={bun.name} price={bun.price} thumbnail={bun.image} />
                     </div>
 
-                    <div className={`${bcstyle.bcscroll}`} ref={dropRef}>
+                    <div className={`${bcstyle.bcscroll}`} ref={dropRef} data-cy='ci_drop'>
                         {all.length > 0 ? (
                             all.map((item: TIngredient, index: number) => (
                                 <DraggableElement key={item.uuid} item={item} index={index} onKill={onKill} onMove={moveBox} klass={bcstyle.item} />
@@ -86,7 +86,7 @@ export function BurgerConstructor({ onDrop }: Props) {
                         )}
                     </div>
 
-                    <div className='pl-8 pr-5'>
+                    <div className='pl-8 pr-5' data-cy='bun_item2'>
                         <ConstructorElement type='bottom' isLocked={true} text={bun.name} price={bun.price} thumbnail={bun.image} />
                     </div>
 

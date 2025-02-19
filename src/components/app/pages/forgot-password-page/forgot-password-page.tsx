@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Spinner } from '@/shared/components/spinner/spinner';
 
-import { forgotThunk } from '@/services/actions/authSlice';
+import { forgotThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ForgotPasswordPage() {

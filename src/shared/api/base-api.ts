@@ -1,5 +1,7 @@
+import { base_api_url } from '../constants/shared';
+
 export default class BaseAPI {
-    static host = 'https://norma.nomoreparties.space/api';
+    static host = base_api_url;
 
     headers: Record<string, string> = {
         'Content-Type': 'application/json;charset=utf-8',

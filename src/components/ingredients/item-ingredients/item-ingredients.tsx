@@ -59,7 +59,7 @@ export function ItemIngredients({ ingredient, badge }: Props) {
             )}
             <div className={`pl-4 pr-4 pt-6 pb-2 ${iistyle.ingrItem}`}>
                 <div className={iistyle.ingrAbout} onClick={openModal}>
-                    <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`} style={{ opacity }} ref={drag}>
+                    <div className={`pl-4 pr-4 ${iistyle.ingrContainer}`} style={{ opacity }} ref={drag} data-cy='bi_item'>
                         {badge > 0 && <Counter count={badge} size='default' extraClass='m-1' />}
                         <div>
                             <img src={ingredient.image} alt={ingredient.name} className={iistyle.ingrImage} />
@@ -70,7 +70,11 @@ export function ItemIngredients({ ingredient, badge }: Props) {
                                 <CurrencyIcon type='primary' />
                             </div>
                         </div>
-                        <div className={`text text_type_main-default pt-3 ${iistyle.textCenter} ${iistyle.ingrName}`}>{ingredient.name}</div>
+                        <div
+                            className={`text text_type_main-default pt-3 ${iistyle.textCenter} ${iistyle.ingrName}`}
+                            data-ingedient-title={ingredient.name}>
+                            {ingredient.name}
+                        </div>
                     </div>
                 </div>
             </div>

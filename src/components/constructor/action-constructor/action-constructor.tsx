@@ -1,4 +1,3 @@
-import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Modal } from '@shared/components/modal/modal/modal';
 import { Spinner } from '@shared/components/spinner/spinner';
@@ -10,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
-import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/authSlice';
+import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@/services/actions/ingredient/ingredientSlice';
 import { TokenService } from '@/services/token.service';
 
 /**
@@ -78,7 +78,7 @@ export function ActionConstructor() {
                 {saveOrderStatus === 'pending' ? (
                     <Spinner />
                 ) : (
-                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>
+                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder} data-cy='order_button'>
                         Оформить заказ
                     </Button>
                 )}

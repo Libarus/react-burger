@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { TMessage } from '@/shared/types/tmessage';
 
-const initialState: {
+export const initialState: {
     message: TMessage;
     status: 'idle' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
     error: string | null;
@@ -18,7 +18,7 @@ const initialState: {
     reason: '',
 };
 
-const orderSlice = createSlice({
+export const orderSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
@@ -31,7 +31,7 @@ const orderSlice = createSlice({
             state.status = 'disconnecting';
         },
 
-        sendMessage: () => {},
+        sendMessage: () => {}, // заглушка
 
         onConnected: state => {
             state.status = 'connected';

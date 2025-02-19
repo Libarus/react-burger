@@ -18,7 +18,7 @@ import { type TError } from '@/shared/types/terror';
 
 const authAPI = new AuthAPI();
 
-const initialState: TAuthSliceState = {
+export const initialState: TAuthSliceState = {
     user: null,
     status: 'idle',
     error: '',
@@ -87,7 +87,7 @@ export const validateTokenThunk = createAsyncThunk<TAuthRefreshResponse | null, 
     }
 });
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -108,7 +108,7 @@ const authSlice = createSlice({
             })
             .addCase(registerThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Обновление пользователя
@@ -120,11 +120,10 @@ const authSlice = createSlice({
             .addCase(patchThunk.fulfilled, (state, action) => {
                 state.status = 'success';
                 state.user = action.payload.user;
-                console.info('patch', action.payload);
             })
             .addCase(patchThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Аутентификация пользователя
@@ -139,7 +138,7 @@ const authSlice = createSlice({
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Запрос на восстановление пароля пользователя
@@ -153,7 +152,7 @@ const authSlice = createSlice({
             })
             .addCase(forgotThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Смена пароля пользователя
@@ -167,7 +166,7 @@ const authSlice = createSlice({
             })
             .addCase(resetThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Получение данных пользователя
@@ -182,7 +181,7 @@ const authSlice = createSlice({
             })
             .addCase(getUserThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
 
         // Загрузка ингредиентов
@@ -196,7 +195,7 @@ const authSlice = createSlice({
             })
             .addCase(validateTokenThunk.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Произошла ошибка';
+                state.error = action.payload as string;
             });
     },
 });

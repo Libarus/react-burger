@@ -6,7 +6,7 @@ import { Spinner } from '@/shared/components/spinner/spinner';
 import { TResetRequest } from '@/shared/types/tauth';
 import { TError } from '@/shared/types/terror';
 
-import { resetThunk } from '@/services/actions/authSlice';
+import { resetThunk } from '@/services/actions/auth/authSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function ResetPasswordPage() {
