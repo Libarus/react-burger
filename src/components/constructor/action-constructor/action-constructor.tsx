@@ -78,7 +78,7 @@ export function ActionConstructor() {
                 {saveOrderStatus === 'pending' ? (
                     <Spinner />
                 ) : (
-                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>
+                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder} data-cy='order_button'>
                         Оформить заказ
                     </Button>
                 )}

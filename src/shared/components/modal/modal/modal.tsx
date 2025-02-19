@@ -33,10 +33,10 @@ export function Modal({ children, onClose, header = null }: Props) {
 
     return ReactDOM.createPortal(
         <>
-            <div className={mstyle.modal}>
+            <div className={mstyle.modal} data-cy='modal_window'>
                 <div className={`${mstyle.header} pb-4`}>
                     {header && <div className='text text_type_main-large pl-4 pt-3'>{header}</div>}
-                    <button className={mstyle.closeButton} onClick={onClose}>
+                    <button className={mstyle.closeButton} onClick={onClose} data-cy='close_button'>
                         &times;
                     </button>
                 </div>
