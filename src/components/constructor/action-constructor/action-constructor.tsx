@@ -1,4 +1,3 @@
-import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Modal } from '@shared/components/modal/modal/modal';
 import { Spinner } from '@shared/components/spinner/spinner';
@@ -10,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { OrderDetails } from '../order-details/order-details';
 
 import astyle from './action-constructor.module.css';
+import { getUserThunk, logout, validateTokenThunk } from '@/services/actions/auth/authSlice';
+import { clearSelectedIngredients, saveOrder, setSaveOrderStatus } from '@/services/actions/ingredient/ingredientSlice';
 import { TokenService } from '@/services/token.service';
 
 /**
@@ -36,14 +37,19 @@ export function ActionConstructor() {
         dispatch(clearSelectedIngredients(undefined));
     };
 
-    const sendOrder = () => {
-        dispatch(setSaveOrderStatus('idle'));
-
-        if (!TokenService.GetAccessToken()) {
+    const sendOrder = async () => {
+        try {
+            if (TokenService.GetAccessToken() && TokenService.GetRefreshToken()) {
+                await dispatch(validateTokenThunk()).unwrap();
+                await dispatch(getUserThunk()).unwrap();
+            }
+        } catch {
+            dispatch(logout());
+            TokenService.ClearTokens();
             navigate('/login', { replace: true });
-            return;
         }
 
+        await dispatch(setSaveOrderStatus('idle'));
         const bunId = selectedIngredients[0].id;
         const Ids = [...selectedIngredients.map((si: TIngredient) => si.id), bunId];
         dispatch(saveOrder({ ingredients: Ids }));
@@ -72,7 +78,7 @@ export function ActionConstructor() {
                 {saveOrderStatus === 'pending' ? (
                     <Spinner />
                 ) : (
-                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder}>
+                    <Button htmlType='button' type='primary' size='medium' onClick={sendOrder} data-cy='order_button'>
                         Оформить заказ
                     </Button>
                 )}

@@ -1,0 +1,13 @@
+.statusColor {
+    color: #00CCCC;
+}
+
+.scroll {
+    height: 250px;
+    overflow-y: auto;
+}
+
+.itog {
+    display: flex;
+    justify-content: space-between;
+}

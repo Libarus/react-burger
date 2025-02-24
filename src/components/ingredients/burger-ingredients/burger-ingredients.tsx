@@ -1,4 +1,3 @@
-import { setBun, setCurrentTab } from '@services/actions/ingredientSlice';
 import { RootState, useAppDispatch, useAppSelector } from '@services/store';
 import { Spinner } from '@shared/components/spinner/spinner';
 import { type TIngredient } from '@shared/types/tingredient';
@@ -8,6 +7,7 @@ import { BlockIngredients } from '../block-ingredients/block-ingredients';
 import { TabIngredients } from '../tab-ingredients/tab-ingredients';
 
 import bistyle from './burger-ingredients.module.css';
+import { setBun, setCurrentTab } from '@/services/actions/ingredient/ingredientSlice';
 
 /**
  * Компонент "Список ингредиентов"

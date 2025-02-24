@@ -1,17 +1,30 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
+import { Spinner } from '@/shared/components/spinner/spinner';
+import { ROUTES } from '@/shared/routes';
+
+import { FeedList } from '@/components/feed/feed-list/feed-list';
+import { connect, disconnect } from '@/services/actions/order/orderSlice';
+import { RootState, useAppDispatch, useAppSelector } from '@/services/store';
 
 export function OrdersPage() {
-    return (
-        <>
-            <div>Orders</div>
-            <div className='pt-6'>
-                <Link
-                    to='/profile/orders/543'
-                    className='text text_type_main-small'
-                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
-                    Order detail is 543
-                </Link>
-            </div>
-        </>
+    const dispatch = useAppDispatch();
+
+    const { message } = useAppSelector((state: RootState) => state.orders);
+
+    useEffect(() => {
+        dispatch(connect(process.env.ORDER_URL ?? ''));
+
+        return () => {
+            dispatch(disconnect());
+        };
+    }, [dispatch]);
+
+    return message.orders ? (
+        <FeedList orders={message.orders} route={ROUTES.ORDER} backRoute={ROUTES.ORDERS} />
+    ) : (
+        <div className='p-10'>
+            <Spinner />
+        </div>
     );
 }

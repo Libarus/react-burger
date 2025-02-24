@@ -9,7 +9,7 @@ import { type TIngredientSliceState } from '@/shared/types/tingredient-slice';
 
 const dataAPI = new DataAPI();
 
-const initialState: TIngredientSliceState = {
+export const initialState: TIngredientSliceState = {
     ingredients: [] as TIngredient[],
     ingredientStatus: 'idle',
 
@@ -20,6 +20,8 @@ const initialState: TIngredientSliceState = {
 
     saveOrderResponse: {} as TOrderResponse,
     saveOrderStatus: 'idle',
+
+    error: '',
 };
 
 export const loadIngredients = createAsyncThunk<TIngredient[], void, { rejectValue: string; fulfillWithValue: string }>(
@@ -63,7 +65,7 @@ export const saveOrder = createAsyncThunk<TOrderResponse, TOrderRequest, { rejec
     },
 );
 
-const ingredientSlice = createSlice({
+export const ingredientSlice = createSlice({
     name: 'ingredient',
     initialState,
     reducers: {
@@ -122,7 +124,7 @@ const ingredientSlice = createSlice({
             })
             .addCase(loadIngredients.rejected, (state, action) => {
                 // При ошибке информация выводится в консоль
-                console.error(action.payload);
+                state.error = action.payload as string;
                 state.ingredientStatus = 'failed';
             });
 
@@ -137,7 +139,7 @@ const ingredientSlice = createSlice({
             })
             .addCase(saveOrder.rejected, (state, action) => {
                 // При ошибке информация выводится в консоль
-                console.error(action.payload);
+                state.error = action.payload as string;
                 state.saveOrderStatus = 'failed';
             });
     },
